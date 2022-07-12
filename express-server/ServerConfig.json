@@ -5,7 +5,7 @@
   "SERVER_MYSQL_SETTINGS": {
     "host": "localhost",
     "user": "root",
-    "database": "ogu-diplom",
+    "database": "gsm-diplom",
     "password": ""
   }
 }
