@@ -2,6 +2,7 @@ const autoBaseService = require("./../Services/AutoBase.Service");
 
 class AutoBaseController {
   createAutoBase(req, res) {
+    console.log(req.body);
     res.status(200).json("5");
   }
 

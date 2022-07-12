@@ -1,24 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
+-- version 3.5.1
+-- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Июл 08 2022 г., 13:40
--- Версия сервера: 5.7.38-0ubuntu0.18.04.1
--- Версия PHP: 7.2.24-0ubuntu0.18.04.12
+-- Хост: 127.0.0.1
+-- Время создания: Июл 12 2022 г., 17:11
+-- Версия сервера: 5.5.25
+-- Версия PHP: 5.3.13
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- База данных: `123`
+-- База данных: `gsm-diplom`
 --
 
 -- --------------------------------------------------------
@@ -27,10 +26,30 @@ SET time_zone = "+00:00";
 -- Структура таблицы `auto-bases`
 --
 
-CREATE TABLE `auto-bases` (
+CREATE TABLE IF NOT EXISTS `auto-bases` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `check-connect`
+--
+
+CREATE TABLE IF NOT EXISTS `check-connect` (
+  `ID` int(10) NOT NULL AUTO_INCREMENT,
+  `status-connect` int(10) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `check-connect`
+--
+
+INSERT INTO `check-connect` (`ID`, `status-connect`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -38,9 +57,10 @@ CREATE TABLE `auto-bases` (
 -- Структура таблицы `positions`
 --
 
-CREATE TABLE `positions` (
+CREATE TABLE IF NOT EXISTS `positions` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -49,9 +69,10 @@ CREATE TABLE `positions` (
 -- Структура таблицы `record-statuses`
 --
 
-CREATE TABLE `record-statuses` (
+CREATE TABLE IF NOT EXISTS `record-statuses` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -60,7 +81,7 @@ CREATE TABLE `record-statuses` (
 -- Структура таблицы `records`
 --
 
-CREATE TABLE `records` (
+CREATE TABLE IF NOT EXISTS `records` (
   `ID` int(11) NOT NULL,
   `Number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `RecordStatus` int(11) DEFAULT NULL,
@@ -73,7 +94,15 @@ CREATE TABLE `records` (
   `IDtypegsm` int(11) DEFAULT NULL,
   `IDsigner` int(11) DEFAULT NULL,
   `IDdriver` int(11) DEFAULT NULL,
-  `IDautobase` int(11) DEFAULT NULL
+  `IDautobase` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fkn_status_idx` (`RecordStatus`),
+  KEY `fkn_vehicle_idx` (`IDvehicle`),
+  KEY `fkn_typegsm_three_idx` (`IDtypegsm`),
+  KEY `fkn_signer_idx` (`IDsigner`),
+  KEY `fkn_driver_idx` (`IDdriver`),
+  KEY `fkn_autobase_two_idx` (`IDautobase`),
+  KEY `fkn_autobase_three_idx` (`IDautobase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -82,10 +111,12 @@ CREATE TABLE `records` (
 -- Структура таблицы `storehouse`
 --
 
-CREATE TABLE `storehouse` (
+CREATE TABLE IF NOT EXISTS `storehouse` (
   `ID` int(11) NOT NULL,
   `IDtypegsm` int(11) DEFAULT NULL,
-  `Liters` decimal(10,3) DEFAULT NULL
+  `Liters` decimal(10,3) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fkn_typegsm_idx` (`IDtypegsm`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -94,10 +125,11 @@ CREATE TABLE `storehouse` (
 -- Структура таблицы `types-gsm`
 --
 
-CREATE TABLE `types-gsm` (
+CREATE TABLE IF NOT EXISTS `types-gsm` (
   `ID` int(11) NOT NULL,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ForKilo` decimal(10,3) DEFAULT NULL
+  `ForKilo` decimal(10,3) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -106,7 +138,7 @@ CREATE TABLE `types-gsm` (
 -- Структура таблицы `vehicles`
 --
 
-CREATE TABLE `vehicles` (
+CREATE TABLE IF NOT EXISTS `vehicles` (
   `ID` int(11) NOT NULL,
   `Model` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -114,7 +146,11 @@ CREATE TABLE `vehicles` (
   `IDtypegsm` int(11) DEFAULT NULL,
   `Kilometrs` int(11) DEFAULT NULL,
   `Liters` decimal(10,3) DEFAULT NULL,
-  `Expense` decimal(10,3) DEFAULT NULL
+  `Expense` decimal(10,3) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fkn_typegsm_idx` (`IDtypegsm`),
+  KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
+  KEY `fkn_autobase_two_idx` (`IDautobase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -123,7 +159,7 @@ CREATE TABLE `vehicles` (
 -- Структура таблицы `workers`
 --
 
-CREATE TABLE `workers` (
+CREATE TABLE IF NOT EXISTS `workers` (
   `ID` int(11) NOT NULL,
   `SurName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -131,73 +167,11 @@ CREATE TABLE `workers` (
   `LoginUser` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `PasswordUser` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `IDautobases` int(11) DEFAULT NULL,
-  `IDposition` int(11) DEFAULT NULL
+  `IDposition` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `fkn_position_idx` (`IDposition`),
+  KEY `fkn_autobase_idx` (`IDautobases`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `auto-bases`
---
-ALTER TABLE `auto-bases`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Индексы таблицы `positions`
---
-ALTER TABLE `positions`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Индексы таблицы `record-statuses`
---
-ALTER TABLE `record-statuses`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Индексы таблицы `records`
---
-ALTER TABLE `records`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `fkn_status_idx` (`RecordStatus`),
-  ADD KEY `fkn_vehicle_idx` (`IDvehicle`),
-  ADD KEY `fkn_typegsm_three_idx` (`IDtypegsm`),
-  ADD KEY `fkn_signer_idx` (`IDsigner`),
-  ADD KEY `fkn_driver_idx` (`IDdriver`),
-  ADD KEY `fkn_autobase_two_idx` (`IDautobase`),
-  ADD KEY `fkn_autobase_three_idx` (`IDautobase`);
-
---
--- Индексы таблицы `storehouse`
---
-ALTER TABLE `storehouse`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `fkn_typegsm_idx` (`IDtypegsm`);
-
---
--- Индексы таблицы `types-gsm`
---
-ALTER TABLE `types-gsm`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Индексы таблицы `vehicles`
---
-ALTER TABLE `vehicles`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `fkn_typegsm_idx` (`IDtypegsm`),
-  ADD KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
-  ADD KEY `fkn_autobase_two_idx` (`IDautobase`);
-
---
--- Индексы таблицы `workers`
---
-ALTER TABLE `workers`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `fkn_position_idx` (`IDposition`),
-  ADD KEY `fkn_autobase_idx` (`IDautobases`);
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -233,7 +207,6 @@ ALTER TABLE `vehicles`
 ALTER TABLE `workers`
   ADD CONSTRAINT `fkn_autobase` FOREIGN KEY (`IDautobases`) REFERENCES `auto-bases` (`ID`),
   ADD CONSTRAINT `fkn_position` FOREIGN KEY (`IDposition`) REFERENCES `positions` (`ID`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
