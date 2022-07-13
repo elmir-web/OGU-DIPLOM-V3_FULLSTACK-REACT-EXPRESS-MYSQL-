@@ -1,17 +1,27 @@
 const accountService = require("./../Services/Account.Service");
 
 class AccountController {
-  createAccount(req, res) {
+  async createAccount(req, res) {
+    const {
+      SurName,
+      Name,
+      MiddleName,
+      LoginUser,
+      PasswordUser,
+      IDautobases,
+      IDposition,
+    } = req.body;
+
     res.status(200).json(req.body);
   }
 
-  getAccounts() {}
+  async getAccounts() {}
 
-  getOneAccount() {}
+  async getOneAccount() {}
 
-  deleteAccount() {}
+  async deleteAccount() {}
 
-  updateAccount() {}
+  async updateAccount() {}
 }
 
 module.exports = new AccountController();

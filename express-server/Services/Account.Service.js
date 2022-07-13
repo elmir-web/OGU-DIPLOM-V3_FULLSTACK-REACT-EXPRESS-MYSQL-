@@ -1,13 +1,13 @@
 class AccountService {
-  createAccount() {}
+  async createAccount() {}
 
-  getAccounts() {}
+  async getAccounts() {}
 
-  getOneAccount() {}
+  async getOneAccount() {}
 
-  deleteAccount() {}
+  async deleteAccount() {}
 
-  updateAccount() {}
+  asyncupdateAccount() {}
 }
 
 module.exports = new AccountService();

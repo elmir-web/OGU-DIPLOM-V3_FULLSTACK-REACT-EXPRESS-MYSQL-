@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 12 2022 г., 17:11
+-- Время создания: Июл 13 2022 г., 10:13
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -23,32 +23,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `auto-bases`
+-- Структура таблицы `auto_bases`
 --
 
-CREATE TABLE IF NOT EXISTS `auto-bases` (
-  `ID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `auto_bases` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `auto_bases`
+--
+
+INSERT INTO `auto_bases` (`ID`, `Name`) VALUES
+(1, 'Для стажеров и кандидатов'),
+(2, 'Первая АвтоБаза'),
+(3, 'Галактика');
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `check-connect`
+-- Структура таблицы `check_connect`
 --
 
-CREATE TABLE IF NOT EXISTS `check-connect` (
+CREATE TABLE IF NOT EXISTS `check_connect` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `status-connect` int(10) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Дамп данных таблицы `check-connect`
+-- Дамп данных таблицы `check_connect`
 --
 
-INSERT INTO `check-connect` (`ID`, `status-connect`) VALUES
+INSERT INTO `check_connect` (`ID`, `status-connect`) VALUES
 (1, 1);
 
 -- --------------------------------------------------------
@@ -58,22 +67,21 @@ INSERT INTO `check-connect` (`ID`, `status-connect`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `positions` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
 
 --
--- Структура таблицы `record-statuses`
+-- Дамп данных таблицы `positions`
 --
 
-CREATE TABLE IF NOT EXISTS `record-statuses` (
-  `ID` int(11) NOT NULL,
-  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `positions` (`ID`, `Name`) VALUES
+(1, 'Суперадмин'),
+(2, 'Админ'),
+(3, 'Подписант'),
+(4, 'Водитель'),
+(5, 'Стажер');
 
 -- --------------------------------------------------------
 
@@ -108,6 +116,18 @@ CREATE TABLE IF NOT EXISTS `records` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `record_statuses`
+--
+
+CREATE TABLE IF NOT EXISTS `record_statuses` (
+  `ID` int(11) NOT NULL,
+  `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `storehouse`
 --
 
@@ -122,15 +142,22 @@ CREATE TABLE IF NOT EXISTS `storehouse` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `types-gsm`
+-- Структура таблицы `types_gsm`
 --
 
-CREATE TABLE IF NOT EXISTS `types-gsm` (
-  `ID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `types_gsm` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ForKilo` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `types_gsm`
+--
+
+INSERT INTO `types_gsm` (`ID`, `Name`, `ForKilo`) VALUES
+(1, 'Бензин', '0.990');
 
 -- --------------------------------------------------------
 
@@ -139,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `types-gsm` (
 --
 
 CREATE TABLE IF NOT EXISTS `vehicles` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Model` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `IDautobase` int(11) DEFAULT NULL,
@@ -151,7 +178,15 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   KEY `fkn_typegsm_idx` (`IDtypegsm`),
   KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
   KEY `fkn_autobase_two_idx` (`IDautobase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `vehicles`
+--
+
+INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kilometrs`, `Liters`, `Expense`) VALUES
+(1, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000'),
+(2, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000');
 
 -- --------------------------------------------------------
 
@@ -181,31 +216,31 @@ CREATE TABLE IF NOT EXISTS `workers` (
 -- Ограничения внешнего ключа таблицы `records`
 --
 ALTER TABLE `records`
-  ADD CONSTRAINT `fkn_autobase_three` FOREIGN KEY (`IDautobase`) REFERENCES `auto-bases` (`ID`),
+  ADD CONSTRAINT `fkn_autobase_three` FOREIGN KEY (`IDautobase`) REFERENCES `auto_bases` (`ID`),
   ADD CONSTRAINT `fkn_driver` FOREIGN KEY (`IDdriver`) REFERENCES `workers` (`ID`),
   ADD CONSTRAINT `fkn_signer` FOREIGN KEY (`IDsigner`) REFERENCES `workers` (`ID`),
-  ADD CONSTRAINT `fkn_status` FOREIGN KEY (`RecordStatus`) REFERENCES `record-statuses` (`ID`),
-  ADD CONSTRAINT `fkn_typegsm_three` FOREIGN KEY (`IDtypegsm`) REFERENCES `types-gsm` (`ID`),
+  ADD CONSTRAINT `fkn_status` FOREIGN KEY (`RecordStatus`) REFERENCES `record_statuses` (`ID`),
+  ADD CONSTRAINT `fkn_typegsm_three` FOREIGN KEY (`IDtypegsm`) REFERENCES `types_gsm` (`ID`),
   ADD CONSTRAINT `fkn_vehicle` FOREIGN KEY (`IDvehicle`) REFERENCES `vehicles` (`ID`);
 
 --
 -- Ограничения внешнего ключа таблицы `storehouse`
 --
 ALTER TABLE `storehouse`
-  ADD CONSTRAINT `fkn_typegsm` FOREIGN KEY (`IDtypegsm`) REFERENCES `types-gsm` (`ID`);
+  ADD CONSTRAINT `fkn_typegsm` FOREIGN KEY (`IDtypegsm`) REFERENCES `types_gsm` (`ID`);
 
 --
 -- Ограничения внешнего ключа таблицы `vehicles`
 --
 ALTER TABLE `vehicles`
-  ADD CONSTRAINT `fkn_autobase_two` FOREIGN KEY (`IDautobase`) REFERENCES `auto-bases` (`ID`),
-  ADD CONSTRAINT `fkn_typegsm_two` FOREIGN KEY (`IDtypegsm`) REFERENCES `types-gsm` (`ID`);
+  ADD CONSTRAINT `fkn_autobase_two` FOREIGN KEY (`IDautobase`) REFERENCES `auto_bases` (`ID`),
+  ADD CONSTRAINT `fkn_typegsm_two` FOREIGN KEY (`IDtypegsm`) REFERENCES `types_gsm` (`ID`);
 
 --
 -- Ограничения внешнего ключа таблицы `workers`
 --
 ALTER TABLE `workers`
-  ADD CONSTRAINT `fkn_autobase` FOREIGN KEY (`IDautobases`) REFERENCES `auto-bases` (`ID`),
+  ADD CONSTRAINT `fkn_autobase` FOREIGN KEY (`IDautobases`) REFERENCES `auto_bases` (`ID`),
   ADD CONSTRAINT `fkn_position` FOREIGN KEY (`IDposition`) REFERENCES `positions` (`ID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
