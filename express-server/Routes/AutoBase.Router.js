@@ -5,7 +5,6 @@ const autoBaseController = require(`./../Controllers/AutoBase.Controller`);
 
 const router = new Router();
 
-// TODO: ПРОДОЛЖИТЬ ЗДЕСЬ
 router.post(
   `/auto-base/create`,
   [

@@ -21,7 +21,7 @@ class AutoBaseService {
       `SELECT * FROM auto_bases WHERE ID = ${id}`
     );
 
-    return rowsAllAutoBase;
+    return rowsAllAutoBase[0];
   }
 
   async deleteAutoBase(id) {
