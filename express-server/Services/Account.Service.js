@@ -8,31 +8,35 @@ class AccountService {
     IDautobases,
     IDposition,
   }) {
-    let [rowsCheckWorkerAccount] = await global.connectMySQL.execute(
-      `SELECT * FROM workers WHERE LoginUser = '${LoginUser}'` // Отправляем запрос на наличие такого аккаунта
-    );
+    try {
+      let [rowsCheckWorkerAccount] = await global.connectMySQL.execute(
+        `SELECT * FROM workers WHERE LoginUser = '${LoginUser}'` // Отправляем запрос на наличие такого аккаунта
+      );
 
-    if (rowsCheckWorkerAccount.length > 0) {
-      return {
-        error: true,
-        message: `Ошибка: Такой аккаунт уже существует!`,
-      };
+      if (rowsCheckWorkerAccount.length > 0) {
+        return {
+          error: true,
+          message: `Ошибка: Такой аккаунт уже существует!`,
+        };
+      }
+
+      let [rowsCreateWorker] = await global.connectMySQL.execute(
+        `INSERT INTO workers (SurName, Name, MiddleName, LoginUser, PasswordUser, IDautobases, IDposition) VALUES ('${SurName}', '${Name}', '${MiddleName}', '${LoginUser}', '${PasswordUser}', '${IDautobases}', '${IDposition}')`
+      );
+
+      if (rowsCreateWorker["affectedRows"])
+        return {
+          error: false,
+          message: `Аккаунт успешно создан!`,
+        };
+      else
+        return {
+          error: false,
+          message: `Аккаунт успешно создан!`,
+        };
+    } catch (err) {
+      return false;
     }
-
-    let [rowsCreateWorker] = await global.connectMySQL.execute(
-      `INSERT INTO workers (SurName, Name, MiddleName, LoginUser, PasswordUser, IDautobases, IDposition) VALUES ('${SurName}', '${Name}', '${MiddleName}', '${LoginUser}', '${PasswordUser}', '${IDautobases}', '${IDposition}')`
-    );
-
-    if (rowsCreateWorker["affectedRows"])
-      return {
-        error: false,
-        message: `Аккаунт успешно создан!`,
-      };
-    else
-      return {
-        error: false,
-        message: `Аккаунт успешно создан!`,
-      };
   }
 
   async getAccounts() {

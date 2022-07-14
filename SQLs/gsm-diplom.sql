@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 13 2022 г., 10:13
+-- Время создания: Июл 14 2022 г., 17:15
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `auto_bases`
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `positions`
@@ -120,10 +120,18 @@ CREATE TABLE IF NOT EXISTS `records` (
 --
 
 CREATE TABLE IF NOT EXISTS `record_statuses` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `record_statuses`
+--
+
+INSERT INTO `record_statuses` (`ID`, `Name`) VALUES
+(1, 'Открыт'),
+(2, 'Закрыт');
 
 -- --------------------------------------------------------
 
@@ -132,12 +140,19 @@ CREATE TABLE IF NOT EXISTS `record_statuses` (
 --
 
 CREATE TABLE IF NOT EXISTS `storehouse` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `IDtypegsm` int(11) DEFAULT NULL,
   `Liters` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fkn_typegsm_idx` (`IDtypegsm`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Дамп данных таблицы `storehouse`
+--
+
+INSERT INTO `storehouse` (`ID`, `IDtypegsm`, `Liters`) VALUES
+(1, 1, '5.300');
 
 -- --------------------------------------------------------
 
@@ -150,14 +165,15 @@ CREATE TABLE IF NOT EXISTS `types_gsm` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ForKilo` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `types_gsm`
 --
 
 INSERT INTO `types_gsm` (`ID`, `Name`, `ForKilo`) VALUES
-(1, 'Бензин', '0.990');
+(1, 'Бензин', '0.990'),
+(3, 'Коты', '5.000');
 
 -- --------------------------------------------------------
 
@@ -195,7 +211,7 @@ INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kil
 --
 
 CREATE TABLE IF NOT EXISTS `workers` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `SurName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `MiddleName` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -206,7 +222,15 @@ CREATE TABLE IF NOT EXISTS `workers` (
   PRIMARY KEY (`ID`),
   KEY `fkn_position_idx` (`IDposition`),
   KEY `fkn_autobase_idx` (`IDautobases`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Дамп данных таблицы `workers`
+--
+
+INSERT INTO `workers` (`ID`, `SurName`, `Name`, `MiddleName`, `LoginUser`, `PasswordUser`, `IDautobases`, `IDposition`) VALUES
+(1, 'Кубагушев', 'Эльмир', 'Ирекович', 'elmir.web', 'elmir.password', 1, 5),
+(4, '1Мансуров', '2Сергей', '3Витальевич', '4mansur.login', '5mansur.password', 1, 5);
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

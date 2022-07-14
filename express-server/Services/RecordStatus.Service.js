@@ -1,11 +1,15 @@
 class RecordStatusService {
   async createRecordStatus({ Name }) {
-    const [rowsRecordStatus] = await global.connectMySQL.execute(
-      `INSERT INTO record_statuses (Name) VALUES ('${Name}')`
-    );
+    try {
+      const [rowsRecordStatus] = await global.connectMySQL.execute(
+        `INSERT INTO record_statuses (Name) VALUES ('${Name}')`
+      );
 
-    if (rowsRecordStatus["affectedRows"]) return true;
-    else return false;
+      if (rowsRecordStatus["affectedRows"]) return true;
+      else return false;
+    } catch (err) {
+      return false;
+    }
   }
 
   async getRecordStatuses() {

@@ -1,11 +1,15 @@
 class PositionService {
   async createPosition({ Name }) {
-    const [rowsPosition] = await global.connectMySQL.execute(
-      `INSERT INTO positions (Name) VALUES ('${Name}')`
-    );
+    try {
+      const [rowsPosition] = await global.connectMySQL.execute(
+        `INSERT INTO positions (Name) VALUES ('${Name}')`
+      );
 
-    if (rowsPosition["affectedRows"]) return true;
-    else return false;
+      if (rowsPosition["affectedRows"]) return true;
+      else return false;
+    } catch (err) {
+      return false;
+    }
   }
 
   async getPositions() {

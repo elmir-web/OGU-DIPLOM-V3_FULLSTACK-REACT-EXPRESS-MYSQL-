@@ -1,11 +1,15 @@
 class AutoBaseService {
   async createAutoBase({ Name }) {
-    const [rowsAutoBase] = await global.connectMySQL.execute(
-      `INSERT INTO auto_bases (Name) VALUES ('${Name}')`
-    );
+    try {
+      const [rowsAutoBase] = await global.connectMySQL.execute(
+        `INSERT INTO auto_bases (Name) VALUES ('${Name}')`
+      );
 
-    if (rowsAutoBase["affectedRows"]) return true;
-    else return false;
+      if (rowsAutoBase["affectedRows"]) return true;
+      else return false;
+    } catch (err) {
+      return false;
+    }
   }
 
   async getAutoBases() {

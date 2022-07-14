@@ -1,11 +1,15 @@
 class TypeGSMService {
   async createTypeGSM({ Name, ForKilo }) {
-    const [rowsTypeGSM] = await global.connectMySQL.execute(
-      `INSERT INTO types_gsm (Name, ForKilo) VALUES ('${Name}', '${ForKilo}')`
-    );
+    try {
+      const [rowsTypeGSM] = await global.connectMySQL.execute(
+        `INSERT INTO types_gsm (Name, ForKilo) VALUES ('${Name}', '${ForKilo}')`
+      );
 
-    if (rowsTypeGSM["affectedRows"]) return true;
-    else return false;
+      if (rowsTypeGSM["affectedRows"]) return true;
+      else return false;
+    } catch (err) {
+      return false;
+    }
   }
 
   async getTypesGSM() {
