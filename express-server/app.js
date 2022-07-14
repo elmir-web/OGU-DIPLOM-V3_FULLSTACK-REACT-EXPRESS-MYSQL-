@@ -10,8 +10,11 @@ const {
   SERVER_MYSQL_SETTINGS,
 } = require(`./ServerConfig.json`);
 
-const accountRouter = require(`./Routes/Account.Router`);
 const autoBaseRouter = require(`./Routes/AutoBase.Router`);
+const positionRouter = require(`./Routes/Position.Router`);
+const accountRouter = require(`./Routes/Account.Router`);
+const recordStatusRouter = require(`./Routes/RecordStatus.Router`);
+const typesGSMRouter = require(`./Routes/TypeGSM.Router`);
 
 // __________________________________________________ ОБЪЕКТЫ
 const app = express();
@@ -63,14 +66,14 @@ app.use(cors());
 app.use(express.json());
 
 // __________________________________________________ РОУТИНГ API
-app.use(`/api`, accountRouter); // API: http(s)://адрес.порт/account
 app.use(`/api`, autoBaseRouter);
-// app.use(`/api`, positionRouter);
-// app.use(`/api`, typesGSMRouter);
+app.use(`/api`, positionRouter);
+app.use(`/api`, accountRouter); // API: http(s)://адрес.порт/account
+app.use(`/api`, recordStatusRouter);
+app.use(`/api`, typesGSMRouter);
 // app.use(`/api`, autoGarageRouter);
 // app.use(`/api`, vehicleRouter);
 // app.use(`/api`, storeHouseRouter);
-// app.use(`/api`, workersRouter);
 // app.use(`/api`, sheetRouter);
 // app.use(`/api`, recordRouter);
 // app.use(`/api`, reportRouter);

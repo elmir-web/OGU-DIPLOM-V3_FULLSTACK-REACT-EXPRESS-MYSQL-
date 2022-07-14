@@ -1,8 +1,8 @@
 const { validationResult } = require(`express-validator`);
-const autoBaseService = require(`./../Services/AutoBase.Service`);
+const positionService = require(`./../Services/Position.Service`);
 
-class AutoBaseController {
-  async createAutoBase(req, res) {
+class PositionController {
+  async createPosition(req, res) {
     const errors = validationResult(req);
 
     let errMessages = ``;
@@ -20,50 +20,48 @@ class AutoBaseController {
 
     const { Name } = req.body;
 
-    const result = await autoBaseService.createAutoBase({ Name });
+    const result = await positionService.createPosition({ Name });
 
     if (result)
-      res.status(200).json(`Автобаза с названием "${Name}" создана успешно`);
+      res.status(200).json(`Должность с названием "${Name}" создана успешно`);
     else
       res.status(400).json({
         error: true,
-        message: `Создать автобазу названием "${Name}" не получилось`,
+        message: `Создать должность названием "${Name}" не получилось`,
       });
   }
 
-  async getAutoBases(req, res) {
-    const result = await autoBaseService.getAutoBases();
+  async getPositions(req, res) {
+    const result = await positionService.getPositions();
 
     res.status(200).json(result);
   }
 
-  async getOneAutoBase(req, res) {
-    const idAutoBase = req.params.id;
+  async getOnePosition(req, res) {
+    const idPosition = req.params.id;
 
-    const result = await autoBaseService.getOneAutoBase(idAutoBase);
+    const result = await positionService.getOnePosition(idPosition);
 
     if (result === undefined)
       res.status(400).json({
         error: true,
-        message: `Автомобильной базы с ID "${idAutoBase}" не существует`,
+        message: `Должности с ID "${idPosition}" не существует`,
       });
     else res.status(200).json(result);
   }
 
-  async deleteAutoBase(req, res) {
-    const idAutoBase = req.params.id;
+  async deletePosition(req, res) {
+    const idPosition = req.params.id;
 
     try {
-      const result = await autoBaseService.deleteAutoBase(idAutoBase);
+      const result = await positionService.deletePosition(idPosition);
 
       if (result)
-        res
-          .status(200)
-          .json(`Автомобильная база с ID "${idAutoBase}" успешно удалена`);
+        res.status(200).json(`Должность с ID "${idPosition}" успешно удалена`);
       else
         res.status(400).json({
           error: true,
-          message: `Автомобильную базу с ID "${idAutoBase}" удалить не получилось. Проверьте правильно ли указан ID`,
+          message: `Должность с ID "${idPosition}" удалить не получилось. Проверьте правильно ли указан ID`,
         });
     } catch (err) {
       if (
@@ -71,13 +69,13 @@ class AutoBaseController {
       ) {
         res.status(400).json({
           error: true,
-          message: `Автомобильную базу с ID "${idAutoBase}" удалить не получилось. Она является родительской. Оригинальное сообщение: "${err.sqlMessage}"`,
+          message: `Должность с ID "${idPosition}" удалить не получилось. Она является родительской. Оригинальное сообщение: "${err.sqlMessage}"`,
         });
       }
     }
   }
 
-  async updateAutoBase(req, res) {
+  async updatePosition(req, res) {
     const errors = validationResult(req);
 
     let errMessages = ``;
@@ -95,15 +93,17 @@ class AutoBaseController {
 
     const { ID, Name } = req.body;
 
-    const result = await autoBaseService.updateAutoBase({ ID, Name });
+    const result = await positionService.updatePosition({ ID, Name });
 
     if (result)
       res
         .status(200)
-        .json(`Автобаза с ID: "${ID}" изменила название на "${Name}"`);
+        .json(`Должность с ID: "${ID}" изменила название на "${Name}"`);
     else
-      res.status(400).json(`Переименовать автобазу с ID "${ID}" не получилось`);
+      res
+        .status(400)
+        .json(`Переименовать должность с ID "${ID}" не получилось`);
   }
 }
 
-module.exports = new AutoBaseController();
+module.exports = new PositionController();

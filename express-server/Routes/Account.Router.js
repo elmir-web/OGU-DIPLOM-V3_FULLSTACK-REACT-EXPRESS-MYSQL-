@@ -47,6 +47,10 @@ router.post(
       min: 3,
       max: 30,
     }),
+
+    check(`IDautobases`, `Это значение должно быть числом`).isInt(),
+
+    check(`IDposition`, `Это значение должно быть числом`).isInt(),
   ],
   accountController.createAccount
 );
@@ -99,6 +103,10 @@ router.put(
       min: 3,
       max: 30,
     }),
+
+    check(`IDautobases`, `Это значение должно быть числом`).isInt(),
+
+    check(`IDposition`, `Это значение должно быть числом`).isInt(),
   ],
   accountController.updateAccount
 );

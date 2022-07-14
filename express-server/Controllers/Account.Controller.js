@@ -53,7 +53,7 @@ class AccountController {
 
     const result = await accountService.getOneAccount(idAccount);
 
-    if (result.length === 0)
+    if (result === undefined)
       res.status(400).json({
         error: true,
         message: `Аккаунта с ID "${idAccount}" не существует`,
