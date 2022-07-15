@@ -16,6 +16,8 @@ const accountRouter = require(`./Routes/Account.Router`);
 const recordStatusRouter = require(`./Routes/RecordStatus.Router`);
 const typesGSMRouter = require(`./Routes/TypeGSM.Router`);
 const storeHouseRouter = require(`./Routes/StoreHouse.Router`);
+const vehicleRouter = require(`./Routes/Vehicle.Router`);
+const recordRouter = require(`./Routes/Record.Router`);
 
 // __________________________________________________ ОБЪЕКТЫ
 const app = express();
@@ -73,3 +75,5 @@ app.use(`/api`, accountRouter); // API: http(s)://адрес.порт/account
 app.use(`/api`, recordStatusRouter);
 app.use(`/api`, typesGSMRouter);
 app.use(`/api`, storeHouseRouter);
+app.use(`/api`, vehicleRouter);
+app.use(`/api`, recordRouter);
