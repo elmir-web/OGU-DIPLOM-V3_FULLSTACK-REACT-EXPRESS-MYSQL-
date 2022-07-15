@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 14 2022 г., 17:15
+-- Время создания: Июл 15 2022 г., 10:25
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `auto_bases`
@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
 INSERT INTO `auto_bases` (`ID`, `Name`) VALUES
 (1, 'Для стажеров и кандидатов'),
 (2, 'Первая АвтоБаза'),
-(3, 'Галактика');
+(3, 'Галактика'),
+(4, '121212');
 
 -- --------------------------------------------------------
 
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `positions` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `positions`
@@ -90,7 +91,7 @@ INSERT INTO `positions` (`ID`, `Name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `records` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `RecordStatus` int(11) DEFAULT NULL,
   `DateOpen` date DEFAULT NULL,
@@ -111,7 +112,16 @@ CREATE TABLE IF NOT EXISTS `records` (
   KEY `fkn_driver_idx` (`IDdriver`),
   KEY `fkn_autobase_two_idx` (`IDautobase`),
   KEY `fkn_autobase_three_idx` (`IDautobase`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `records`
+--
+
+INSERT INTO `records` (`ID`, `Number`, `RecordStatus`, `DateOpen`, `DateClose`, `KilometrsOpen`, `KilometrsClose`, `UsedLiters`, `IDvehicle`, `IDtypegsm`, `IDsigner`, `IDdriver`, `IDautobase`) VALUES
+(1, 'gfdsgfdg', 1, '2022-07-15', '2022-07-15', 0, -1, '-1.000', 3, 3, 1, 1, 1),
+(2, '0001', 1, '2022-06-09', '0000-00-00', 0, -1, '-1.000', 3, 3, 1, 1, 1),
+(3, '0001', 1, '2022-06-09', '0000-00-00', 0, -1, '-1.000', 3, 3, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -123,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `record_statuses` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `record_statuses`
@@ -145,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `storehouse` (
   `Liters` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fkn_typegsm_idx` (`IDtypegsm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `storehouse`
@@ -194,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   KEY `fkn_typegsm_idx` (`IDtypegsm`),
   KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
   KEY `fkn_autobase_two_idx` (`IDautobase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `vehicles`
@@ -202,7 +212,8 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
 
 INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kilometrs`, `Liters`, `Expense`) VALUES
 (1, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000'),
-(2, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000');
+(2, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000'),
+(3, '111', '111', 3, 3, 54545, '54545.000', '454545.000');
 
 -- --------------------------------------------------------
 
