@@ -1,3 +1,5 @@
+const axios = require(`axios`);
+
 class VehicleService {
   async createVehicle({
     Model,
@@ -25,6 +27,20 @@ class VehicleService {
       `SELECT * FROM vehicles`
     );
 
+    for (let i = 0; i < rowsAllVehicles.length; i++) {
+      const getGSMTypeForItemStoreHouse = await axios.get(
+        `http://localhost:8080/api/type-gsm/get/${rowsAllVehicles[i].IDtypegsm}`
+      );
+
+      rowsAllVehicles[i].IDtypegsm = getGSMTypeForItemStoreHouse.data;
+
+      const getAutoBaseWorker = await axios.get(
+        `http://localhost:8080/api/auto-base/get/${rowsAllVehicles[i].IDautobase}`
+      );
+
+      rowsAllVehicles[i].IDautobase = getAutoBaseWorker.data;
+    }
+
     return rowsAllVehicles;
   }
 
@@ -32,6 +48,18 @@ class VehicleService {
     const [rowsAllTypesGSM] = await global.connectMySQL.execute(
       `SELECT * FROM vehicles WHERE ID = ${id}`
     );
+
+    const getGSMTypeForItemStoreHouse = await axios.get(
+      `http://localhost:8080/api/type-gsm/get/${rowsAllTypesGSM[0].IDtypegsm}`
+    );
+
+    rowsAllTypesGSM[0].IDtypegsm = getGSMTypeForItemStoreHouse.data;
+
+    const getAutoBaseWorker = await axios.get(
+      `http://localhost:8080/api/auto-base/get/${rowsAllTypesGSM[0].IDautobase}`
+    );
+
+    rowsAllTypesGSM[0].IDautobase = getAutoBaseWorker.data;
 
     return rowsAllTypesGSM[0];
   }

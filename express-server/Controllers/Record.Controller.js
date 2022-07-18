@@ -75,7 +75,30 @@ class RecordController {
     else res.status(200).json(result);
   }
 
-  async deleteRecord(req, res) {}
+  async deleteRecord(req, res) {
+    const idRecord = req.params.id;
+
+    try {
+      const result = await RecordService.deleteRecord(idRecord);
+
+      if (result)
+        res.status(200).json(`Путевой лист с ID "${idRecord}" успешно удален`);
+      else
+        res.status(400).json({
+          error: true,
+          message: `Путевой лист с ID "${idRecord}" удалить не получилось. Проверьте правильно ли указан ID`,
+        });
+    } catch (err) {
+      if (
+        err.sqlMessage.indexOf(`Cannot delete or update a parent row`) !== -1
+      ) {
+        res.status(400).json({
+          error: true,
+          message: `Путевой лист с ID "${idRecord}" удалить не получилось. Он является родительским. Оригинальное сообщение: "${err.sqlMessage}"`,
+        });
+      }
+    }
+  }
 
   async updateRecord(req, res) {
     const errors = validationResult(req);
@@ -124,6 +147,10 @@ class RecordController {
       IDdriver,
       IDautobase,
     });
+
+    if (result) res.status(200).json(`Путевой лист ID: "${ID}" обновлен`);
+    else
+      res.status(400).json(`Обновить путевой лист с ID "${ID}" не получилось`);
   }
 }
 

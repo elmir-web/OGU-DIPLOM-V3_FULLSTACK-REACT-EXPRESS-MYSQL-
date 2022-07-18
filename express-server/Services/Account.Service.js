@@ -1,3 +1,10 @@
+const axios = require(`axios`);
+
+const {
+  SERVER_WORKING_ON_ADRESS,
+  SERVER_START_ON_PORT,
+} = require(`./../ServerConfig.json`);
+
 class AccountService {
   async createAccount({
     SurName,
@@ -44,6 +51,20 @@ class AccountService {
       `SELECT * FROM workers`
     );
 
+    for (let i = 0; i < rowsAllAccounts.length; i++) {
+      const getAutoBaseWorker = await axios.get(
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[i].IDautobases}`
+      );
+
+      rowsAllAccounts[i].IDautobases = getAutoBaseWorker.data;
+
+      const getPositionsWorker = await axios.get(
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[i].IDposition}`
+      );
+
+      rowsAllAccounts[i].IDposition = getPositionsWorker.data;
+    }
+
     return rowsAllAccounts;
   }
 
@@ -51,6 +72,18 @@ class AccountService {
     const [rowsAllAccounts] = await global.connectMySQL.execute(
       `SELECT * FROM workers WHERE ID = ${id}`
     );
+
+    const getAutoBaseWorker = await axios.get(
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[0].IDautobases}`
+    );
+
+    rowsAllAccounts[0].IDautobases = getAutoBaseWorker.data;
+
+    const getPositionsWorker = await axios.get(
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[0].IDposition}`
+    );
+
+    rowsAllAccounts[0].IDposition = getPositionsWorker.data;
 
     return rowsAllAccounts[0];
   }

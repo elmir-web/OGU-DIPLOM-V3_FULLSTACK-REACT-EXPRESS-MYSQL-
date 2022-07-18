@@ -1,3 +1,5 @@
+const axios = require(`axios`);
+
 class StoreHouseService {
   async createStoreHouse({ IDtypegsm, Liters }) {
     try {
@@ -19,6 +21,14 @@ class StoreHouseService {
       `SELECT * FROM storehouse`
     );
 
+    for (let i = 0; i < rowsItemsStoreHouse.length; i++) {
+      const getGSMTypeForItemStoreHouse = await axios.get(
+        `http://localhost:8080/api/type-gsm/get/${rowsItemsStoreHouse[i].IDtypegsm}`
+      );
+
+      rowsItemsStoreHouse[i].IDtypegsm = getGSMTypeForItemStoreHouse.data;
+    }
+
     return rowsItemsStoreHouse;
   }
 
@@ -26,6 +36,12 @@ class StoreHouseService {
     const [rowsItemStoreHouse] = await global.connectMySQL.execute(
       `SELECT * FROM storehouse WHERE ID = ${id}`
     );
+
+    const getGSMTypeForItemStoreHouse = await axios.get(
+      `http://localhost:8080/api/type-gsm/get/${rowsItemStoreHouse[0].IDtypegsm}`
+    );
+
+    rowsItemStoreHouse[0].IDtypegsm = getGSMTypeForItemStoreHouse.data;
 
     return rowsItemStoreHouse[0];
   }

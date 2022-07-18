@@ -23,14 +23,7 @@ router.post(
       max: 10,
     }),
 
-    check(`DateClose`, `Это значение должно быть 10 символов`).isLength({
-      min: 10,
-      max: 10,
-    }),
-
     check(`KilometrsOpen`, `Это значение должно быть числом`).isInt(),
-
-    check(`KilometrsClose`, `Это значение должно быть числом`).isInt(),
 
     check(`UsedLiters`, `Это значение должно быть числом`).isFloat(),
 
@@ -67,14 +60,7 @@ router.put(
       max: 10,
     }),
 
-    check(`DateClose`, `Это значение должно быть 10 символов`).isLength({
-      min: 10,
-      max: 10,
-    }),
-
     check(`KilometrsOpen`, `Это значение должно быть числом`).isInt(),
-
-    check(`KilometrsClose`, `Это значение должно быть числом`).isInt(),
 
     check(`UsedLiters`, `Это значение должно быть числом`).isFloat(),
 

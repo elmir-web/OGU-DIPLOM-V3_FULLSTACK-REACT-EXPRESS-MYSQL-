@@ -2,11 +2,9 @@
 const express = require(`express`);
 const mysql = require(`mysql2/promise`);
 const cors = require(`cors`);
-const axios = require(`axios`);
 
 const {
   SERVER_START_ON_PORT,
-  SERVER_WORKING_ON_ADRESS,
   SERVER_MYSQL_SETTINGS,
 } = require(`./ServerConfig.json`);
 
