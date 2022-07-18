@@ -98,8 +98,6 @@ class TypeGSMController {
 
     const { ID, IDtypegsm, Liters } = req.body;
 
-    console.log(ID, IDtypegsm, Liters);
-
     const result = await storeHouseService.updateStoreHouse({
       ID,
       IDtypegsm,

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 15 2022 г., 10:25
+-- Время создания: Июл 18 2022 г., 16:21
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `auto_bases`
@@ -38,9 +38,7 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
 
 INSERT INTO `auto_bases` (`ID`, `Name`) VALUES
 (1, 'Для стажеров и кандидатов'),
-(2, 'Первая АвтоБаза'),
-(3, 'Галактика'),
-(4, '121212');
+(2, 'Кувандык, первая (на ул. Заводская, маг.: Светофор)');
 
 -- --------------------------------------------------------
 
@@ -112,16 +110,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   KEY `fkn_driver_idx` (`IDdriver`),
   KEY `fkn_autobase_two_idx` (`IDautobase`),
   KEY `fkn_autobase_three_idx` (`IDautobase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `records`
---
-
-INSERT INTO `records` (`ID`, `Number`, `RecordStatus`, `DateOpen`, `DateClose`, `KilometrsOpen`, `KilometrsClose`, `UsedLiters`, `IDvehicle`, `IDtypegsm`, `IDsigner`, `IDdriver`, `IDautobase`) VALUES
-(1, 'gfdsgfdg', 1, '2022-07-15', '2022-07-15', 0, -1, '-1.000', 3, 3, 1, 1, 1),
-(2, '0001', 1, '2022-06-09', '0000-00-00', 0, -1, '-1.000', 3, 3, 1, 1, 1),
-(3, '0001', 1, '2022-06-09', '0000-00-00', 0, -1, '-1.000', 3, 3, 1, 1, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -155,14 +144,7 @@ CREATE TABLE IF NOT EXISTS `storehouse` (
   `Liters` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fkn_typegsm_idx` (`IDtypegsm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Дамп данных таблицы `storehouse`
---
-
-INSERT INTO `storehouse` (`ID`, `IDtypegsm`, `Liters`) VALUES
-(1, 1, '5.300');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -175,15 +157,7 @@ CREATE TABLE IF NOT EXISTS `types_gsm` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ForKilo` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `types_gsm`
---
-
-INSERT INTO `types_gsm` (`ID`, `Name`, `ForKilo`) VALUES
-(1, 'Бензин', '0.990'),
-(3, 'Коты', '5.000');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -204,16 +178,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   KEY `fkn_typegsm_idx` (`IDtypegsm`),
   KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
   KEY `fkn_autobase_two_idx` (`IDautobase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `vehicles`
---
-
-INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kilometrs`, `Liters`, `Expense`) VALUES
-(1, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000'),
-(2, 'ВАЗ', 'В884ГГ56', 3, 1, 0, '50.000', '10.000'),
-(3, '111', '111', 3, 3, 54545, '54545.000', '454545.000');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -233,15 +198,21 @@ CREATE TABLE IF NOT EXISTS `workers` (
   PRIMARY KEY (`ID`),
   KEY `fkn_position_idx` (`IDposition`),
   KEY `fkn_autobase_idx` (`IDautobases`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `workers`
 --
 
 INSERT INTO `workers` (`ID`, `SurName`, `Name`, `MiddleName`, `LoginUser`, `PasswordUser`, `IDautobases`, `IDposition`) VALUES
-(1, 'Кубагушев', 'Эльмир', 'Ирекович', 'elmir.web', 'elmir.password', 1, 5),
-(4, '1Мансуров', '2Сергей', '3Витальевич', '4mansur.login', '5mansur.password', 1, 5);
+(1, 'Суперадминов', 'Суперадмин', 'Суперадминович', 'SUPERADMIN.LOGIN', 'SUPERADMIN.PASS', 2, 1),
+(2, 'Админов', 'Админ', 'Админович', 'ADMIN.LOGIN', 'ADMIN.PASS', 2, 2),
+(3, 'Подписантов1', 'Подписант1', 'Подписантович1', 'SIGNER1.LOGIN', 'SIGNER1.PASS', 2, 3),
+(4, 'Подписантов2', 'Подписант2', 'Подписантович2', 'SIGNER2.LOGIN', 'SIGNER2.PASS', 2, 3),
+(5, 'Водителов1', 'Водитель1', 'Водителевич1', 'DRIVER1.LOGIN', 'DRIVER1.PASS', 2, 4),
+(6, 'Водителов2', 'Водитель2', 'Водителевич2', 'DRIVER2.LOGIN', 'DRIVER2.PASS', 2, 4),
+(7, 'Стажеров1', 'Стажер1', 'Стажерович1', 'CANDIDATE1.LOGIN', 'CANDIDATE1.PASS', 1, 5),
+(8, 'Стажеров2', 'Стажер2', 'Стажерович2', 'CANDIDATE2.LOGIN', 'CANDIDATE2.PASS', 1, 5);
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

@@ -30,6 +30,10 @@ class AccountController {
     else res.status(200).json(result);
   }
 
+  async getMyData(req, res) {
+    res.status(200).json(await accountService.getMyData(req.userData.ID));
+  }
+
   async createAccount(req, res) {
     const errors = validationResult(req);
 
@@ -129,8 +133,6 @@ class AccountController {
         message: `Ошибка при создании сотрудника. Подробная информация: ${errMessages}`,
       }); // Возвращаем на клиент статус 400 и строку с ошибками валидации данных
     }
-
-    console.log(req.body);
 
     const {
       ID,

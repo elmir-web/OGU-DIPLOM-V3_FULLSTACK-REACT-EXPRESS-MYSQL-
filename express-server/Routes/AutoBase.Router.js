@@ -1,6 +1,8 @@
 const Router = require(`express`);
 const { check } = require(`express-validator`);
 
+const roleMiddleware = require(`./../Middlewares/Role.Middleware`);
+
 const autoBaseController = require(`./../Controllers/AutoBase.Controller`);
 
 const router = new Router();
@@ -8,6 +10,8 @@ const router = new Router();
 router.post(
   `/auto-base/create`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `Name`,
       `Название автомобильной базы не может быть меньше 3 и больше 100 символов (включительно)`
@@ -19,15 +23,29 @@ router.post(
   autoBaseController.createAutoBase
 );
 
-router.get(`/auto-bases/get`, autoBaseController.getAutoBases);
+router.get(
+  `/auto-bases/get`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  autoBaseController.getAutoBases
+);
 
-router.get(`/auto-base/get/:id`, autoBaseController.getOneAutoBase);
+router.get(
+  `/auto-base/get/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  autoBaseController.getOneAutoBase
+);
 
-router.delete(`/auto-base/delete/:id`, autoBaseController.deleteAutoBase);
+router.delete(
+  `/auto-base/delete/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  autoBaseController.deleteAutoBase
+);
 
 router.put(
   `/auto-base/change`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `Name`,
       `Название автомобильной базы не может быть меньше 3 и больше 100 символов (включительно)`

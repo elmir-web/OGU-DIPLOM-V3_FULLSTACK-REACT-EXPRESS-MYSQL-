@@ -1,6 +1,9 @@
 const Router = require(`express`);
 const { check } = require(`express-validator`);
 
+const authMiddleware = require(`./../Middlewares/Auth.Middleware`);
+const roleMiddleware = require(`./../Middlewares/Role.Middleware`);
+
 const accountController = require(`./../Controllers/Account.Controller`);
 
 const router = new Router();
@@ -27,9 +30,13 @@ router.post(
   accountController.authAccount
 );
 
+router.get(`/account/my-data`, authMiddleware, accountController.getMyData);
+
 router.post(
   `/account/create`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `SurName`,
       `Фамилия не может быть меньше 3 и больше 50 символов (включительно)`
@@ -77,15 +84,29 @@ router.post(
   accountController.createAccount
 );
 
-router.get(`/accounts/get`, accountController.getAccounts);
+router.get(
+  `/accounts/get`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  accountController.getAccounts
+);
 
-router.get(`/account/get/:id`, accountController.getOneAccount);
+router.get(
+  `/account/get/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  accountController.getOneAccount
+);
 
-router.delete(`/account/delete/:id`, accountController.deleteAccount);
+router.delete(
+  `/account/delete/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  accountController.deleteAccount
+);
 
 router.put(
   `/account/change`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `SurName`,
       `Фамилия не может быть меньше 3 и больше 50 символов (включительно)`

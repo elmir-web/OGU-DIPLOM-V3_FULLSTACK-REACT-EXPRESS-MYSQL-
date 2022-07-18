@@ -7,8 +7,6 @@ class StoreHouseService {
         `INSERT INTO storehouse (IDtypegsm, Liters) VALUES ('${IDtypegsm}', '${Liters}')`
       );
 
-      console.log(rowsStoreHouse);
-
       if (rowsStoreHouse[`affectedRows`]) return true;
       else return false;
     } catch (err) {

@@ -1,18 +1,17 @@
 const axios = require(`axios`);
 const jwt = require("jsonwebtoken");
 
-const { SERVER_SECRET_KEY } = require(`./../ServerConfig.json`);
+const {
+  SERVER_WORKING_ON_ADRESS,
+  SERVER_START_ON_PORT,
+  SERVER_SECRET_KEY,
+} = require(`./../ServerConfig.json`);
 
 function generateAccessToken(payload) {
   payload.IDposition = payload.IDposition.ID;
 
   return jwt.sign(payload, SERVER_SECRET_KEY, { expiresIn: "24h" }); // Возвращаем созданный на основании payload, секретного ключа токен который будет жить 24 часа
 }
-
-const {
-  SERVER_WORKING_ON_ADRESS,
-  SERVER_START_ON_PORT,
-} = require(`./../ServerConfig.json`);
 
 class AccountService {
   async authAccount({ LoginUser, PasswordUser }) {
@@ -28,8 +27,6 @@ class AccountService {
         };
       }
 
-      console.log(rowsCheckWorkerAccount[0]);
-
       if (rowsCheckWorkerAccount[0].PasswordUser !== PasswordUser) {
         return {
           error: true,
@@ -38,7 +35,12 @@ class AccountService {
       }
 
       rowsCheckWorkerAccount[0] = await axios.get(
-        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${rowsCheckWorkerAccount[0].ID}`
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${rowsCheckWorkerAccount[0].ID}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsCheckWorkerAccount[0] = rowsCheckWorkerAccount[0].data;
@@ -65,6 +67,14 @@ class AccountService {
         errorObject: errorObject,
       };
     }
+  }
+
+  async getMyData(id) {
+    const getWorker = await axios.get(
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${id}`
+    );
+
+    return getWorker.data;
   }
 
   async createAccount({
@@ -135,13 +145,23 @@ class AccountService {
     );
 
     const getAutoBaseWorker = await axios.get(
-      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[0].IDautobases}`
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[0].IDautobases}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     rowsAllAccounts[0].IDautobases = getAutoBaseWorker.data;
 
     const getPositionsWorker = await axios.get(
-      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[0].IDposition}`
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[0].IDposition}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     rowsAllAccounts[0].IDposition = getPositionsWorker.data;
