@@ -5,7 +5,7 @@ class AutoBaseService {
         `INSERT INTO auto_bases (Name) VALUES ('${Name}')`
       );
 
-      if (rowsAutoBase["affectedRows"]) return true;
+      if (rowsAutoBase[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -33,7 +33,7 @@ class AutoBaseService {
       `DELETE FROM auto_bases WHERE ID = ${id}`
     );
 
-    if (rowsDeletedAutoBased["affectedRows"]) return true;
+    if (rowsDeletedAutoBased[`affectedRows`]) return true;
     else return false;
   }
 
@@ -42,7 +42,7 @@ class AutoBaseService {
       `UPDATE auto_bases SET Name = '${Name}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedAutoBase["affectedRows"]) return true;
+    if (rowsUpdatedAutoBase[`affectedRows`]) return true;
     else return false;
   }
 }

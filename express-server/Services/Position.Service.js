@@ -5,7 +5,7 @@ class PositionService {
         `INSERT INTO positions (Name) VALUES ('${Name}')`
       );
 
-      if (rowsPosition["affectedRows"]) return true;
+      if (rowsPosition[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -33,7 +33,7 @@ class PositionService {
       `DELETE FROM positions WHERE ID = ${id}`
     );
 
-    if (rowsDeletedPosition["affectedRows"]) return true;
+    if (rowsDeletedPosition[`affectedRows`]) return true;
     else return false;
   }
 
@@ -42,7 +42,7 @@ class PositionService {
       `UPDATE positions SET Name = '${Name}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedPosition["affectedRows"]) return true;
+    if (rowsUpdatedPosition[`affectedRows`]) return true;
     else return false;
   }
 }

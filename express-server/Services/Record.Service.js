@@ -25,7 +25,7 @@ class RecordService {
         `INSERT INTO records (Number, RecordStatus, DateOpen, DateClose, KilometrsOpen, KilometrsClose, UsedLiters, IDvehicle, IDtypegsm, IDsigner, IDdriver, IDautobase) VALUES ('${Number}', '${RecordStatus}', '${DateOpen}', '${DateClose}', '${KilometrsOpen}', '${KilometrsClose}', '${UsedLiters}', '${IDvehicle}', '${IDtypegsm}', '${IDsigner}', '${IDdriver}', '${IDautobase}')`
       );
 
-      if (rowsRecord["affectedRows"]) return true;
+      if (rowsRecord[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -127,7 +127,7 @@ class RecordService {
       `DELETE FROM records WHERE ID = ${id}`
     );
 
-    if (rowsDeletedRecord["affectedRows"]) return true;
+    if (rowsDeletedRecord[`affectedRows`]) return true;
     else return false;
   }
 
@@ -150,7 +150,7 @@ class RecordService {
       `UPDATE records SET Number = '${Number}', RecordStatus = '${RecordStatus}', DateOpen = '${DateOpen}', DateClose = '${DateClose}', KilometrsOpen = '${KilometrsOpen}', KilometrsClose = '${KilometrsClose}', UsedLiters = '${UsedLiters}', IDvehicle = '${IDvehicle}', IDtypegsm = '${IDtypegsm}', IDsigner = ${IDsigner}, IDdriver = '${IDdriver}', IDautobase = '${IDautobase}' WHERE ID = '${ID}'`
     );
 
-    if (rowsUpdatedRecord["affectedRows"]) return true;
+    if (rowsUpdatedRecord[`affectedRows`]) return true;
     else return false;
   }
 }

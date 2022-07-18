@@ -9,7 +9,7 @@ class StoreHouseService {
 
       console.log(rowsStoreHouse);
 
-      if (rowsStoreHouse["affectedRows"]) return true;
+      if (rowsStoreHouse[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -51,7 +51,7 @@ class StoreHouseService {
       `DELETE FROM storehouse WHERE ID = ${id}`
     );
 
-    if (rowsDeletedStoreHouse["affectedRows"]) return true;
+    if (rowsDeletedStoreHouse[`affectedRows`]) return true;
     else return false;
   }
 
@@ -60,7 +60,7 @@ class StoreHouseService {
       `UPDATE storehouse SET IDtypegsm = '${IDtypegsm}', Liters = '${Liters}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedStoreHouse["affectedRows"]) return true;
+    if (rowsUpdatedStoreHouse[`affectedRows`]) return true;
     else return false;
   }
 }

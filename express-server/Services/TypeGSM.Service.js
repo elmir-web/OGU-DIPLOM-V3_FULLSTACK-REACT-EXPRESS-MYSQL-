@@ -5,7 +5,7 @@ class TypeGSMService {
         `INSERT INTO types_gsm (Name, ForKilo) VALUES ('${Name}', '${ForKilo}')`
       );
 
-      if (rowsTypeGSM["affectedRows"]) return true;
+      if (rowsTypeGSM[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -33,7 +33,7 @@ class TypeGSMService {
       `DELETE FROM types_gsm WHERE ID = ${id}`
     );
 
-    if (rowsDeletedTypeGSM["affectedRows"]) return true;
+    if (rowsDeletedTypeGSM[`affectedRows`]) return true;
     else return false;
   }
 
@@ -42,7 +42,7 @@ class TypeGSMService {
       `UPDATE types_gsm SET Name = '${Name}', ForKilo = '${ForKilo}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedTypeGSM["affectedRows"]) return true;
+    if (rowsUpdatedTypeGSM[`affectedRows`]) return true;
     else return false;
   }
 }

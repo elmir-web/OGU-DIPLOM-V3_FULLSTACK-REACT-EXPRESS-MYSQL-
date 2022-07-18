@@ -15,7 +15,7 @@ class VehicleService {
         `INSERT INTO vehicles (Model, Number, IDautobase, IDtypegsm, Kilometrs, Liters, Expense) VALUES ('${Model}', '${Number}', '${IDautobase}', '${IDtypegsm}', '${Kilometrs}', '${Liters}', '${Expense}')`
       );
 
-      if (rowsVehicles["affectedRows"]) return true;
+      if (rowsVehicles[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -69,7 +69,7 @@ class VehicleService {
       `DELETE FROM vehicles WHERE ID = ${id}`
     );
 
-    if (rowsDeletedVehicle["affectedRows"]) return true;
+    if (rowsDeletedVehicle[`affectedRows`]) return true;
     else return false;
   }
 
@@ -87,7 +87,7 @@ class VehicleService {
       `UPDATE vehicles SET Model = '${Model}', Number = '${Number}', IDautobase = '${IDautobase}', IDtypegsm = '${IDtypegsm}', Kilometrs = '${Kilometrs}', Liters = '${Liters}', Expense = '${Expense}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedVehicle["affectedRows"]) return true;
+    if (rowsUpdatedVehicle[`affectedRows`]) return true;
     else return false;
   }
 }

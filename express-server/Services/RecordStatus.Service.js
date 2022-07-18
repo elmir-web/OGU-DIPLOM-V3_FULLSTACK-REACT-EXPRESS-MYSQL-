@@ -5,7 +5,7 @@ class RecordStatusService {
         `INSERT INTO record_statuses (Name) VALUES ('${Name}')`
       );
 
-      if (rowsRecordStatus["affectedRows"]) return true;
+      if (rowsRecordStatus[`affectedRows`]) return true;
       else return false;
     } catch (err) {
       return false;
@@ -33,7 +33,7 @@ class RecordStatusService {
       `DELETE FROM record_statuses WHERE ID = ${id}`
     );
 
-    if (rowsDeletedRecordStatus["affectedRows"]) return true;
+    if (rowsDeletedRecordStatus[`affectedRows`]) return true;
     else return false;
   }
 
@@ -42,7 +42,7 @@ class RecordStatusService {
       `UPDATE record_statuses SET Name = '${Name}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedRecordStatus["affectedRows"]) return true;
+    if (rowsUpdatedRecordStatus[`affectedRows`]) return true;
     else return false;
   }
 }

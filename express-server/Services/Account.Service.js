@@ -1,4 +1,13 @@
 const axios = require(`axios`);
+const jwt = require("jsonwebtoken");
+
+const { SERVER_SECRET_KEY } = require(`./../ServerConfig.json`);
+
+function generateAccessToken(payload) {
+  payload.IDposition = payload.IDposition.ID;
+
+  return jwt.sign(payload, SERVER_SECRET_KEY, { expiresIn: "24h" }); // Возвращаем созданный на основании payload, секретного ключа токен который будет жить 24 часа
+}
 
 const {
   SERVER_WORKING_ON_ADRESS,
@@ -6,6 +15,58 @@ const {
 } = require(`./../ServerConfig.json`);
 
 class AccountService {
+  async authAccount({ LoginUser, PasswordUser }) {
+    try {
+      const [rowsCheckWorkerAccount] = await global.connectMySQL.execute(
+        `SELECT * FROM workers WHERE LoginUser = '${LoginUser}'` // Отправляем запрос о наличии аккаунта
+      );
+
+      if (!rowsCheckWorkerAccount.length) {
+        return {
+          error: true,
+          message: `Аккаунта с логином ${LoginUser} не существует.`,
+        };
+      }
+
+      console.log(rowsCheckWorkerAccount[0]);
+
+      if (rowsCheckWorkerAccount[0].PasswordUser !== PasswordUser) {
+        return {
+          error: true,
+          message: `Пароль от аккаунта введен не правильно.`,
+        };
+      }
+
+      rowsCheckWorkerAccount[0] = await axios.get(
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${rowsCheckWorkerAccount[0].ID}`
+      );
+
+      rowsCheckWorkerAccount[0] = rowsCheckWorkerAccount[0].data;
+
+      const token = generateAccessToken({
+        ID: rowsCheckWorkerAccount[0].ID, // Передаем на нее ID аккаунта
+        LoginUser: rowsCheckWorkerAccount[0].LoginUser, // Логин
+        PasswordUser: rowsCheckWorkerAccount[0].PasswordUser, // Пароль
+        IDposition: rowsCheckWorkerAccount[0].IDposition, // ID должности
+      });
+
+      return {
+        error: false,
+        JWT: token,
+        message: `Аккаунт успешно авторизован!`,
+        account: rowsCheckWorkerAccount[0],
+      };
+    } catch (errorObject) {
+      console.log(errorObject);
+
+      return {
+        error: true,
+        message: `Ошибка авторизации аккаунта!`,
+        errorObject: errorObject,
+      };
+    }
+  }
+
   async createAccount({
     SurName,
     Name,
@@ -16,7 +77,7 @@ class AccountService {
     IDposition,
   }) {
     try {
-      let [rowsCheckWorkerAccount] = await global.connectMySQL.execute(
+      const [rowsCheckWorkerAccount] = await global.connectMySQL.execute(
         `SELECT * FROM workers WHERE LoginUser = '${LoginUser}'` // Отправляем запрос на наличие такого аккаунта
       );
 
@@ -27,11 +88,11 @@ class AccountService {
         };
       }
 
-      let [rowsCreateWorker] = await global.connectMySQL.execute(
+      const [rowsCreateWorker] = await global.connectMySQL.execute(
         `INSERT INTO workers (SurName, Name, MiddleName, LoginUser, PasswordUser, IDautobases, IDposition) VALUES ('${SurName}', '${Name}', '${MiddleName}', '${LoginUser}', '${PasswordUser}', '${IDautobases}', '${IDposition}')`
       );
 
-      if (rowsCreateWorker["affectedRows"])
+      if (rowsCreateWorker[`affectedRows`])
         return {
           error: false,
           message: `Аккаунт успешно создан!`,
@@ -89,11 +150,11 @@ class AccountService {
   }
 
   async deleteAccount(id) {
-    let [rowsDeletedAccount] = await global.connectMySQL.execute(
+    const [rowsDeletedAccount] = await global.connectMySQL.execute(
       `DELETE FROM workers WHERE ID = ${id}`
     );
 
-    if (rowsDeletedAccount["affectedRows"]) return true;
+    if (rowsDeletedAccount[`affectedRows`]) return true;
     else return false;
   }
 
@@ -111,7 +172,7 @@ class AccountService {
       `UPDATE workers SET SurName = '${SurName}', Name = '${Name}', MiddleName = '${MiddleName}', LoginUser = '${LoginUser}', PasswordUser = '${PasswordUser}', IDautobases = '${IDautobases}', IDposition = '${IDposition}' WHERE ID = ${ID}`
     );
 
-    if (rowsUpdatedAccount["affectedRows"]) return true;
+    if (rowsUpdatedAccount[`affectedRows`]) return true;
     else return false;
   }
 }

@@ -2,6 +2,34 @@ const { validationResult } = require(`express-validator`);
 const accountService = require("./../Services/Account.Service");
 
 class AccountController {
+  async authAccount(req, res) {
+    const errors = validationResult(req); // Получаем массив ошибок валидации данных
+
+    let errMessages = ``; // Создаем временную переменную для возврата на клиент ошибок валидации данных в удобном в будущем виде
+
+    // Если массив ошибок валидации данных не пустой
+    if (!errors.isEmpty()) {
+      // Бегаем по массиву ошибок валидации данных
+      for (let i = 0; i < errors.errors.length; i++) {
+        errMessages += `${errors.errors[i].msg} | `; // Прибавляем их в переменную
+      }
+
+      return res
+        .status(400)
+        .json(`Ошибка при авторизации. Подробная информация: ${errMessages}`); // Возвращаем на клиент статус 400 и строку с ошибками валидации данных
+    }
+
+    const { LoginUser, PasswordUser } = req.body;
+
+    const result = await accountService.authAccount({
+      LoginUser,
+      PasswordUser,
+    });
+
+    if (result?.error === true) res.status(400).json(result.message);
+    else res.status(200).json(result);
+  }
+
   async createAccount(req, res) {
     const errors = validationResult(req);
 

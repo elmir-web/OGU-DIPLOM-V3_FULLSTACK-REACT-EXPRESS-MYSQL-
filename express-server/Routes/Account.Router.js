@@ -1,12 +1,34 @@
-const Router = require("express");
+const Router = require(`express`);
 const { check } = require(`express-validator`);
 
-const accountController = require("./../Controllers/Account.Controller");
+const accountController = require(`./../Controllers/Account.Controller`);
 
 const router = new Router();
 
 router.post(
-  "/account/create",
+  `/account/auth`,
+  [
+    check(
+      `LoginUser`,
+      `Логин не может быть меньше 3 и больше 30 символов (включительно)`
+    ).isLength({
+      min: 3,
+      max: 30,
+    }),
+
+    check(
+      `PasswordUser`,
+      `Пароль не может быть меньше 3 и больше 30 символов (включительно)`
+    ).isLength({
+      min: 3,
+      max: 30,
+    }),
+  ],
+  accountController.authAccount
+);
+
+router.post(
+  `/account/create`,
   [
     check(
       `SurName`,
@@ -55,14 +77,14 @@ router.post(
   accountController.createAccount
 );
 
-router.get("/accounts/get", accountController.getAccounts);
+router.get(`/accounts/get`, accountController.getAccounts);
 
-router.get("/account/get/:id", accountController.getOneAccount);
+router.get(`/account/get/:id`, accountController.getOneAccount);
 
-router.delete("/account/delete/:id", accountController.deleteAccount);
+router.delete(`/account/delete/:id`, accountController.deleteAccount);
 
 router.put(
-  "/account/change",
+  `/account/change`,
   [
     check(
       `SurName`,
