@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 
 import MainPage from "./MAINPAGE/MainPage";
+import Register from "./ACCOUNT/REGISTER/Register";
 
 const App = () => {
   return (
@@ -20,11 +21,10 @@ const App = () => {
 
         <Route path="/" element={<MainPage />} />
 
+        <Route path="/account/register" element={<Register />} />
+        {/*workerAccount={workerAccount} */}
+
         {/* <Route
-          path="/account/register"
-          element={<Register workerAccount={workerAccount} />}
-        />
-        <Route
           path="/account/login"
           element={
             <Login
