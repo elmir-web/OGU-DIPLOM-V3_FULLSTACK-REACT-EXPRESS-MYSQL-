@@ -1,6 +1,8 @@
 const Router = require(`express`);
 const { check } = require(`express-validator`);
 
+const roleMiddleware = require(`./../Middlewares/Role.Middleware`);
+
 const RecordController = require(`./../Controllers/Record.Controller`);
 
 const router = new Router();
@@ -8,6 +10,8 @@ const router = new Router();
 router.post(
   `/record/create`,
   [
+    roleMiddleware(["Суперадмин", "Подписант"]),
+
     check(
       `Number`,
       `Гос. номер должен быть от 3 до 100 символов (включительно)`
@@ -16,16 +20,16 @@ router.post(
       max: 100,
     }),
 
-    check(`RecordStatus`, `Это значение должно быть числом`).isInt(),
+    check(`RecordStatus`, `Статус путевого листа должно быть числом`).isInt(),
 
     check(`DateOpen`, `Это значение должно быть 10 символов`).isLength({
       min: 10,
       max: 10,
     }),
 
-    check(`KilometrsOpen`, `Это значение должно быть числом`).isInt(),
+    check(`KilometrsOpen`, `Пробег открытия должно быть числом`).isInt(),
 
-    check(`UsedLiters`, `Это значение должно быть числом`).isFloat(),
+    check(`UsedLiters`, `Количество литров должно быть числом`).isFloat(),
 
     check(`IDvehicle`, `Это значение должно быть числом`).isInt(),
 
@@ -39,12 +43,26 @@ router.post(
   ],
   RecordController.createRecord
 );
-router.get(`/records/get`, RecordController.getRecords);
-router.get(`/record/get/:id`, RecordController.getOneRecord);
-router.delete(`/record/delete/:id`, RecordController.deleteRecord);
+router.get(
+  `/records/get`,
+  roleMiddleware(["Суперадмин", "Подписант"]),
+  RecordController.getRecords
+);
+router.get(
+  `/record/get/:id`,
+  roleMiddleware(["Суперадмин", "Подписант"]),
+  RecordController.getOneRecord
+);
+router.delete(
+  `/record/delete/:id`,
+  roleMiddleware(["Суперадмин", "Подписант"]),
+  RecordController.deleteRecord
+);
 router.put(
   `/record/change`,
   [
+    roleMiddleware(["Суперадмин", "Подписант"]),
+
     check(
       `Number`,
       `Гос. номер должен быть от 3 до 100 символов (включительно)`

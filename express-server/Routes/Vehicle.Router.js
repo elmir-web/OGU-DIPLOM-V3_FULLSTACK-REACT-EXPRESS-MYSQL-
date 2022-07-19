@@ -1,6 +1,8 @@
 const Router = require(`express`);
 const { check } = require(`express-validator`);
 
+const roleMiddleware = require(`./../Middlewares/Role.Middleware`);
+
 const vehicleController = require(`../Controllers/Vehicle.Controller`);
 
 const router = new Router();
@@ -8,6 +10,8 @@ const router = new Router();
 router.post(
   `/vehicle/create`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `Model`,
       `Название модели должно быть от 3 до 100 символов (включительно)`
@@ -37,15 +41,29 @@ router.post(
   vehicleController.createVehicle
 );
 
-router.get(`/vehicles/get`, vehicleController.getVehicles);
+router.get(
+  `/vehicles/get`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  vehicleController.getVehicles
+);
 
-router.get(`/vehicle/get/:id`, vehicleController.getOneVehicle);
+router.get(
+  `/vehicle/get/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  vehicleController.getOneVehicle
+);
 
-router.delete(`/vehicle/delete/:id`, vehicleController.deleteVehicle);
+router.delete(
+  `/vehicle/delete/:id`,
+  roleMiddleware(["Суперадмин", "Админ"]),
+  vehicleController.deleteVehicle
+);
 
 router.put(
   `/vehicle/change`,
   [
+    roleMiddleware(["Суперадмин", "Админ"]),
+
     check(
       `Model`,
       `Название модели должно быть от 3 до 100 символов (включительно)`

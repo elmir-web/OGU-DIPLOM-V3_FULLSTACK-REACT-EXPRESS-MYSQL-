@@ -21,8 +21,6 @@ module.exports = function (roles) {
       }
 
       if (token === `system.system.system`) {
-        req.TOKEN = token;
-
         return next();
       }
 
@@ -51,7 +49,6 @@ module.exports = function (roles) {
       }
 
       req.userData = decodedData;
-      req.TOKEN = token;
 
       next();
     } catch (err) {

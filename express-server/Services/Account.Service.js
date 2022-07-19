@@ -71,7 +71,12 @@ class AccountService {
 
   async getMyData(id) {
     const getWorker = await axios.get(
-      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${id}`
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/account/get/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     return getWorker.data;
@@ -124,13 +129,23 @@ class AccountService {
 
     for (let i = 0; i < rowsAllAccounts.length; i++) {
       const getAutoBaseWorker = await axios.get(
-        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[i].IDautobases}`
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[i].IDautobases}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsAllAccounts[i].IDautobases = getAutoBaseWorker.data;
 
       const getPositionsWorker = await axios.get(
-        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[i].IDposition}`
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/position/get/${rowsAllAccounts[i].IDposition}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsAllAccounts[i].IDposition = getPositionsWorker.data;
@@ -144,8 +159,10 @@ class AccountService {
       `SELECT * FROM workers WHERE ID = ${id}`
     );
 
+    if (rowsAllAccounts.length === 0) return undefined;
+
     const getAutoBaseWorker = await axios.get(
-      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[0].IDautobases}`,
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/auto-base/get/${rowsAllAccounts[0]?.IDautobases}`,
       {
         headers: {
           Authorization: `Bearer system.system.system`,

@@ -31,7 +31,7 @@ class AccountController {
   }
 
   async getMyData(req, res) {
-    res.status(200).json(await accountService.getMyData(req.userData.ID));
+    res.status(200).json(await accountService.getMyData(req?.userData?.ID));
   }
 
   async createAccount(req, res) {

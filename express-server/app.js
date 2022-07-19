@@ -53,7 +53,7 @@ const startThisApp = async () => {
     console.log(`Конфиг подключения к СуБД MySQL:`);
     console.log(SERVER_MYSQL_SETTINGS);
     console.log(`Информация о ошибке:`);
-    console.log(error);
+    console.log(err);
     console.log(
       `________________________________________________________________________________________________________________________`
     );

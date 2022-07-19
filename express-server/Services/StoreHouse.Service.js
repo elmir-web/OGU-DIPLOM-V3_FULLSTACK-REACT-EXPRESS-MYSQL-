@@ -21,7 +21,12 @@ class StoreHouseService {
 
     for (let i = 0; i < rowsItemsStoreHouse.length; i++) {
       const getGSMTypeForItemStoreHouse = await axios.get(
-        `http://localhost:8080/api/type-gsm/get/${rowsItemsStoreHouse[i].IDtypegsm}`
+        `http://localhost:8080/api/type-gsm/get/${rowsItemsStoreHouse[i].IDtypegsm}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsItemsStoreHouse[i].IDtypegsm = getGSMTypeForItemStoreHouse.data;
@@ -35,8 +40,15 @@ class StoreHouseService {
       `SELECT * FROM storehouse WHERE ID = ${id}`
     );
 
+    if (rowsItemStoreHouse.length === 0) return undefined;
+
     const getGSMTypeForItemStoreHouse = await axios.get(
-      `http://localhost:8080/api/type-gsm/get/${rowsItemStoreHouse[0].IDtypegsm}`
+      `http://localhost:8080/api/type-gsm/get/${rowsItemStoreHouse[0]?.IDtypegsm}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     rowsItemStoreHouse[0].IDtypegsm = getGSMTypeForItemStoreHouse.data;
@@ -54,12 +66,16 @@ class StoreHouseService {
   }
 
   async updateStoreHouse({ ID, IDtypegsm, Liters }) {
-    const [rowsUpdatedStoreHouse] = await global.connectMySQL.execute(
-      `UPDATE storehouse SET IDtypegsm = '${IDtypegsm}', Liters = '${Liters}' WHERE ID = ${ID}`
-    );
+    try {
+      const [rowsUpdatedStoreHouse] = await global.connectMySQL.execute(
+        `UPDATE storehouse SET IDtypegsm = '${IDtypegsm}', Liters = '${Liters}' WHERE ID = ${ID}`
+      );
 
-    if (rowsUpdatedStoreHouse[`affectedRows`]) return true;
-    else return false;
+      if (rowsUpdatedStoreHouse[`affectedRows`]) return true;
+      else return false;
+    } catch (err) {
+      return false;
+    }
   }
 }
 

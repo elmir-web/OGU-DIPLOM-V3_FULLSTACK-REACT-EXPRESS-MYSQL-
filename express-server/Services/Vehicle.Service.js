@@ -29,13 +29,23 @@ class VehicleService {
 
     for (let i = 0; i < rowsAllVehicles.length; i++) {
       const getGSMTypeForItemStoreHouse = await axios.get(
-        `http://localhost:8080/api/type-gsm/get/${rowsAllVehicles[i].IDtypegsm}`
+        `http://localhost:8080/api/type-gsm/get/${rowsAllVehicles[i].IDtypegsm}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsAllVehicles[i].IDtypegsm = getGSMTypeForItemStoreHouse.data;
 
       const getAutoBaseWorker = await axios.get(
-        `http://localhost:8080/api/auto-base/get/${rowsAllVehicles[i].IDautobase}`
+        `http://localhost:8080/api/auto-base/get/${rowsAllVehicles[i].IDautobase}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
       );
 
       rowsAllVehicles[i].IDautobase = getAutoBaseWorker.data;
@@ -49,14 +59,26 @@ class VehicleService {
       `SELECT * FROM vehicles WHERE ID = ${id}`
     );
 
+    if (rowsAllTypesGSM.length === 0) return undefined;
+
     const getGSMTypeForItemStoreHouse = await axios.get(
-      `http://localhost:8080/api/type-gsm/get/${rowsAllTypesGSM[0].IDtypegsm}`
+      `http://localhost:8080/api/type-gsm/get/${rowsAllTypesGSM[0]?.IDtypegsm}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     rowsAllTypesGSM[0].IDtypegsm = getGSMTypeForItemStoreHouse.data;
 
     const getAutoBaseWorker = await axios.get(
-      `http://localhost:8080/api/auto-base/get/${rowsAllTypesGSM[0].IDautobase}`
+      `http://localhost:8080/api/auto-base/get/${rowsAllTypesGSM[0]?.IDautobase}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
     );
 
     rowsAllTypesGSM[0].IDautobase = getAutoBaseWorker.data;
