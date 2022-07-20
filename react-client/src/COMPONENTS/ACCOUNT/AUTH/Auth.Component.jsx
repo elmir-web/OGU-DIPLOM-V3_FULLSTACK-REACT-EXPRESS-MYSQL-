@@ -9,6 +9,9 @@ import LoaderSpinerComponent from "../../LOADERSPINER/LoaderSpiner.Component";
 const Auth = () => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
+  const [loginUser, setLoginUser] = useState(``);
+  const [passwordUser, setPasswordUser] = useState(``);
+
   const navigate = useNavigate();
 
   return (
@@ -39,6 +42,81 @@ const Auth = () => {
           </div>
         </div>
       </header>
+
+      <main className="main">
+        <div className="central-container">
+          <h2>Авторизация аккаунта в системе</h2>
+
+          <div className="text-field text-field_floating-3">
+            <input
+              className="text-field__input"
+              id="LoginUser"
+              name="LoginUser"
+              placeholder="LoginUser"
+              value={loginUser}
+              onChange={(e) => {
+                setLoginUser(e.target.value);
+              }}
+            />
+            <label className="text-field__label" htmlFor="LoginUser">
+              Придумайте ваш логин
+            </label>
+          </div>
+
+          <div className="text-field text-field_floating-3">
+            <input
+              className="text-field__input"
+              id="PasswordUser"
+              name="PasswordUser"
+              placeholder="PasswordUser"
+              value={passwordUser}
+              onChange={(e) => {
+                setPasswordUser(e.target.value);
+              }}
+            />
+            <label className="text-field__label" htmlFor="PasswordUser">
+              Придумайте ваш пароль
+            </label>
+          </div>
+
+          <button
+            className="beautiful-button beautiful-button-green"
+            onClick={() => {
+              AuthController(
+                {
+                  loginUser,
+                  passwordUser,
+                },
+                setLoadSpinerActive,
+                navigate
+              );
+            }}
+          >
+            авторизация
+          </button>
+        </div>
+      </main>
+
+      <footer className="footer">
+        <div className="central-container">
+          <div>
+            Началом работы считается третий курс. Предмет Дмитрия Владимировича
+            Горбачёва - "БД и СуБД".
+          </div>
+
+          <div>
+            Проект разрабатывается согласно моему решению о расширении до темы
+            диплома. Разработчик - студент З-18ПИнж(ба)РПиС -{" "}
+            <a href="http://elmir-web.github.io" target="_blank">
+              Кубагушев Эльмир
+            </a>
+            .
+          </div>
+          <div>
+            Тема диплома: "Прогнозирование стратегического запаса топлива".
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

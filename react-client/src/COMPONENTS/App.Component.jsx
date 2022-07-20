@@ -5,6 +5,7 @@ import "./App.Component.scss";
 
 import MainPageComponent from "./MAINPAGE/MainPage.Component";
 import RegisterComponent from "./ACCOUNT/REGISTER/Register.Component";
+import AuthComponent from "./ACCOUNT/AUTH/Auth.Component";
 
 const App = () => {
   return (
@@ -24,12 +25,7 @@ const App = () => {
         <Route path="/account/register" element={<RegisterComponent />} />
         {/*workerAccount={workerAccount} */}
 
-        {/* <Route
-          path="/account/login"
-          element={
-            <AuthComponent/>
-          }
-        /> */}
+        <Route path="/account/login" element={<AuthComponent />} />
         {/* workerAccount={workerAccount}
               setWorkerAccount={setWorkerAccount} */}
 

@@ -134,14 +134,8 @@ const Register = () => {
             className="beautiful-button beautiful-button-green"
             onClick={() => {
               RegisterController(
-                {
-                  setLoadSpinerActive,
-                  surName,
-                  name,
-                  middleName,
-                  loginUser,
-                  passwordUser,
-                },
+                { surName, name, middleName, loginUser, passwordUser },
+                setLoadSpinerActive,
                 navigate
               );
             }}

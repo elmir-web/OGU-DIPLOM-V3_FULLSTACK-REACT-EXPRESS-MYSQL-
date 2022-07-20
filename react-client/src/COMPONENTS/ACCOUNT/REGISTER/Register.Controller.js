@@ -3,7 +3,8 @@ import RegisterService from "./Register.Service";
 import Toast from "../../../Toast";
 
 const RegisterController = (
-  { setLoadSpinerActive, surName, name, middleName, loginUser, passwordUser },
+  { surName, name, middleName, loginUser, passwordUser },
+  setLoadSpinerActive,
   navigate
 ) => {
   setLoadSpinerActive(true);
