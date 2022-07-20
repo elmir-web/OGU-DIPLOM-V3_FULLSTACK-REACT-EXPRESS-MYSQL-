@@ -49,8 +49,6 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
   }, []);
 
   const MountedChildrenComponent = (actionOfComponent, componentName) => {
-    console.log(actionOfComponent, componentName);
-
     if (actionOfComponent === `mount`) {
       setChildComponentMount(componentName);
 
