@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Link as RouterLink,
   Routes,
@@ -10,6 +10,8 @@ import Toast from "./../../../Toast";
 import "./Dashboard.Component.scss";
 
 import ProfileComponent from "./PROFILE/Profile.Component";
+
+import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
 
 const DashboardNotFound = ({}) => {
   let navigate = useNavigate();
@@ -29,9 +31,47 @@ const DashboardNotFound = ({}) => {
   return <div></div>;
 };
 
+const DashboardChildrenMounter = ({ ChildComponentMount }) => {
+  switch (ChildComponentMount) {
+    case `change-profile`:
+      return <ChangeProfileComponent />;
+    default:
+      return <div>system error!</div>;
+  }
+};
+
 const Dashboard = ({ dataAccount, setDataAccount }) => {
+  const [childComponentStatus, setChildComponentStatus] = useState(false);
+  const [ChildComponentMount, setChildComponentMount] = useState(null);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const MountedChildrenComponent = (actionOfComponent, componentName) => {
+    console.log(actionOfComponent, componentName);
+
+    if (actionOfComponent === `mount`) {
+      setChildComponentMount(componentName);
+
+      setChildComponentStatus(true);
+    } else if (actionOfComponent === `unmount`) {
+      setChildComponentStatus(false);
+
+      setChildComponentMount(null);
+    }
+  };
+
   return (
     <div className="Dashboard">
+      <div id="child-component">
+        {childComponentStatus === true ? (
+          <DashboardChildrenMounter ChildComponentMount={ChildComponentMount} />
+        ) : (
+          ""
+        )}
+      </div>
+
       <header className="header">
         <div className="central-container">
           <div
@@ -89,8 +129,8 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
               index
               element={
                 <ProfileComponent
+                  MountedChildrenComponent={MountedChildrenComponent}
                   dataAccount={dataAccount}
-                  setDataAccount={setDataAccount}
                 />
               }
             />
