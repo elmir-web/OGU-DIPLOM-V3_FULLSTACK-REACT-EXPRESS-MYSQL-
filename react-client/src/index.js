@@ -5,13 +5,13 @@ import "normalize.css";
 
 import "./index.scss";
 
-import App from "./COMPONENTS/App";
+import AppComponent from "./COMPONENTS/App.Component";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AppComponent />
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Toast from "./../../Toast";
+import Toast from "../../Toast";
 import { Link as RouterLink } from "react-router-dom";
 
-import "./MainPage.scss";
+import "./MainPage.Component.scss";
 
 export default function MainPage({ error }) {
   const componentMounted = () => {

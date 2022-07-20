@@ -1,10 +1,10 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import "./App.scss";
+import "./App.Component.scss";
 
-import MainPage from "./MAINPAGE/MainPage";
-import Register from "./ACCOUNT/REGISTER/Register";
+import MainPageComponent from "./MAINPAGE/MainPage.Component";
+import RegisterComponent from "./ACCOUNT/REGISTER/Register.Component";
 
 const App = () => {
   return (
@@ -13,27 +13,27 @@ const App = () => {
         <Route
           path="*"
           element={
-            <MainPage
+            <MainPageComponent
               error={{ status: true, message: "Такая страница не найдена" }}
             />
           }
         />
 
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MainPageComponent />} />
 
-        <Route path="/account/register" element={<Register />} />
+        <Route path="/account/register" element={<RegisterComponent />} />
         {/*workerAccount={workerAccount} */}
 
         {/* <Route
           path="/account/login"
           element={
-            <Login
-              workerAccount={workerAccount}
-              setWorkerAccount={setWorkerAccount}
-            />
+            <AuthComponent/>
           }
-        />
-        <Route
+        /> */}
+        {/* workerAccount={workerAccount}
+              setWorkerAccount={setWorkerAccount} */}
+
+        {/* <Route
           path="/account/dashboard/*"
           element={
             <Dashboard
