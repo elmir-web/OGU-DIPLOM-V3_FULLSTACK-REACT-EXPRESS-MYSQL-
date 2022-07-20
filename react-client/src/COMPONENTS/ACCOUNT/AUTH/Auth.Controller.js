@@ -5,7 +5,8 @@ import Toast from "../../../Toast";
 const AuthController = (
   { loginUser, passwordUser },
   setLoadSpinerActive,
-  navigate
+  navigate,
+  setDataAccount
 ) => {
   setLoadSpinerActive(true);
 
@@ -45,10 +46,13 @@ const AuthController = (
     });
 
     setTimeout(async () => {
-      const { ok, status, responseFetch } = await AuthService({
-        loginUser,
-        passwordUser,
-      });
+      const { ok, status, responseFetch } = await AuthService(
+        {
+          loginUser,
+          passwordUser,
+        },
+        setDataAccount
+      );
 
       if (!ok && status === 400) {
         new Toast({
@@ -77,9 +81,11 @@ const AuthController = (
         interval: 5000,
       });
 
-      console.log(ok, status, responseFetch);
+      setTimeout(() => {
+        setLoadSpinerActive(false);
 
-      // setTimeout(() => navigate("/account/login"), 3000);
+        navigate("/account/dashboard");
+      }, 3000);
     }, 1000);
   }, 1000);
 };

@@ -1,6 +1,7 @@
+import Cookies from "js-cookie";
 const { URL_BACKEND } = require("./../../../CONFIG.json");
 
-const AuthService = async ({ loginUser, passwordUser }) => {
+const AuthService = async ({ loginUser, passwordUser }, setDataAccount) => {
   let responseFetch = await fetch(`${URL_BACKEND}/api/account/auth`, {
     method: "POST",
     headers: {
@@ -14,6 +15,10 @@ const AuthService = async ({ loginUser, passwordUser }) => {
 
   const { ok, status } = responseFetch;
   responseFetch = await responseFetch.json();
+
+  Cookies.set("GSM_DIPLOM_COOKIES_JWT", responseFetch.JWT);
+
+  setDataAccount(responseFetch.account);
 
   return { ok, status, responseFetch };
 };

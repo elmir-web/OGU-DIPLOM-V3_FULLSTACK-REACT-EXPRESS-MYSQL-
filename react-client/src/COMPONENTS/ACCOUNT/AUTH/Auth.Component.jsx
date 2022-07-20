@@ -6,7 +6,7 @@ import "./Auth.Component.scss";
 import AuthController from "./Auth.Controller";
 import LoaderSpinerComponent from "../../LOADERSPINER/LoaderSpiner.Component";
 
-const Auth = () => {
+const Auth = ({ dataAccount, setDataAccount }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
   const [loginUser, setLoginUser] = useState(``);
@@ -59,7 +59,7 @@ const Auth = () => {
               }}
             />
             <label className="text-field__label" htmlFor="LoginUser">
-              Придумайте ваш логин
+              Введите ваш логин
             </label>
           </div>
 
@@ -75,7 +75,7 @@ const Auth = () => {
               }}
             />
             <label className="text-field__label" htmlFor="PasswordUser">
-              Придумайте ваш пароль
+              Введите ваш пароль
             </label>
           </div>
 
@@ -88,7 +88,8 @@ const Auth = () => {
                   passwordUser,
                 },
                 setLoadSpinerActive,
-                navigate
+                navigate,
+                setDataAccount
               );
             }}
           >

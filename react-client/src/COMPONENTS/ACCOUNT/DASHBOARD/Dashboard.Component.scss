@@ -1,0 +1,181 @@
+.Dashboard {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    background-color: RGB(12, 108, 182);
+
+    .central-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &__logo {
+      width: 236px;
+      height: 73px;
+      background: transparent
+        url(http://www.osu.ru/img/skins/55years/head-logo.jpg) 0 0 no-repeat;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @media (max-width: 909px) {
+        display: none;
+      }
+    }
+
+    &__center {
+      display: flex;
+      align-items: center;
+      width: 70%;
+      color: white;
+
+      @media (max-width: 909px) {
+        height: 73px;
+        width: 80%;
+      }
+      @media (min-width: 910px) {
+        font-size: 14px;
+        width: 55%;
+      }
+      @media (min-width: 1000px) {
+        font-size: 18px;
+        width: 55%;
+      }
+      @media (min-width: 1100px) {
+        font-size: 20px;
+        width: 60%;
+      }
+      @media (min-width: 1200px) {
+        font-size: 28px;
+      }
+    }
+
+    &__nav {
+      overflow-x: auto;
+      scrollbar-width: none;
+      background-color: #fff;
+      padding-top: 15px;
+      padding-bottom: 10px;
+      padding-left: 20px;
+      border-radius: 10px;
+
+      &::-webkit-scrollbar {
+        height: 0;
+        opacity: 0;
+      }
+
+      ul {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: flex;
+        width: fit-content;
+
+        li {
+          list-style-type: none;
+          width: fit-content;
+          flex-grow: 0;
+          flex-shrink: 0;
+          margin-right: 50px;
+          border-bottom: 1px solid RGB(12, 108, 182);
+          padding-left: 15px;
+          padding-right: 15px;
+          padding-bottom: 5px;
+
+          &:hover {
+            background-color: RGB(12, 108, 182);
+          }
+
+          @media (max-width: 767px) {
+            margin-right: 20px;
+          }
+
+          &:first-child {
+            // margin-right: 0;
+          }
+
+          a {
+            text-decoration: none;
+            width: fit-content;
+            display: inline-block;
+            font-size: 20px;
+            color: RGB(12, 108, 182);
+
+            &:hover {
+              background-color: RGB(12, 108, 182);
+              color: white;
+            }
+
+            @media (max-width: 767px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+
+      .header-dashboard {
+        text-decoration: none;
+        font-size: 16px;
+        color: white;
+        border-bottom: 1px solid white;
+        padding-bottom: 1px;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-transform: uppercase;
+
+        &:hover {
+          color: yellow;
+          border-bottom: 1px solid yellow;
+        }
+      }
+    }
+  }
+
+  .main {
+    flex: 1 1 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+
+    .central-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  .footer {
+    background-color: RGB(12, 108, 182);
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    div {
+      text-align: center;
+      color: white;
+
+      a {
+        color: white;
+        text-decoration: none;
+        border-bottom: 1px solid white;
+        display: inline-block;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        &:hover {
+          color: yellow;
+          border-bottom: 1px solid yellow;
+        }
+      }
+    }
+  }
+}
