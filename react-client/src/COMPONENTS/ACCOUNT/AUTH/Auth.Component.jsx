@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import Toast from "./../../../Toast";
 
 import "./Auth.Component.scss";
 
 import AuthController from "./Auth.Controller";
 import LoaderSpinerComponent from "../../LOADERSPINER/LoaderSpiner.Component";
 
-const Auth = ({ dataAccount, setDataAccount }) => {
+const Auth = ({ setDataAccount, dataAccount }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
   const [loginUser, setLoginUser] = useState(``);
   const [passwordUser, setPasswordUser] = useState(``);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (dataAccount !== null) {
+      new Toast({
+        title: "Оповещение о авторизации",
+        text: `Впринципе, вам не надо авторизацию. Просто нажмите "Главная", а потом "Личный Кабинет".`,
+        theme: "info",
+        autohide: true,
+        interval: 10000,
+      });
+    }
+  }, []);
 
   return (
     <div className="Auth">

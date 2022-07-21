@@ -62,6 +62,8 @@ const AuthController = (
           autohide: true,
           interval: 3000,
         });
+
+        setLoadSpinerActive(false);
         return;
       }
 

@@ -2,9 +2,7 @@ import React from "react";
 
 import "./Profile.Component.scss";
 
-const Profile = ({ MountedChildrenComponent, dataAccount }) => {
-  console.log(dataAccount);
-
+const Profile = ({ dataAccount, setStatusMountChangeProfile }) => {
   return (
     <div className="Profile">
       <div className="profile-wrapper">
@@ -22,7 +20,7 @@ const Profile = ({ MountedChildrenComponent, dataAccount }) => {
           <button
             className="beautiful-button beautiful-button-green"
             onClick={() => {
-              MountedChildrenComponent(`mount`, `change-profile`);
+              setStatusMountChangeProfile(true);
             }}
           >
             редактировать профиль

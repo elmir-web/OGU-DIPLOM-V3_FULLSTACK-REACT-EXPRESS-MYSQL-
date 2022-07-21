@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import Toast from "./../../../Toast";
 
 import "./Register.Component.scss";
 
 import RegisterController from "./Register.Controller";
 import LoaderSpinerComponent from "../../LOADERSPINER/LoaderSpiner.Component";
 
-const Register = () => {
+const Register = ({ dataAccount }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
   const [surName, setSurName] = useState(``);
@@ -16,6 +17,18 @@ const Register = () => {
   const [passwordUser, setPasswordUser] = useState(``);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (dataAccount !== null) {
+      new Toast({
+        title: "Оповещение о авторизации",
+        text: `Впринципе, вам не надо регистрацию. Просто нажмите "Главная", а потом "Личный Кабинет".`,
+        theme: "info",
+        autohide: true,
+        interval: 10000,
+      });
+    }
+  }, []);
 
   return (
     <div className="Register">

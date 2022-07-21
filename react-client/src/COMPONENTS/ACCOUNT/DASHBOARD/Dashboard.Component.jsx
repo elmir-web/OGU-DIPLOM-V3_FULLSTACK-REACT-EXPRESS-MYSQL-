@@ -6,10 +6,12 @@ import {
   useNavigate,
 } from "react-router-dom";
 import Toast from "./../../../Toast";
+import Cookies from "js-cookie";
 
 import "./Dashboard.Component.scss";
 
 import ProfileComponent from "./PROFILE/Profile.Component";
+import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
 
 import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
 
@@ -31,44 +33,44 @@ const DashboardNotFound = ({}) => {
   return <div></div>;
 };
 
-const DashboardChildrenMounter = ({ ChildComponentMount }) => {
-  switch (ChildComponentMount) {
-    case `change-profile`:
-      return <ChangeProfileComponent />;
-    default:
-      return <div>system error!</div>;
-  }
-};
-
-const Dashboard = ({ dataAccount, setDataAccount }) => {
-  const [childComponentStatus, setChildComponentStatus] = useState(false);
-  const [ChildComponentMount, setChildComponentMount] = useState(null);
+const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
+  const [statusMountChangeProfile, setStatusMountChangeProfile] =
+    useState(false);
+  const [loadSpinerActive, setLoadSpinerActive] = useState(false);
+  let navigate = useNavigate();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (
+      Cookies.get("GSM_DIPLOM_COOKIES_JWT") === undefined &&
+      dataAccount === null
+    ) {
+      new Toast({
+        title: "Ошибка",
+        text: `Вы не авторизированы в аккаунт!`,
+        theme: "danger",
+        autohide: true,
+        interval: 10000,
+      });
 
-  const MountedChildrenComponent = (actionOfComponent, componentName) => {
-    if (actionOfComponent === `mount`) {
-      setChildComponentMount(componentName);
-
-      setChildComponentStatus(true);
-    } else if (actionOfComponent === `unmount`) {
-      setChildComponentStatus(false);
-
-      setChildComponentMount(null);
+      navigate("/");
+      return;
     }
-  };
+  }, []);
 
   return (
     <div className="Dashboard">
-      <div id="child-component">
-        {childComponentStatus === true ? (
-          <DashboardChildrenMounter ChildComponentMount={ChildComponentMount} />
-        ) : (
-          ""
-        )}
-      </div>
+      {statusMountChangeProfile === true ? (
+        <ChangeProfileComponent
+          setStatusMountChangeProfile={setStatusMountChangeProfile}
+          setDataAccount={setDataAccount}
+          dataAccount={dataAccount}
+          getDataAccount={getDataAccount}
+        />
+      ) : (
+        ""
+      )}
+
+      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ""}
 
       <header className="header">
         <div className="central-container">
@@ -111,9 +113,29 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
           </div>
 
           <div className="header__right">
-            <RouterLink to="/" className="header-dashboard">
+            <button
+              className="header-dashboard"
+              onClick={() => {
+                setLoadSpinerActive(true);
+
+                new Toast({
+                  title: "Ошибка",
+                  text: `Вы вышли из аккаунта`,
+                  theme: "info",
+                  autohide: true,
+                  interval: 2000,
+                });
+
+                setDataAccount(null);
+                Cookies.remove("GSM_DIPLOM_COOKIES_JWT");
+
+                setTimeout(() => {
+                  window.location.href = `/`;
+                }, 2000);
+              }}
+            >
               Выход
-            </RouterLink>
+            </button>
           </div>
         </div>
       </header>
@@ -127,8 +149,8 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
               index
               element={
                 <ProfileComponent
-                  MountedChildrenComponent={MountedChildrenComponent}
                   dataAccount={dataAccount}
+                  setStatusMountChangeProfile={setStatusMountChangeProfile}
                 />
               }
             />
