@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 import "./BriefInformation.Component..scss";
 
@@ -17,7 +18,9 @@ const BriefInformation = ({
   allVehicles,
   allRecords,
 }) => {
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    console.log(allRecords);
+  }, []);
 
   if (dataAccount?.IDposition?.ID === 2 || dataAccount?.IDposition?.ID === 1)
     return (
@@ -83,6 +86,66 @@ const BriefInformation = ({
             ""
           )}
         </div>
+      </div>
+    );
+  else if (
+    dataAccount?.IDposition?.ID === 3 ||
+    dataAccount?.IDposition?.ID === 1
+  )
+    return (
+      <div className="BriefInformation">
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Статус</th>
+              <th>Дата (открытие)</th>
+              <th>Дата (закрытие)</th>
+              <th>Пробег (открытие)</th>
+              <th>Пробег (закрытие)</th>
+              <th>Литров (исп)</th>
+              <th>Транспорт</th>
+              <th>Топливо</th>
+              <th>Подписант</th>
+              <th>Водитель</th>
+              <th>АвтоБаза</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allRecords.length ? (
+              allRecords?.map((record) => {
+                return (
+                  <tr kye={record.ID}>
+                    <td>{record.Number}</td>
+                    <td>{record.RecordStatus === 1 ? "Открыт" : "Закрыт"}</td>
+                    <td>{moment(record.DateOpen).format("YYYY-MM-DD")}</td>
+                    <td>{moment(record.DateClose).format("YYYY-MM-DD")}</td>
+                    <td>{record.KilometrsOpen}</td>
+                    <td>{record.KilometrsClose}</td>
+                    <td>{record.UsedLiters}</td>
+                    <td>
+                      {record.IDvehicle.Model} : {record.IDvehicle.Number}
+                    </td>
+                    <td>{record.IDtypegsm.Name}</td>
+                    <td>
+                      {record.IDsigner.SurName} {record.IDsigner.Name}{" "}
+                      {record.IDsigner.MiddleName}
+                    </td>
+                    <td>
+                      {record.IDdriver.SurName} {record.IDdriver.Name}{" "}
+                      {record.IDdriver.MiddleName}
+                    </td>
+                    <td>{record.IDautobase.Name}</td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="12">Путевых листов не найдено</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     );
 };

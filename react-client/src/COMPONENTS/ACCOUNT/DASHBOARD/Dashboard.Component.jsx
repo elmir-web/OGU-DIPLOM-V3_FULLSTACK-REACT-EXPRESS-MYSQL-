@@ -44,14 +44,14 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   let navigate = useNavigate();
 
   // datas
-  const [allAutoBase, setAllAutoBase] = useState({ length: 0 });
-  const [allPositions, setAllPositions] = useState({ length: 0 });
-  const [allAccounts, setAllAccounts] = useState({ length: 0 });
-  const [allRecordStatuses, setAllRecordsStatuses] = useState({ length: 0 });
-  const [typesGSM, setTypesGSM] = useState({ length: 0 });
-  const [storeHouseItems, setStoreHouseItems] = useState({ length: 0 });
-  const [allVehicles, setAllVehicles] = useState({ length: 0 });
-  const [allRecords, setAllRecords] = useState({ length: 0 });
+  const [allAutoBase, setAllAutoBase] = useState([]);
+  const [allPositions, setAllPositions] = useState([]);
+  const [allAccounts, setAllAccounts] = useState([]);
+  const [allRecordStatuses, setAllRecordsStatuses] = useState([]);
+  const [typesGSM, setTypesGSM] = useState([]);
+  const [storeHouseItems, setStoreHouseItems] = useState([]);
+  const [allVehicles, setAllVehicles] = useState([]);
+  const [allRecords, setAllRecords] = useState([]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -186,27 +186,69 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 <li>
                   <RouterLink to="">Мой профиль</RouterLink>
                 </li>
-                <li>
-                  <RouterLink to="autobase">Автомобильные базы</RouterLink>
-                </li>
-                <li>
-                  <RouterLink to="types-gsm">Виды ГСМ</RouterLink>
-                </li>
-                <li>
-                  <RouterLink to="autos">Транспорт</RouterLink>
-                </li>
-                <li>
-                  <RouterLink to="workers">Сотрудники</RouterLink>
-                </li>
-                {/* <li>
-                  <RouterLink to="storehouse">Склад</RouterLink>
-                </li> */}
-                {/* <li>
-                  <RouterLink to="records">Путевые листы</RouterLink>
-                </li> */}
-                {/* <li>
-                  <RouterLink to="carwork">Работа с автомобилем</RouterLink>
-                </li> */}
+
+                {dataAccount?.IDposition?.ID === 2 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="autobase">Автомобильные базы</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 2 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="types-gsm">Виды ГСМ</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 2 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="autos">Транспорт</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 2 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="workers">Сотрудники</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 3 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="storehouse">Склад</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 3 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="records">Путевые листы</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {dataAccount?.IDposition?.ID === 4 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to="carwork">Работа с автомобилем</RouterLink>
+                  </li>
+                ) : (
+                  ""
+                )}
               </ul>
             </nav>
           </div>
