@@ -4,6 +4,8 @@ import { Link as RouterLink } from "react-router-dom";
 
 import "./MainPage.Component.scss";
 
+import FooterComponent from "./FOOTER/Footer.Component";
+
 export default function MainPage({ error }) {
   const componentMounted = () => {
     if (error !== undefined || error?.status === true) {
@@ -77,26 +79,7 @@ export default function MainPage({ error }) {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="central-container">
-          <div>
-            Началом работы считается третий курс. Предмет Дмитрия Владимировича
-            Горбачёва - "БД и СуБД".
-          </div>
-
-          <div>
-            Проект разрабатывается согласно моему решению о расширении до темы
-            диплома. Разработчик - студент З-18ПИнж(ба)РПиС -{" "}
-            <a href="http://elmir-web.github.io" target="_blank">
-              Кубагушев Эльмир
-            </a>
-            .
-          </div>
-          <div>
-            Тема диплома: "Прогнозирование стратегического запаса топлива".
-          </div>
-        </div>
-      </footer>
+      <FooterComponent />
     </div>
   );
 }

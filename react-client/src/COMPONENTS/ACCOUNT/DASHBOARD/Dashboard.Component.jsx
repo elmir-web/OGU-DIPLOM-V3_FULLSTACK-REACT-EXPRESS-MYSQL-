@@ -15,8 +15,11 @@ import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
 import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
 
 import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
+import FooterComponent from "../../MAINPAGE/FOOTER/Footer.Component";
 
-const DashboardNotFound = ({}) => {
+const { URL_BACKEND } = require("./../../../CONFIG.json");
+
+const DashboardNotFound = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -41,25 +44,116 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   let navigate = useNavigate();
 
   // datas
+  const [allAutoBase, setAllAutoBase] = useState({ length: 0 });
+  const [allPositions, setAllPositions] = useState({ length: 0 });
+  const [allAccounts, setAllAccounts] = useState({ length: 0 });
+  const [allRecordStatuses, setAllRecordsStatuses] = useState({ length: 0 });
+  const [typesGSM, setTypesGSM] = useState({ length: 0 });
+  const [storeHouseItems, setStoreHouseItems] = useState({ length: 0 });
+  const [allVehicles, setAllVehicles] = useState({ length: 0 });
+  const [allRecords, setAllRecords] = useState({ length: 0 });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (
-      Cookies.get("GSM_DIPLOM_COOKIES_JWT") === undefined &&
-      dataAccount === null
-    ) {
-      new Toast({
-        title: "Ошибка",
-        text: `Вы не авторизированы в аккаунт!`,
-        theme: "danger",
-        autohide: true,
-        interval: 10000,
+    (async () => {
+      if (
+        Cookies.get("GSM_DIPLOM_COOKIES_JWT") === undefined &&
+        dataAccount === null
+      ) {
+        new Toast({
+          title: "Ошибка",
+          text: `Вы не авторизированы в аккаунт!`,
+          theme: "danger",
+          autohide: true,
+          interval: 10000,
+        });
+
+        navigate("/");
+        return;
+      }
+
+      // datas
+      const dataAllAutoBases = await fetch(
+        `${URL_BACKEND}/api/auto-bases/get`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
+      );
+
+      setAllAutoBase(await dataAllAutoBases.json());
+
+      const dataAllPositions = await fetch(`${URL_BACKEND}/api/positions/get`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
       });
 
-      navigate("/");
-      return;
-    }
+      setAllPositions(await dataAllPositions.json());
 
-    //
+      const dataAllAccount = await fetch(`${URL_BACKEND}/api/accounts/get`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      });
+
+      setAllAccounts(await dataAllAccount.json());
+
+      const dataRecordsStatuses = await fetch(
+        `${URL_BACKEND}/api/records-statuses/get`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
+      );
+
+      setAllRecordsStatuses(await dataRecordsStatuses.json());
+
+      const dataTypesGSM = await fetch(`${URL_BACKEND}/api/types-gsm/get`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      });
+
+      setTypesGSM(await dataTypesGSM.json());
+
+      const dataStoreHouseItems = await fetch(
+        `${URL_BACKEND}/api/items-storehouse/get`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
+      );
+
+      setStoreHouseItems(await dataStoreHouseItems.json());
+
+      const dataAllVehicles = await fetch(`${URL_BACKEND}/api/vehicles/get`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      });
+
+      setAllVehicles(await dataAllVehicles.json());
+
+      const dataAllRecords = await fetch(`${URL_BACKEND}/api/records/get`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      });
+
+      setAllRecords(await dataAllRecords.json());
+    })();
   }, []);
 
   return (
@@ -156,35 +250,21 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 <ProfileComponent
                   dataAccount={dataAccount}
                   setStatusMountChangeProfile={setStatusMountChangeProfile}
+                  allAutoBase={allAutoBase}
+                  allAccounts={allAccounts}
+                  typesGSM={typesGSM}
+                  storeHouseItems={storeHouseItems}
+                  allVehicles={allVehicles}
+                  allRecords={allRecords}
                 />
               }
             />
-
             <Route path="autobase" element={<AutoBaseComponent />} />
           </Routes>
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="central-container">
-          <div>
-            Началом работы считается третий курс. Предмет Дмитрия Владимировича
-            Горбачёва - "БД и СуБД".
-          </div>
-
-          <div>
-            Проект разрабатывается согласно моему решению о расширении до темы
-            диплома. Разработчик - студент З-18ПИнж(ба)РПиС -{" "}
-            <a href="http://elmir-web.github.io" target="_blank">
-              Кубагушев Эльмир
-            </a>
-            .
-          </div>
-          <div>
-            Тема диплома: "Прогнозирование стратегического запаса топлива".
-          </div>
-        </div>
-      </footer>
+      <FooterComponent />
     </div>
   );
 };

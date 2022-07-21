@@ -6,6 +6,7 @@ import "./Auth.Component.scss";
 
 import AuthController from "./Auth.Controller";
 import LoaderSpinerComponent from "../../LOADERSPINER/LoaderSpiner.Component";
+import FooterComponent from "./../../MAINPAGE/FOOTER/Footer.Component";
 
 const Auth = ({ setDataAccount, dataAccount }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -111,26 +112,7 @@ const Auth = ({ setDataAccount, dataAccount }) => {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="central-container">
-          <div>
-            Началом работы считается третий курс. Предмет Дмитрия Владимировича
-            Горбачёва - "БД и СуБД".
-          </div>
-
-          <div>
-            Проект разрабатывается согласно моему решению о расширении до темы
-            диплома. Разработчик - студент З-18ПИнж(ба)РПиС -{" "}
-            <a href="http://elmir-web.github.io" target="_blank">
-              Кубагушев Эльмир
-            </a>
-            .
-          </div>
-          <div>
-            Тема диплома: "Прогнозирование стратегического запаса топлива".
-          </div>
-        </div>
-      </footer>
+      <FooterComponent />
     </div>
   );
 };

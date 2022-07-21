@@ -2,7 +2,18 @@ import React from "react";
 
 import "./Profile.Component.scss";
 
-const Profile = ({ dataAccount, setStatusMountChangeProfile }) => {
+import BriefInformation from "./BRIEFINFORMATION/BriefInformation.Component";
+
+const Profile = ({
+  dataAccount,
+  setStatusMountChangeProfile,
+  allAutoBase,
+  allAccounts,
+  typesGSM,
+  storeHouseItems,
+  allVehicles,
+  allRecords,
+}) => {
   return (
     <div className="Profile">
       <div className="profile-wrapper">
@@ -26,6 +37,18 @@ const Profile = ({ dataAccount, setStatusMountChangeProfile }) => {
             редактировать профиль
           </button>
         </div>
+      </div>
+
+      <div className="Profile__parent-wrapper">
+        <BriefInformation
+          dataAccount={dataAccount}
+          allAutoBase={allAutoBase}
+          allAccounts={allAccounts}
+          typesGSM={typesGSM}
+          storeHouseItems={storeHouseItems}
+          allVehicles={allVehicles}
+          allRecords={allRecords}
+        />
       </div>
     </div>
   );
