@@ -7,17 +7,16 @@ import {
 } from "react-router-dom";
 import Toast from "./../../../Toast";
 import Cookies from "js-cookie";
+import dashboardDataLoad from "./Dashboard.Service";
 
 import "./Dashboard.Component.scss";
 
 import ProfileComponent from "./PROFILE/Profile.Component";
 import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
 import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
-
 import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
+import CreateAutoBaseComponent from "./AUTOBASE/CREATEAUTOBASE/CreateAutoBase.Component";
 import FooterComponent from "../../MAINPAGE/FOOTER/Footer.Component";
-
-const { URL_BACKEND } = require("./../../../CONFIG.json");
 
 const DashboardNotFound = () => {
   let navigate = useNavigate();
@@ -40,6 +39,8 @@ const DashboardNotFound = () => {
 const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountChangeProfile, setStatusMountChangeProfile] =
     useState(false);
+  const [statusMountCreateAutoBase, setStatusMountCreateAutoBase] =
+    useState(false);
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
   let navigate = useNavigate();
 
@@ -53,108 +54,20 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [allVehicles, setAllVehicles] = useState([]);
   const [allRecords, setAllRecords] = useState([]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    (async () => {
-      if (
-        Cookies.get("GSM_DIPLOM_COOKIES_JWT") === undefined &&
-        dataAccount === null
-      ) {
-        new Toast({
-          title: "Ошибка",
-          text: `Вы не авторизированы в аккаунт!`,
-          theme: "danger",
-          autohide: true,
-          interval: 10000,
-        });
+  const dashboardComponentMount = () => {
+    dashboardDataLoad(dataAccount, navigate, {
+      setAllAutoBase,
+      setAllPositions,
+      setAllAccounts,
+      setAllRecordsStatuses,
+      setTypesGSM,
+      setStoreHouseItems,
+      setAllVehicles,
+      setAllRecords,
+    });
+  };
 
-        navigate("/");
-        return;
-      }
-
-      // datas
-      const dataAllAutoBases = await fetch(
-        `${URL_BACKEND}/api/auto-bases/get`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer system.system.system`,
-          },
-        }
-      );
-
-      setAllAutoBase(await dataAllAutoBases.json());
-
-      const dataAllPositions = await fetch(`${URL_BACKEND}/api/positions/get`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer system.system.system`,
-        },
-      });
-
-      setAllPositions(await dataAllPositions.json());
-
-      const dataAllAccount = await fetch(`${URL_BACKEND}/api/accounts/get`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer system.system.system`,
-        },
-      });
-
-      setAllAccounts(await dataAllAccount.json());
-
-      const dataRecordsStatuses = await fetch(
-        `${URL_BACKEND}/api/records-statuses/get`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer system.system.system`,
-          },
-        }
-      );
-
-      setAllRecordsStatuses(await dataRecordsStatuses.json());
-
-      const dataTypesGSM = await fetch(`${URL_BACKEND}/api/types-gsm/get`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer system.system.system`,
-        },
-      });
-
-      setTypesGSM(await dataTypesGSM.json());
-
-      const dataStoreHouseItems = await fetch(
-        `${URL_BACKEND}/api/items-storehouse/get`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer system.system.system`,
-          },
-        }
-      );
-
-      setStoreHouseItems(await dataStoreHouseItems.json());
-
-      const dataAllVehicles = await fetch(`${URL_BACKEND}/api/vehicles/get`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer system.system.system`,
-        },
-      });
-
-      setAllVehicles(await dataAllVehicles.json());
-
-      const dataAllRecords = await fetch(`${URL_BACKEND}/api/records/get`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer system.system.system`,
-        },
-      });
-
-      setAllRecords(await dataAllRecords.json());
-    })();
-  }, []);
+  useEffect(dashboardComponentMount, []);
 
   return (
     <div className="Dashboard">
@@ -164,6 +77,15 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           setDataAccount={setDataAccount}
           dataAccount={dataAccount}
           getDataAccount={getDataAccount}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountCreateAutoBase === true ? (
+        <CreateAutoBaseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
         />
       ) : (
         ""
@@ -301,7 +223,15 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 />
               }
             />
-            <Route path="autobase" element={<AutoBaseComponent />} />
+            <Route
+              path="autobase"
+              element={
+                <AutoBaseComponent
+                  allAutoBase={allAutoBase}
+                  setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
+                />
+              }
+            />
           </Routes>
         </div>
       </main>

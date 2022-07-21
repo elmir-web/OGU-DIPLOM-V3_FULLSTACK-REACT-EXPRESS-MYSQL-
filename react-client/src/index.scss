@@ -286,3 +286,40 @@ body {
     box-shadow: 0 3px rgb(33, 147, 90) inset;
   }
 }
+
+.beautiful-button-red {
+  background: rgb(199, 64, 64);
+  box-shadow: 0 -3px rgb(167, 53, 53) inset;
+
+  &:hover {
+    background: rgb(167, 53, 53);
+  }
+
+  &:active {
+    background: rgb(147, 33, 33);
+    box-shadow: 0 3px rgb(147, 33, 33) inset;
+  }
+}
+
+.beautiful-button-blue {
+  background: rgb(64, 100, 199);
+  box-shadow: 0 -3px rgb(53, 100, 167) inset;
+
+  &:hover {
+    background: rgb(53, 100, 167);
+  }
+
+  &:active {
+    background: rgb(33, 100, 147);
+    box-shadow: 0 3px rgb(33, 100, 147) inset;
+  }
+}
+
+.table-button {
+  border: 0;
+  outline: none;
+  padding: 0.4em 1em calc(0.4em + 3px);
+  border-radius: 3px;
+
+  transition: 0.2s;
+}
