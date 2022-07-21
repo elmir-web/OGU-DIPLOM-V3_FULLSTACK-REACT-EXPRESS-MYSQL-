@@ -12,6 +12,7 @@ import "./Dashboard.Component.scss";
 
 import ProfileComponent from "./PROFILE/Profile.Component";
 import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
+import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
 
 import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
 
@@ -94,20 +95,20 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   <RouterLink to="types-gsm">Виды ГСМ</RouterLink>
                 </li>
                 <li>
-                  <RouterLink to="autos">Все автомобили</RouterLink>
+                  <RouterLink to="autos">Транспорт</RouterLink>
                 </li>
                 <li>
-                  <RouterLink to="workers">Рабочий персонал</RouterLink>
+                  <RouterLink to="workers">Сотрудники</RouterLink>
                 </li>
-                <li>
+                {/* <li>
                   <RouterLink to="storehouse">Склад</RouterLink>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <RouterLink to="records">Путевые листы</RouterLink>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <RouterLink to="carwork">Работа с автомобилем</RouterLink>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>
@@ -154,6 +155,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 />
               }
             />
+
+            <Route path="autobase" element={<AutoBaseComponent />} />
           </Routes>
         </div>
       </main>
