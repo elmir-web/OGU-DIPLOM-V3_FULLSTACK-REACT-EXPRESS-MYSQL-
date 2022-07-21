@@ -40,6 +40,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
   let navigate = useNavigate();
 
+  // datas
+
   useEffect(() => {
     if (
       Cookies.get("GSM_DIPLOM_COOKIES_JWT") === undefined &&
@@ -56,6 +58,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       navigate("/");
       return;
     }
+
+    //
   }, []);
 
   return (
