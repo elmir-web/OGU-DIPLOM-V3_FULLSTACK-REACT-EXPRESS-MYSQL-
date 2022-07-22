@@ -1,20 +1,20 @@
 import Toast from "./../../../../../Toast";
 
-import ChangeAutoBaseService from "./ChangeAutoBase.Service";
+import ChangeTypeGSMService from "./ChangeAutoBase.Service";
 
-const ChangeAutoBaseController = (
+const ChangeTypeGSMController = (
   dashboardComponentMount,
-  { IDAutoBase, nameAutoBase },
+  { IDTypeGSM, nameTypeGSM, forKiloTypeGSM },
   setLoadSpinerActive,
-  setStatusMountChangeAutoBase
+  setStatusMountChangeTypeGSM
 ) => {
   setLoadSpinerActive(true);
 
   setTimeout(() => {
-    if (nameAutoBase.length < 3 || nameAutoBase.length > 100) {
+    if (nameTypeGSM.length < 3 || nameTypeGSM.length > 100) {
       new Toast({
         title: "Ошибка",
-        text: "Строка с названием автомобильной базы от 3 до 100 символов (включительно).",
+        text: "Строка с названием типа ГСМ от 3 до 100 символов (включительно).",
         theme: "danger",
         autohide: true,
         interval: 5000,
@@ -25,25 +25,26 @@ const ChangeAutoBaseController = (
     }
 
     new Toast({
-      title: "Редактирование автомобильной базы",
-      text: "На сервер был отправлен запрос на автомобильной базы, ждите...",
+      title: "Редактирование типа ГСМ",
+      text: "На сервер был отправлен запрос на редактирование типа ГСМ, ждите...",
       theme: "light",
       autohide: true,
       interval: 1000,
     });
 
     setTimeout(async () => {
-      const { ok, status, responseFetch } = await ChangeAutoBaseService(
+      const { ok, status, responseFetch } = await ChangeTypeGSMService(
         dashboardComponentMount,
         {
-          IDAutoBase,
-          nameAutoBase,
+          IDTypeGSM,
+          nameTypeGSM,
+          forKiloTypeGSM,
         }
       );
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при редактировании автомобильной базы",
+          title: "Ошибка при редактировании типа ГСМ",
           text: responseFetch,
           theme: "danger",
           autohide: true,
@@ -61,9 +62,9 @@ const ChangeAutoBaseController = (
       });
 
       setLoadSpinerActive(false);
-      setStatusMountChangeAutoBase(null);
+      setStatusMountChangeTypeGSM(null);
     }, 1000);
   }, 1000);
 };
 
-export default ChangeAutoBaseController;
+export default ChangeTypeGSMController;

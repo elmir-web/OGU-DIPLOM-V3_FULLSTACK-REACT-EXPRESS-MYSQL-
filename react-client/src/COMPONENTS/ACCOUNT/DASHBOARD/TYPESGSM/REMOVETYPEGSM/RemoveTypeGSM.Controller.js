@@ -1,33 +1,33 @@
 import Toast from "./../../../../../Toast";
 
-import RemoveAutoBaseService from "./RemoveAutoBase.Service";
+import RemoveTypeGSMService from "./RemoveAutoBase.Service";
 
-const RemoveAutoBaseComponent = async (
+const RemoveTypeGSMController = async (
   dashboardComponentMount,
-  { statusMountRemoveAutoBase },
+  { statusMountRemoveTypeGSM },
   setLoadSpinerActive,
-  setStatusMountRemoveAutoBase
+  setStatusMountRemoveTypeGSM
 ) => {
   setLoadSpinerActive(true);
 
   setTimeout(() => {
     new Toast({
-      title: "Удаление автомобильной базы",
-      text: "На сервер был отправлен запрос на удаление автомобильной базы, ждите...",
+      title: "Удаление типа ГСМ",
+      text: "На сервер был отправлен запрос на удаление типа ГСМ, ждите...",
       theme: "light",
       autohide: true,
       interval: 1000,
     });
 
     setTimeout(async () => {
-      const { ok, status, responseFetch } = await RemoveAutoBaseService(
+      const { ok, status, responseFetch } = await RemoveTypeGSMService(
         dashboardComponentMount,
-        { statusMountRemoveAutoBase }
+        { statusMountRemoveTypeGSM }
       );
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при удалении автомобильной базы",
+          title: "Ошибка при удалении типа ГСМ",
           text: responseFetch.message,
           theme: "danger",
           autohide: true,
@@ -35,7 +35,7 @@ const RemoveAutoBaseComponent = async (
         });
 
         setLoadSpinerActive(false);
-        setStatusMountRemoveAutoBase(null);
+        setStatusMountRemoveTypeGSM(null);
         return;
       }
 
@@ -48,9 +48,9 @@ const RemoveAutoBaseComponent = async (
       });
 
       setLoadSpinerActive(false);
-      setStatusMountRemoveAutoBase(null);
+      setStatusMountRemoveTypeGSM(null);
     }, 1000);
   }, 1000);
 };
 
-export default RemoveAutoBaseComponent;
+export default RemoveTypeGSMController;

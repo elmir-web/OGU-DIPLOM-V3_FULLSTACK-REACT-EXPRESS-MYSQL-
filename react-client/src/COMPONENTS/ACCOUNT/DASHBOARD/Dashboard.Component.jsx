@@ -23,6 +23,8 @@ import RemoveAutoBaseComponent from "./AUTOBASE/REMOVEAUTOBASE/RemoveAutoBase.Co
 
 import TypesGSMComponent from "./TYPESGSM/TypesGSM.Component";
 import CreateTypeGSMComponent from "./TYPESGSM/CREATETYPEGSM/CreateTypeGSM.Component";
+import ChangeTypeGSMComponent from "./TYPESGSM/CHANGETYPEGSM/ChangeTypeGSM.Component";
+import RemoveTypeGSMComponent from "./TYPESGSM/REMOVETYPEGSM/RemoveTypeGSM.Component";
 
 import FooterComponent from "../../MAINPAGE/FOOTER/Footer.Component";
 
@@ -137,6 +139,26 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         <CreateTypeGSMComponent
           dashboardComponentMount={dashboardComponentMount}
           setStatusMountCreateTypeGSM={setStatusMountCreateTypeGSM}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountChangeTypeGSM !== null ? (
+        <ChangeTypeGSMComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountChangeTypeGSM={setStatusMountChangeTypeGSM}
+          statusMountChangeTypeGSM={statusMountChangeTypeGSM}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountRemoveTypeGSM !== null ? (
+        <RemoveTypeGSMComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountRemoveTypeGSM={setStatusMountRemoveTypeGSM}
+          statusMountRemoveTypeGSM={statusMountRemoveTypeGSM}
         />
       ) : (
         ""
