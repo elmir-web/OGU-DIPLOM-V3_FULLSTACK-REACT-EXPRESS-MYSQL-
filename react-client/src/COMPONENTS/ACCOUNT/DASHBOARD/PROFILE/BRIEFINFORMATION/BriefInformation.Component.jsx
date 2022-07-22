@@ -17,9 +17,7 @@ const BriefInformation = ({
   allVehicles,
   allRecords,
 }) => {
-  React.useEffect(() => {
-    console.log(allRecords);
-  }, []);
+  React.useEffect(() => {}, []);
 
   if (dataAccount?.IDposition?.ID === 2 || dataAccount?.IDposition?.ID === 1)
     return (

@@ -1,32 +1,36 @@
 import React, { useState } from "react";
 
-import "./CreateAutoBase.Component.scss";
+import "./ChangeAutoBase.Component.scss";
 
 import LoaderSpinerComponent from "./../../../../LOADERSPINER/LoaderSpiner.Component";
 
-import CreateAutoBaseController from "./CreateAutoBase.Controller";
+import ChangeAutoBaseController from "./ChangeAutoBase.Controller";
 
-const CreateAutoBase = ({
+const ChangeAutoBase = ({
   dashboardComponentMount,
-  setStatusMountCreateAutoBase,
+  setStatusMountChangeAutoBase,
+  statusMountChangeAutoBase,
 }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
-  const [nameAutoBase, setNameAutoBase] = useState(``);
+  const [IDAutoBase, setIDAutoBase] = useState(statusMountChangeAutoBase.ID);
+  const [nameAutoBase, setNameAutoBase] = useState(
+    statusMountChangeAutoBase.Name
+  );
 
   return (
-    <div className="CreateAutoBase modal-window">
+    <div className="ChangeAutoBase modal-window">
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ""}
 
       <div className="modal-window__popup-form">
         <header className="modal-window__header">
           <div className="modal-window__title">
-            <span>Создание автомобильной базы</span>
+            <span>Редактирование автомобильной базы ID: {IDAutoBase}</span>
           </div>
 
           <button
             className="modal-window__button-close"
             onClick={() => {
-              setStatusMountCreateAutoBase(false);
+              setStatusMountChangeAutoBase(null);
             }}
           >
             X
@@ -53,15 +57,15 @@ const CreateAutoBase = ({
           <button
             className="beautiful-button beautiful-button-green"
             onClick={() => {
-              CreateAutoBaseController(
+              ChangeAutoBaseController(
                 dashboardComponentMount,
-                { nameAutoBase },
+                { IDAutoBase, nameAutoBase },
                 setLoadSpinerActive,
-                setStatusMountCreateAutoBase
+                setStatusMountChangeAutoBase
               );
             }}
           >
-            создать
+            обновить информацию
           </button>
         </main>
       </div>
@@ -69,4 +73,4 @@ const CreateAutoBase = ({
   );
 };
 
-export default CreateAutoBase;
+export default ChangeAutoBase;

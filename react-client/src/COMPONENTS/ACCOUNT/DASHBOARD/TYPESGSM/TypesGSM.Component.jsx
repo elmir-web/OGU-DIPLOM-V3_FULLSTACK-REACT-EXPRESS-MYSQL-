@@ -2,47 +2,49 @@ import React from "react";
 import { RiDeleteBin4Line } from "react-icons/ri";
 import { MdOutlineCreate } from "react-icons/md";
 
-import "./AutoBase.Component.scss";
+import "./TypesGSM.Component.scss";
 
-const AutoBase = ({
-  allAutoBase,
-  setStatusMountCreateAutoBase,
-  setStatusMountChangeAutoBase,
-  setStatusMountRemoveAutoBase,
+const TypesGSM = ({
+  typesGSM,
+  setStatusMountCreateTypeGSM,
+  setStatusMountChangeTypeGSM,
+  setStatusMountRemoveTypeGSM,
 }) => {
   return (
-    <div className="AutoBase">
+    <div className="TypesGSM">
       <button
         className="beautiful-button beautiful-button-green"
         style={{ marginBottom: "50px" }}
         onClick={() => {
-          setStatusMountCreateAutoBase(true);
+          setStatusMountCreateTypeGSM(true);
         }}
       >
-        создать автомобильную базу
+        создать тип ГСМ
       </button>
 
       <div className="table-wrapper">
         <table>
           <thead>
             <tr>
-              <th>ID автобазы</th>
-              <th>Название автобазы</th>
+              <th>ID ГСМ</th>
+              <th>Название ГСМ</th>
+              <th>Вес литра в кг</th>
               <th>Действие</th>
             </tr>
           </thead>
           <tbody>
-            {allAutoBase.length ? (
-              allAutoBase.map((itemAutoBase) => {
+            {typesGSM.length ? (
+              typesGSM.map((typegsm) => {
                 return (
-                  <tr key={itemAutoBase.ID}>
-                    <td>{itemAutoBase.ID}</td>
-                    <td>{itemAutoBase.Name}</td>
+                  <tr key={typegsm.ID}>
+                    <td>{typegsm.ID}</td>
+                    <td>{typegsm.Name}</td>
+                    <td>{typegsm.ForKilo}</td>
                     <td className="table-buttons">
                       <button
                         className="table-button beautiful-button-blue"
                         onClick={() => {
-                          setStatusMountChangeAutoBase(itemAutoBase);
+                          setStatusMountChangeTypeGSM(typegsm);
                         }}
                       >
                         <MdOutlineCreate />
@@ -51,7 +53,7 @@ const AutoBase = ({
                       <button
                         className="table-button beautiful-button-red"
                         onClick={() => {
-                          setStatusMountRemoveAutoBase(itemAutoBase);
+                          setStatusMountRemoveTypeGSM(typegsm);
                         }}
                       >
                         <RiDeleteBin4Line />
@@ -62,7 +64,7 @@ const AutoBase = ({
               })
             ) : (
               <tr>
-                <td colSpan="3">Автомобильные базы не найдены</td>
+                <td colSpan="3">Типы ГСМ не найдены</td>
               </tr>
             )}
           </tbody>
@@ -72,4 +74,4 @@ const AutoBase = ({
   );
 };
 
-export default AutoBase;
+export default TypesGSM;

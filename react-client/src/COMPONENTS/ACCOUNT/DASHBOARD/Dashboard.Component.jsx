@@ -12,10 +12,18 @@ import dashboardDataLoad from "./Dashboard.Service";
 import "./Dashboard.Component.scss";
 
 import ProfileComponent from "./PROFILE/Profile.Component";
-import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
-import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
 import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
+
+import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
+
+import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
 import CreateAutoBaseComponent from "./AUTOBASE/CREATEAUTOBASE/CreateAutoBase.Component";
+import ChangeAutoBaseComponent from "./AUTOBASE/CHANGEAUTOBASE/ChangeAutoBase.Component";
+import RemoveAutoBaseComponent from "./AUTOBASE/REMOVEAUTOBASE/RemoveAutoBase.Component";
+
+import TypesGSMComponent from "./TYPESGSM/TypesGSM.Component";
+import CreateTypeGSMComponent from "./TYPESGSM/CREATETYPEGSM/CreateTypeGSM.Component";
+
 import FooterComponent from "../../MAINPAGE/FOOTER/Footer.Component";
 
 const DashboardNotFound = () => {
@@ -39,9 +47,23 @@ const DashboardNotFound = () => {
 const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountChangeProfile, setStatusMountChangeProfile] =
     useState(false);
+
   const [statusMountCreateAutoBase, setStatusMountCreateAutoBase] =
     useState(false);
+  const [statusMountChangeAutoBase, setStatusMountChangeAutoBase] =
+    useState(null);
+  const [statusMountRemoveAutoBase, setStatusMountRemoveAutoBase] =
+    useState(null);
+
+  const [statusMountCreateTypeGSM, setStatusMountCreateTypeGSM] =
+    useState(false);
+  const [statusMountChangeTypeGSM, setStatusMountChangeTypeGSM] =
+    useState(null);
+  const [statusMountRemoveTypeGSM, setStatusMountRemoveTypeGSM] =
+    useState(null);
+
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
+
   let navigate = useNavigate();
 
   // datas
@@ -86,6 +108,35 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         <CreateAutoBaseComponent
           dashboardComponentMount={dashboardComponentMount}
           setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountChangeAutoBase !== null ? (
+        <ChangeAutoBaseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountChangeAutoBase={setStatusMountChangeAutoBase}
+          statusMountChangeAutoBase={statusMountChangeAutoBase}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountRemoveAutoBase !== null ? (
+        <RemoveAutoBaseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountRemoveAutoBase={setStatusMountRemoveAutoBase}
+          statusMountRemoveAutoBase={statusMountRemoveAutoBase}
+        />
+      ) : (
+        ""
+      )}
+
+      {statusMountCreateTypeGSM === true ? (
+        <CreateTypeGSMComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateTypeGSM={setStatusMountCreateTypeGSM}
         />
       ) : (
         ""
@@ -223,12 +274,27 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 />
               }
             />
+
             <Route
               path="autobase"
               element={
                 <AutoBaseComponent
                   allAutoBase={allAutoBase}
                   setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
+                  setStatusMountChangeAutoBase={setStatusMountChangeAutoBase}
+                  setStatusMountRemoveAutoBase={setStatusMountRemoveAutoBase}
+                />
+              }
+            />
+
+            <Route
+              path="types-gsm"
+              element={
+                <TypesGSMComponent
+                  typesGSM={typesGSM}
+                  setStatusMountCreateTypeGSM={setStatusMountCreateTypeGSM}
+                  setStatusMountChangeTypeGSM={setStatusMountChangeTypeGSM}
+                  setStatusMountRemoveTypeGSM={setStatusMountRemoveTypeGSM}
                 />
               }
             />

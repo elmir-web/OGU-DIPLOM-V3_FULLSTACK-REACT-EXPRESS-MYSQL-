@@ -20,17 +20,17 @@ const ChangeUpdate = ({
   const [passwordUser, setPasswordUser] = useState(dataAccount.PasswordUser);
 
   return (
-    <div className="ChangeUpdate">
+    <div className="ChangeUpdate modal-window">
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ""}
 
-      <div className="ChangeUpdate__popup-form">
-        <header className="ChangeUpdate__header">
-          <div className="ChangeUpdate__title">
+      <div className="modal-window__popup-form">
+        <header className="modal-window__header">
+          <div className="modal-window__title">
             <span>Редактирование профиля</span>
           </div>
 
           <button
-            className="ChangeUpdate__button-close"
+            className="modal-window__button-close"
             onClick={() => {
               setStatusMountChangeProfile(false);
             }}
@@ -39,7 +39,7 @@ const ChangeUpdate = ({
           </button>
         </header>
 
-        <main className="ChangeUpdate__main">
+        <main className="modal-window__main">
           <div className="text-field text-field_floating-3">
             <input
               className="text-field__input"

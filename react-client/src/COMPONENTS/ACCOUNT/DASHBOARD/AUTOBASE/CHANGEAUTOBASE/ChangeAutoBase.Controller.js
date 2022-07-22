@@ -1,12 +1,12 @@
 import Toast from "./../../../../../Toast";
 
-import CreateAutoBaseService from "./CreateAutoBase.Service";
+import ChangeAutoBaseService from "./ChangeAutoBase.Service";
 
-const CreateAutoBaseController = (
+const ChangeAutoBaseController = (
   dashboardComponentMount,
-  { nameAutoBase },
+  { IDAutoBase, nameAutoBase },
   setLoadSpinerActive,
-  setStatusMountCreateAutoBase
+  setStatusMountChangeAutoBase
 ) => {
   setLoadSpinerActive(true);
 
@@ -25,24 +25,25 @@ const CreateAutoBaseController = (
     }
 
     new Toast({
-      title: "Создание автомобильной базы",
-      text: "На сервер был отправлен запрос на создание автомобильной базы, ждите...",
+      title: "Редактирование аккаунта",
+      text: "На сервер был отправлен запрос на редактирование аккаунта, ждите...",
       theme: "light",
       autohide: true,
       interval: 1000,
     });
 
     setTimeout(async () => {
-      const { ok, status, responseFetch } = await CreateAutoBaseService(
+      const { ok, status, responseFetch } = await ChangeAutoBaseService(
         dashboardComponentMount,
         {
+          IDAutoBase,
           nameAutoBase,
         }
       );
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при создании автомобильной базы",
+          title: "Ошибка при редактировании автомобильной базы",
           text: responseFetch,
           theme: "danger",
           autohide: true,
@@ -60,9 +61,9 @@ const CreateAutoBaseController = (
       });
 
       setLoadSpinerActive(false);
-      setStatusMountCreateAutoBase(false);
+      setStatusMountChangeAutoBase(null);
     }, 1000);
   }, 1000);
 };
 
-export default CreateAutoBaseController;
+export default ChangeAutoBaseController;

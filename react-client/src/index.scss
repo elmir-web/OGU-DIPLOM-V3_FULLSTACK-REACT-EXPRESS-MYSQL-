@@ -323,3 +323,28 @@ body {
 
   transition: 0.2s;
 }
+
+.remove-object-buttons {
+  display: flex;
+  column-gap: 1%;
+
+  &__no {
+    width: 90%;
+    border: 0;
+    outline: none;
+    padding: 0.4em 1em calc(0.4em + 3px);
+    border-radius: 3px;
+
+    transition: 0.2s;
+  }
+
+  &__yes {
+    width: 9%;
+    border: 0;
+    outline: none;
+    padding: 0.4em 1em calc(0.4em + 3px);
+    border-radius: 3px;
+
+    transition: 0.2s;
+  }
+}

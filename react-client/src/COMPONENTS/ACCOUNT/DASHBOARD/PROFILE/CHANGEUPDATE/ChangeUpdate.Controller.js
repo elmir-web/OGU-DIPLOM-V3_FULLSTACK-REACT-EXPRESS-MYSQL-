@@ -102,7 +102,7 @@ const ChangeUpdateController = async (
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при создании аккаунта",
+          title: "Ошибка при редактировании профиля",
           text: responseFetch,
           theme: "danger",
           autohide: true,
