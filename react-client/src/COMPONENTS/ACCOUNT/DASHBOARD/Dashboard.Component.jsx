@@ -203,7 +203,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="autos">Транспорт</RouterLink>
+                    <RouterLink to="vehicles">Транспорт</RouterLink>
                   </li>
                 ) : (
                   ""
@@ -212,7 +212,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="workers">Сотрудники</RouterLink>
+                    <RouterLink to="accounts">Сотрудники</RouterLink>
                   </li>
                 ) : (
                   ""
@@ -320,6 +320,10 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 />
               }
             />
+
+            <Route path="vehicles" element={<div>1</div>} />
+
+            <Route path="accounts" element={<div>1</div>} />
           </Routes>
         </div>
       </main>
