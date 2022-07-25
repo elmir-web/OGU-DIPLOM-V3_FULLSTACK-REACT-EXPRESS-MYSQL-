@@ -4,7 +4,11 @@ import './ChangeVehicle.Component.scss';
 
 import ChangeVehicleController from './ChangeVehicle.Controller';
 
-const ChangeVehicle = () => {
+const ChangeVehicle = ({
+  dashboardComponentMount,
+  statusMountChangeVehicle,
+  setStatusMountChangeVehicle,
+}) => {
   return <div className='ChangeVehicle'>ChangeVehicle</div>;
 };
 

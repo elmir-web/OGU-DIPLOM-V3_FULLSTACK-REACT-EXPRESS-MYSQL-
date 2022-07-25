@@ -1,6 +1,6 @@
-import Toast from "./../../../../../Toast";
+import Toast from './../../../../../Toast';
 
-import CreateTypeGSMService from "./CreateTypeGSM.Service";
+import CreateTypeGSMService from './CreateTypeGSM.Service';
 
 const CreateTypeGSMController = (
   dashboardComponentMount,
@@ -13,9 +13,9 @@ const CreateTypeGSMController = (
   setTimeout(() => {
     if (nameTypeGSM.length < 3 || nameTypeGSM.length > 100) {
       new Toast({
-        title: "Ошибка",
-        text: "Строка с названием типа ГСМ от 3 до 100 символов (включительно).",
-        theme: "danger",
+        title: 'Ошибка',
+        text: 'Строка с названием типа ГСМ от 3 до 100 символов (включительно).',
+        theme: 'danger',
         autohide: true,
         interval: 5000,
       });
@@ -26,9 +26,9 @@ const CreateTypeGSMController = (
 
     if (!Number.isFinite(Number(forKiloTypeGSM))) {
       new Toast({
-        title: "Ошибка",
-        text: "Строка с весом типа ГСМ должна быть числом.",
-        theme: "danger",
+        title: 'Ошибка',
+        text: 'Строка с весом типа ГСМ должна быть числом.',
+        theme: 'danger',
         autohide: true,
         interval: 5000,
       });
@@ -38,9 +38,9 @@ const CreateTypeGSMController = (
     }
 
     new Toast({
-      title: "Создание типа ГСМ",
-      text: "На сервер был отправлен запрос на создание типа ГСМ, ждите...",
-      theme: "light",
+      title: 'Создание типа ГСМ',
+      text: 'На сервер был отправлен запрос на создание типа ГСМ, ждите...',
+      theme: 'light',
       autohide: true,
       interval: 1000,
     });
@@ -56,9 +56,9 @@ const CreateTypeGSMController = (
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при создании типа ГСМ",
+          title: 'Ошибка при создании типа ГСМ',
           text: responseFetch,
-          theme: "danger",
+          theme: 'danger',
           autohide: true,
           interval: 3000,
         });
@@ -66,9 +66,9 @@ const CreateTypeGSMController = (
       }
 
       new Toast({
-        title: "Вас ждет успех!",
+        title: 'Вас ждет успех!',
         text: `${responseFetch}`,
-        theme: "success",
+        theme: 'success',
         autohide: true,
         interval: 3000,
       });

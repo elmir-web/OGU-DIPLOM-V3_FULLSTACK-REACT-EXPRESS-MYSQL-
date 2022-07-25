@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 *,
 *::before,
@@ -13,7 +13,7 @@ body,
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 // TOAST
@@ -119,7 +119,7 @@ body {
 }
 
 .toast__close {
-  content: "";
+  content: '';
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -175,10 +175,10 @@ body {
   appearance: none;
 }
 
-.text-field__input[type="search"]::-webkit-search-decoration,
-.text-field__input[type="search"]::-webkit-search-cancel-button,
-.text-field__input[type="search"]::-webkit-search-results-button,
-.text-field__input[type="search"]::-webkit-search-results-decoration {
+.text-field__input[type='search']::-webkit-search-decoration,
+.text-field__input[type='search']::-webkit-search-cancel-button,
+.text-field__input[type='search']::-webkit-search-results-button,
+.text-field__input[type='search']::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
 

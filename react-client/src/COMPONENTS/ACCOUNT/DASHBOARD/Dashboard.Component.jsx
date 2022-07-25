@@ -27,6 +27,9 @@ import ChangeTypeGSMComponent from './TYPESGSM/CHANGETYPEGSM/ChangeTypeGSM.Compo
 import RemoveTypeGSMComponent from './TYPESGSM/REMOVETYPEGSM/RemoveTypeGSM.Component';
 
 import VehiclesComponent from './VEHICLES/Vehicles.Component';
+import ChangeVehicleComponent from './VEHICLES/CHANGEVEHICLE/ChangeVehicle.Component';
+import CreateVehicleComponent from './VEHICLES/CREATEVEHICLE/CreateVehicle.Component';
+import RemoveVehicleComponent from './VEHICLES/REMOVEVEHICLE/RemoveVehicle.Component';
 
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
@@ -64,6 +67,13 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountChangeTypeGSM, setStatusMountChangeTypeGSM] =
     useState(null);
   const [statusMountRemoveTypeGSM, setStatusMountRemoveTypeGSM] =
+    useState(null);
+
+  const [statusMountCreateVehicle, setStatusMountCreateVehicle] =
+    useState(false);
+  const [statusMountChangeVehicle, setStatusMountChangeVehicle] =
+    useState(null);
+  const [statusMountRemoveVehicle, setStatusMountRemoveVehicle] =
     useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -161,6 +171,37 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           dashboardComponentMount={dashboardComponentMount}
           setStatusMountRemoveTypeGSM={setStatusMountRemoveTypeGSM}
           statusMountRemoveTypeGSM={statusMountRemoveTypeGSM}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountCreateVehicle === true ? (
+        <CreateVehicleComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateVehicle={setStatusMountCreateVehicle}
+          allAutoBase={allAutoBase}
+          typesGSM={typesGSM}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountChangeVehicle !== null ? (
+        <ChangeVehicleComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountChangeVehicle={statusMountChangeVehicle}
+          setStatusMountChangeVehicle={setStatusMountChangeVehicle}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountRemoveVehicle !== null ? (
+        <RemoveVehicleComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountRemoveVehicle={statusMountRemoveVehicle}
+          setStatusMountRemoveVehicle={setStatusMountRemoveVehicle}
         />
       ) : (
         ''
@@ -323,7 +364,17 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
               }
             />
 
-            <Route path='vehicles' element={<VehiclesComponent />} />
+            <Route
+              path='vehicles'
+              element={
+                <VehiclesComponent
+                  allVehicles={allVehicles}
+                  setStatusMountCreateVehicle={setStatusMountCreateVehicle}
+                  setStatusMountChangeVehicle={setStatusMountChangeVehicle}
+                  setStatusMountRemoveVehicle={setStatusMountRemoveVehicle}
+                />
+              }
+            />
 
             <Route path='accounts' element={<div>1</div>} />
           </Routes>

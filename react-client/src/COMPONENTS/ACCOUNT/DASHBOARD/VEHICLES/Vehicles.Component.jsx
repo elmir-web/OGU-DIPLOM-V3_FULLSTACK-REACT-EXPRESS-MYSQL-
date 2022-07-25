@@ -2,17 +2,25 @@ import React from 'react';
 
 import './Vehicles.Component.scss';
 
-import ChangeVehicleComponent from './CHANGEVEHICLE/ChangeVehicle.Component';
-import CreateVehicleComponent from './CREATEVEHICLE/CreateVehicle.Component';
-import RemoveVehicleComponent from './REMOVEVEHICLE/RemoveVehicle.Component';
-
-const Vehicles = () => {
+const Vehicles = ({
+  allVehicles,
+  setStatusMountCreateVehicle,
+  setStatusMountChangeVehicle,
+  setStatusMountRemoveVehicle,
+}) => {
   return (
     <div className='Vehicles'>
+      <button
+        className='beautiful-button beautiful-button-green'
+        style={{ marginBottom: '50px' }}
+        onClick={() => {
+          setStatusMountCreateVehicle(true);
+        }}
+      >
+        создать тип ГСМ
+      </button>
+
       <div>Vehicles</div>
-      <ChangeVehicleComponent />
-      <CreateVehicleComponent />
-      <RemoveVehicleComponent />
     </div>
   );
 };

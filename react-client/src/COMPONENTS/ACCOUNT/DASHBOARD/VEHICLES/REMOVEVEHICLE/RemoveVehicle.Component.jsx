@@ -4,7 +4,11 @@ import './RemoveVehicle.Component.scss';
 
 import RemoveVehicleController from './RemoveVehicle.Controller';
 
-const RemoveVehicle = () => {
+const RemoveVehicle = ({
+  dashboardComponentMount,
+  statusMountRemoveVehicle,
+  setStatusMountRemoveVehicle,
+}) => {
   return <div className='RemoveVehicle'>RemoveVehicle</div>;
 };
 
