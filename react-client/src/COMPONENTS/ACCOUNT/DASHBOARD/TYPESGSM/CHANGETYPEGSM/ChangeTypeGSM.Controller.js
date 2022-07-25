@@ -1,6 +1,6 @@
-import Toast from "./../../../../../Toast";
+import Toast from './../../../../../Toast';
 
-import ChangeTypeGSMService from "./ChangeAutoBase.Service";
+import ChangeTypeGSMService from './ChangeAutoBase.Service';
 
 const ChangeTypeGSMController = (
   dashboardComponentMount,
@@ -13,9 +13,9 @@ const ChangeTypeGSMController = (
   setTimeout(() => {
     if (nameTypeGSM.length < 3 || nameTypeGSM.length > 100) {
       new Toast({
-        title: "Ошибка",
-        text: "Строка с названием типа ГСМ от 3 до 100 символов (включительно).",
-        theme: "danger",
+        title: 'Ошибка',
+        text: 'Строка с названием типа ГСМ от 3 до 100 символов (включительно).',
+        theme: 'danger',
         autohide: true,
         interval: 5000,
       });
@@ -25,9 +25,9 @@ const ChangeTypeGSMController = (
     }
 
     new Toast({
-      title: "Редактирование типа ГСМ",
-      text: "На сервер был отправлен запрос на редактирование типа ГСМ, ждите...",
-      theme: "light",
+      title: 'Редактирование типа ГСМ',
+      text: 'На сервер был отправлен запрос на редактирование типа ГСМ, ждите...',
+      theme: 'light',
       autohide: true,
       interval: 1000,
     });
@@ -44,9 +44,9 @@ const ChangeTypeGSMController = (
 
       if (!ok && status === 400) {
         new Toast({
-          title: "Ошибка при редактировании типа ГСМ",
+          title: 'Ошибка при редактировании типа ГСМ',
           text: responseFetch,
-          theme: "danger",
+          theme: 'danger',
           autohide: true,
           interval: 3000,
         });
@@ -54,9 +54,9 @@ const ChangeTypeGSMController = (
       }
 
       new Toast({
-        title: "Вас ждет успех!",
+        title: 'Вас ждет успех!',
         text: `${responseFetch}`,
-        theme: "success",
+        theme: 'success',
         autohide: true,
         interval: 3000,
       });

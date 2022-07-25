@@ -192,6 +192,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           dashboardComponentMount={dashboardComponentMount}
           statusMountChangeVehicle={statusMountChangeVehicle}
           setStatusMountChangeVehicle={setStatusMountChangeVehicle}
+          allAutoBase={allAutoBase}
+          typesGSM={typesGSM}
         />
       ) : (
         ''
