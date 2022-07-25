@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import Toast from "../Toast";
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import Toast from '../Toast';
 
-import "./App.Component.scss";
+import './App.Component.scss';
 
-import MainPageComponent from "./MAINPAGE/MainPage.Component";
-import RegisterComponent from "./ACCOUNT/REGISTER/Register.Component";
-import AuthComponent from "./ACCOUNT/AUTH/Auth.Component";
-import DashboardComponent from "./ACCOUNT/DASHBOARD/Dashboard.Component";
+import MainPageComponent from './MAINPAGE/MainPage.Component';
+import RegisterComponent from './ACCOUNT/REGISTER/Register.Component';
+import AuthComponent from './ACCOUNT/AUTH/Auth.Component';
+import DashboardComponent from './ACCOUNT/DASHBOARD/Dashboard.Component';
 
-const { URL_BACKEND } = require("./../CONFIG.json");
+const { URL_BACKEND } = require('./../CONFIG.json');
 
 const getDataAccount = async ({ tempUserAuthCookie }) => {
   let responseFetch = await fetch(`${URL_BACKEND}/api/account/my-data`, {
-    method: "GET",
+    method: 'GET',
     headers: { Authorization: `Bearer ${tempUserAuthCookie}` },
   });
 
@@ -30,7 +30,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const tempUserAuthCookie = Cookies.get("GSM_DIPLOM_COOKIES_JWT");
+      const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
 
       if (tempUserAuthCookie !== undefined && dataAccount === null) {
         const { ok, status, responseFetch } = await getDataAccount({
@@ -41,52 +41,52 @@ const App = () => {
           setDataAccount(responseFetch);
 
           new Toast({
-            title: "Автоматическая авторизация",
+            title: 'Автоматическая авторизация',
             text: `Вы автоматически авторизировались. Если вы не в профиле, нажмите "Личный Кабинет"`,
-            theme: "info",
+            theme: 'info',
             autohide: true,
             interval: 10000,
           });
         } else {
           new Toast({
-            title: "Ошибка автоматической авторизации",
+            title: 'Ошибка автоматической авторизации',
             text: `Мы пытались автоматически вас авторизировать, но у нас не получилось. Авторизуйтесь используя логин и пароль`,
-            theme: "danger",
+            theme: 'danger',
             autohide: true,
             interval: 10000,
           });
 
           setDataAccount(null);
 
-          Cookies.remove("GSM_DIPLOM_COOKIES_JWT");
+          Cookies.remove('GSM_DIPLOM_COOKIES_JWT');
 
-          navigate("/");
+          navigate('/');
         }
       }
     })();
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
         <Route
-          path="*"
+          path='*'
           element={
             <MainPageComponent
-              error={{ status: true, message: "Такая страница не найдена" }}
+              error={{ status: true, message: 'Такая страница не найдена' }}
             />
           }
         />
 
-        <Route path="/" element={<MainPageComponent />} />
+        <Route path='/' element={<MainPageComponent />} />
 
         <Route
-          path="/account/register"
+          path='/account/register'
           element={<RegisterComponent dataAccount={dataAccount} />}
         />
 
         <Route
-          path="/account/login"
+          path='/account/login'
           element={
             <AuthComponent
               setDataAccount={setDataAccount}
@@ -96,7 +96,7 @@ const App = () => {
         />
 
         <Route
-          path="/account/dashboard/*"
+          path='/account/dashboard/*'
           element={
             <DashboardComponent
               dataAccount={dataAccount}

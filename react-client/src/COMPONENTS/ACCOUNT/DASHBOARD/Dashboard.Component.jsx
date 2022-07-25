@@ -1,43 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Link as RouterLink,
   Routes,
   Route,
   useNavigate,
-} from "react-router-dom";
-import Toast from "./../../../Toast";
-import Cookies from "js-cookie";
-import dashboardDataLoad from "./Dashboard.Service";
+} from 'react-router-dom';
+import Toast from './../../../Toast';
+import Cookies from 'js-cookie';
+import dashboardDataLoad from './Dashboard.Service';
 
-import "./Dashboard.Component.scss";
+import './Dashboard.Component.scss';
 
-import ProfileComponent from "./PROFILE/Profile.Component";
-import ChangeProfileComponent from "./PROFILE/CHANGEUPDATE/ChangeUpdate.Component";
+import ProfileComponent from './PROFILE/Profile.Component';
+import ChangeProfileComponent from './PROFILE/CHANGEUPDATE/ChangeUpdate.Component';
 
-import LoaderSpinerComponent from "./../../LOADERSPINER/LoaderSpiner.Component";
+import LoaderSpinerComponent from './../../LOADERSPINER/LoaderSpiner.Component';
 
-import AutoBaseComponent from "./AUTOBASE/AutoBase.Component";
-import CreateAutoBaseComponent from "./AUTOBASE/CREATEAUTOBASE/CreateAutoBase.Component";
-import ChangeAutoBaseComponent from "./AUTOBASE/CHANGEAUTOBASE/ChangeAutoBase.Component";
-import RemoveAutoBaseComponent from "./AUTOBASE/REMOVEAUTOBASE/RemoveAutoBase.Component";
+import AutoBaseComponent from './AUTOBASE/AutoBase.Component';
+import CreateAutoBaseComponent from './AUTOBASE/CREATEAUTOBASE/CreateAutoBase.Component';
+import ChangeAutoBaseComponent from './AUTOBASE/CHANGEAUTOBASE/ChangeAutoBase.Component';
+import RemoveAutoBaseComponent from './AUTOBASE/REMOVEAUTOBASE/RemoveAutoBase.Component';
 
-import TypesGSMComponent from "./TYPESGSM/TypesGSM.Component";
-import CreateTypeGSMComponent from "./TYPESGSM/CREATETYPEGSM/CreateTypeGSM.Component";
-import ChangeTypeGSMComponent from "./TYPESGSM/CHANGETYPEGSM/ChangeTypeGSM.Component";
-import RemoveTypeGSMComponent from "./TYPESGSM/REMOVETYPEGSM/RemoveTypeGSM.Component";
+import TypesGSMComponent from './TYPESGSM/TypesGSM.Component';
+import CreateTypeGSMComponent from './TYPESGSM/CREATETYPEGSM/CreateTypeGSM.Component';
+import ChangeTypeGSMComponent from './TYPESGSM/CHANGETYPEGSM/ChangeTypeGSM.Component';
+import RemoveTypeGSMComponent from './TYPESGSM/REMOVETYPEGSM/RemoveTypeGSM.Component';
 
-import FooterComponent from "../../MAINPAGE/FOOTER/Footer.Component";
+import VehiclesComponent from './VEHICLES/Vehicles.Component';
+
+import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/");
+    navigate('/');
 
     new Toast({
-      title: "Ошибка",
+      title: 'Ошибка',
       text: `Такого URL адреса не предусмотрено! Вы были переадресованы на главную!`,
-      theme: "danger",
+      theme: 'danger',
       autohide: true,
       interval: 10000,
     });
@@ -94,7 +96,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   useEffect(dashboardComponentMount, []);
 
   return (
-    <div className="Dashboard">
+    <div className='Dashboard'>
       {statusMountChangeProfile === true ? (
         <ChangeProfileComponent
           setStatusMountChangeProfile={setStatusMountChangeProfile}
@@ -103,7 +105,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           getDataAccount={getDataAccount}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountCreateAutoBase === true ? (
@@ -112,7 +114,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountChangeAutoBase !== null ? (
@@ -122,7 +124,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           statusMountChangeAutoBase={statusMountChangeAutoBase}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountRemoveAutoBase !== null ? (
@@ -132,7 +134,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           statusMountRemoveAutoBase={statusMountRemoveAutoBase}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountCreateTypeGSM === true ? (
@@ -141,7 +143,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           setStatusMountCreateTypeGSM={setStatusMountCreateTypeGSM}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountChangeTypeGSM !== null ? (
@@ -151,7 +153,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           statusMountChangeTypeGSM={statusMountChangeTypeGSM}
         />
       ) : (
-        ""
+        ''
       )}
 
       {statusMountRemoveTypeGSM !== null ? (
@@ -161,109 +163,109 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           statusMountRemoveTypeGSM={statusMountRemoveTypeGSM}
         />
       ) : (
-        ""
+        ''
       )}
 
-      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ""}
+      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
-      <header className="header">
-        <div className="central-container">
+      <header className='header'>
+        <div className='central-container'>
           <div
-            className="header__logo"
+            className='header__logo'
             onClick={() => {
-              window.open("http://osu.ru/", "_blank");
+              window.open('http://osu.ru/', '_blank');
             }}
           ></div>
 
-          <div className="header__center">
-            <nav className="header__nav">
+          <div className='header__center'>
+            <nav className='header__nav'>
               <ul>
                 <li>
-                  <RouterLink to="">Мой профиль</RouterLink>
+                  <RouterLink to=''>Мой профиль</RouterLink>
                 </li>
 
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="autobase">Автомобильные базы</RouterLink>
+                    <RouterLink to='autobase'>Автомобильные базы</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="types-gsm">Виды ГСМ</RouterLink>
+                    <RouterLink to='types-gsm'>Виды ГСМ</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="vehicles">Транспорт</RouterLink>
+                    <RouterLink to='vehicles'>Транспорт</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="accounts">Сотрудники</RouterLink>
+                    <RouterLink to='accounts'>Сотрудники</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 3 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="storehouse">Склад</RouterLink>
+                    <RouterLink to='storehouse'>Склад</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 3 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="records">Путевые листы</RouterLink>
+                    <RouterLink to='records'>Путевые листы</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 {dataAccount?.IDposition?.ID === 4 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to="carwork">Работа с автомобилем</RouterLink>
+                    <RouterLink to='carwork'>Работа с автомобилем</RouterLink>
                   </li>
                 ) : (
-                  ""
+                  ''
                 )}
               </ul>
             </nav>
           </div>
 
-          <div className="header__right">
+          <div className='header__right'>
             <button
-              className="header-dashboard"
+              className='header-dashboard'
               onClick={() => {
                 setLoadSpinerActive(true);
 
                 new Toast({
-                  title: "Ошибка",
+                  title: 'Ошибка',
                   text: `Вы вышли из аккаунта`,
-                  theme: "info",
+                  theme: 'info',
                   autohide: true,
                   interval: 2000,
                 });
 
                 setDataAccount(null);
-                Cookies.remove("GSM_DIPLOM_COOKIES_JWT");
+                Cookies.remove('GSM_DIPLOM_COOKIES_JWT');
 
                 setTimeout(() => {
                   window.location.href = `/`;
@@ -276,10 +278,10 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         </div>
       </header>
 
-      <main className="main">
-        <div className="central-container">
+      <main className='main'>
+        <div className='central-container'>
           <Routes>
-            <Route path="*" element={<DashboardNotFound />} />
+            <Route path='*' element={<DashboardNotFound />} />
 
             <Route
               index
@@ -298,7 +300,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
             />
 
             <Route
-              path="autobase"
+              path='autobase'
               element={
                 <AutoBaseComponent
                   allAutoBase={allAutoBase}
@@ -310,7 +312,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
             />
 
             <Route
-              path="types-gsm"
+              path='types-gsm'
               element={
                 <TypesGSMComponent
                   typesGSM={typesGSM}
@@ -321,9 +323,9 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
               }
             />
 
-            <Route path="vehicles" element={<div>1</div>} />
+            <Route path='vehicles' element={<VehiclesComponent />} />
 
-            <Route path="accounts" element={<div>1</div>} />
+            <Route path='accounts' element={<div>1</div>} />
           </Routes>
         </div>
       </main>

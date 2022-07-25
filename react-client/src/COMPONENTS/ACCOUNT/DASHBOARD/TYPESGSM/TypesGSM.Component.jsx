@@ -1,8 +1,8 @@
-import React from "react";
-import { RiDeleteBin4Line } from "react-icons/ri";
-import { MdOutlineCreate } from "react-icons/md";
+import React from 'react';
+import { RiDeleteBin4Line } from 'react-icons/ri';
+import { MdOutlineCreate } from 'react-icons/md';
 
-import "./TypesGSM.Component.scss";
+import './TypesGSM.Component.scss';
 
 const TypesGSM = ({
   typesGSM,
@@ -11,10 +11,10 @@ const TypesGSM = ({
   setStatusMountRemoveTypeGSM,
 }) => {
   return (
-    <div className="TypesGSM">
+    <div className='TypesGSM'>
       <button
-        className="beautiful-button beautiful-button-green"
-        style={{ marginBottom: "50px" }}
+        className='beautiful-button beautiful-button-green'
+        style={{ marginBottom: '50px' }}
         onClick={() => {
           setStatusMountCreateTypeGSM(true);
         }}
@@ -22,7 +22,7 @@ const TypesGSM = ({
         создать тип ГСМ
       </button>
 
-      <div className="table-wrapper">
+      <div className='table-wrapper'>
         <table>
           <thead>
             <tr>
@@ -40,9 +40,9 @@ const TypesGSM = ({
                     <td>{typegsm.ID}</td>
                     <td>{typegsm.Name}</td>
                     <td>{typegsm.ForKilo}</td>
-                    <td className="table-buttons">
+                    <td className='table-buttons'>
                       <button
-                        className="table-button beautiful-button-blue"
+                        className='table-button beautiful-button-blue'
                         onClick={() => {
                           setStatusMountChangeTypeGSM(typegsm);
                         }}
@@ -51,7 +51,7 @@ const TypesGSM = ({
                       </button>
 
                       <button
-                        className="table-button beautiful-button-red"
+                        className='table-button beautiful-button-red'
                         onClick={() => {
                           setStatusMountRemoveTypeGSM(typegsm);
                         }}
@@ -64,7 +64,7 @@ const TypesGSM = ({
               })
             ) : (
               <tr>
-                <td colSpan="3">Типы ГСМ не найдены</td>
+                <td colSpan='3'>Типы ГСМ не найдены</td>
               </tr>
             )}
           </tbody>
