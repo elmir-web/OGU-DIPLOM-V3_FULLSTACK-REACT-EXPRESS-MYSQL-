@@ -1,16 +1,16 @@
-import Cookies from "js-cookie";
-const { URL_BACKEND } = require("./../../../../../CONFIG.json");
+import Cookies from 'js-cookie';
+const { URL_BACKEND } = require('./../../../../../CONFIG.json');
 
 const RemoveTypeGSMService = async (
   dashboardComponentMount,
   { statusMountRemoveTypeGSM }
 ) => {
-  const tempUserAuthCookie = Cookies.get("GSM_DIPLOM_COOKIES_JWT");
+  const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
 
   let responseFetch = await fetch(
     `${URL_BACKEND}/api/type-gsm/delete/${statusMountRemoveTypeGSM.ID}`,
     {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${tempUserAuthCookie}`,
       },

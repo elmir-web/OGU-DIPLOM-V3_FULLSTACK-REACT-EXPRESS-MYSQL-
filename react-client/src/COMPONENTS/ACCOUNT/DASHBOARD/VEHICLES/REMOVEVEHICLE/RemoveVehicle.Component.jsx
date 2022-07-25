@@ -37,6 +37,38 @@ const RemoveVehicle = ({
             <p className='modal-window__question-text'>
               Вы действительно хотите удалить транспорт?
             </p>
+            <p className='modal-window__question-data'>
+              Модель: {statusMountRemoveVehicle.Model}
+              <br />
+              Гос.номер: {statusMountRemoveVehicle.Number}
+            </p>
+          </div>
+
+          <div className='remove-object-buttons'>
+            <button
+              className='remove-object-buttons__no beautiful-button-green'
+              onClick={() => {
+                setStatusMountRemoveVehicle(null);
+              }}
+            >
+              НЕТ
+            </button>
+
+            <button
+              className='remove-object-buttons__yes beautiful-button-red'
+              onClick={() => {
+                RemoveVehicleController(
+                  dashboardComponentMount,
+                  {
+                    statusMountRemoveVehicle,
+                  },
+                  setLoadSpinerActive,
+                  setStatusMountRemoveVehicle
+                );
+              }}
+            >
+              да
+            </button>
           </div>
         </main>
       </div>
