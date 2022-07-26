@@ -29,10 +29,6 @@ const ChangeVehicle = ({
   const [liters, setLiters] = useState(statusMountChangeVehicle.Liters);
   const [expense, setExpense] = useState(statusMountChangeVehicle.Expense);
 
-  React.useEffect(() => {
-    console.log(statusMountChangeVehicle);
-  }, []);
-
   return (
     <div className='ChangeVehicle modal-window'>
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}

@@ -1,58 +1,48 @@
 import React, { useState } from 'react';
 
-import './ChangeWorkerAccount.Component.scss';
-
-import ChangeWorkerAccountController from './ChangeWorkerAccount.Controller';
+import './CreateWorkerAccount.Component.scss';
 
 import LoaderSpinerComponent from './../../../../LOADERSPINER/LoaderSpiner.Component';
 
-const ChangeWorkerAccount = ({
+import CreateWorkerAccountController from './CreateWorkerAccount.Controller';
+
+const CreateWorkerAccount = ({
   dashboardComponentMount,
-  statusMountChangeWorkerAccount,
-  setStatusMountChangeWorkerAccount,
+  setStatusMountCreateWorkerAccount,
   allAutoBase,
   allPositions,
 }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
-  const [IDWorker, setIDWorker] = useState(statusMountChangeWorkerAccount.ID);
-  const [surName, setSurName] = useState(
-    statusMountChangeWorkerAccount.SurName
-  );
-  const [name, setName] = useState(statusMountChangeWorkerAccount.Name);
-  const [middleName, setMiddleName] = useState(
-    statusMountChangeWorkerAccount.MiddleName
-  );
-  const [loginUser, setLoginUser] = useState(
-    statusMountChangeWorkerAccount.LoginUser
-  );
-  const [passwordUser, setPasswordUser] = useState(
-    statusMountChangeWorkerAccount.PasswordUser
-  );
+  const [surName, setSurName] = useState(``);
+  const [name, setName] = useState(``);
+  const [middleName, setMiddleName] = useState(``);
+  const [loginUser, setLoginUser] = useState(``);
+  const [passwordUser, setPasswordUser] = useState(``);
   const [idAutoBase, setIDdAutoBase] = useState(
-    statusMountChangeWorkerAccount.IDautobases
+    allAutoBase[0]?.ID !== undefined || allAutoBase[0]?.ID !== null
+      ? allAutoBase[0]?.ID
+      : 0
   );
   const [idPosition, setIDPosition] = useState(
-    statusMountChangeWorkerAccount.IDposition
+    allPositions[0]?.ID !== undefined || allPositions[0]?.ID !== null
+      ? allPositions[0]?.ID
+      : 0
   );
 
-  React.useEffect(() => {
-    console.log(statusMountChangeWorkerAccount);
-  }, []);
-
   return (
-    <div className='ChangeWorkerAccount modal-window'>
+    <div className='CreateWorkerAccount modal-window'>
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
       <div className='modal-window__popup-form'>
         <header className='modal-window__header'>
           <div className='modal-window__title'>
-            <span>Редактирование аккаунта ID: {IDWorker}</span>
+            <span>Создание аккаунта</span>
           </div>
 
           <button
             className='modal-window__button-close'
             onClick={() => {
-              setStatusMountChangeWorkerAccount(null);
+              setStatusMountCreateWorkerAccount(false);
             }}
           >
             X
@@ -149,7 +139,7 @@ const ChangeWorkerAccount = ({
               onChange={(event) => {
                 setIDdAutoBase(event.target.value);
               }}
-              value={idAutoBase?.ID !== undefined ? idAutoBase.ID : idAutoBase}
+              value={idAutoBase}
             >
               {allAutoBase.map((autobase) => {
                 return (
@@ -173,7 +163,7 @@ const ChangeWorkerAccount = ({
               onChange={(event) => {
                 setIDPosition(event.target.value);
               }}
-              value={idPosition?.ID !== undefined ? idPosition.ID : idPosition}
+              value={idPosition}
             >
               {allPositions.map((position) => {
                 return (
@@ -191,10 +181,9 @@ const ChangeWorkerAccount = ({
           <button
             className='beautiful-button beautiful-button-green'
             onClick={() => {
-              ChangeWorkerAccountController(
+              CreateWorkerAccountController(
                 dashboardComponentMount,
                 {
-                  IDWorker,
                   surName,
                   name,
                   middleName,
@@ -204,11 +193,11 @@ const ChangeWorkerAccount = ({
                   idPosition,
                 },
                 setLoadSpinerActive,
-                setStatusMountChangeWorkerAccount
+                setStatusMountCreateWorkerAccount
               );
             }}
           >
-            обновить информацию
+            создать
           </button>
         </main>
       </div>
@@ -216,4 +205,4 @@ const ChangeWorkerAccount = ({
   );
 };
 
-export default ChangeWorkerAccount;
+export default CreateWorkerAccount;

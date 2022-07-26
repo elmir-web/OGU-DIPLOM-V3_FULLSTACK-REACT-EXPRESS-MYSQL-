@@ -6,12 +6,6 @@ import LoaderSpinerComponent from './../../../../LOADERSPINER/LoaderSpiner.Compo
 
 import CreateVehicleController from './CreateVehicle.Controller';
 
-// const options = [
-//   { value: 'chocolate', label: 'Chocolate' },
-//   { value: 'strawberry', label: 'Strawberry' },
-//   { value: 'vanilla', label: 'Vanilla' },
-// ];
-
 const CreateVehicle = ({
   dashboardComponentMount,
   setStatusMountCreateVehicle,

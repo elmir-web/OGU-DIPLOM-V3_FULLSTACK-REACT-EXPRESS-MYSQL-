@@ -31,6 +31,11 @@ import ChangeVehicleComponent from './VEHICLES/CHANGEVEHICLE/ChangeVehicle.Compo
 import CreateVehicleComponent from './VEHICLES/CREATEVEHICLE/CreateVehicle.Component';
 import RemoveVehicleComponent from './VEHICLES/REMOVEVEHICLE/RemoveVehicle.Component';
 
+import WorkerAccountComponent from './WORKERSACCOUNTS/WorkerAccount.Component';
+import ChangeWorkerAccountComponent from './WORKERSACCOUNTS/CHANGEWORKERACCOUNT/ChangeWorkerAccount.Component';
+import CreateWorkerAccountComponent from './WORKERSACCOUNTS/CREATEWORKERACCOUNT/CreateWorkerAccount.Component';
+import RemoveWorkerAccountComponent from './WORKERSACCOUNTS/REMOVEWORKERACCOUNT/RemoveWorkerAccount.Component';
+
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
@@ -74,6 +79,13 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountChangeVehicle, setStatusMountChangeVehicle] =
     useState(null);
   const [statusMountRemoveVehicle, setStatusMountRemoveVehicle] =
+    useState(null);
+
+  const [statusMountCreateWorkerAccount, setStatusMountCreateWorkerAccount] =
+    useState(false);
+  const [statusMountChangeWorkerAccount, setStatusMountChangeWorkerAccount] =
+    useState(null);
+  const [statusMountRemoveWorkerAccount, setStatusMountRemoveWorkerAccount] =
     useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -204,6 +216,39 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           dashboardComponentMount={dashboardComponentMount}
           statusMountRemoveVehicle={statusMountRemoveVehicle}
           setStatusMountRemoveVehicle={setStatusMountRemoveVehicle}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountCreateWorkerAccount === true ? (
+        <CreateWorkerAccountComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateWorkerAccount={setStatusMountCreateWorkerAccount}
+          allAutoBase={allAutoBase}
+          allPositions={allPositions}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountChangeWorkerAccount !== null ? (
+        <ChangeWorkerAccountComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountChangeWorkerAccount={statusMountChangeWorkerAccount}
+          setStatusMountChangeWorkerAccount={setStatusMountChangeWorkerAccount}
+          allAutoBase={allAutoBase}
+          allPositions={allPositions}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountRemoveWorkerAccount !== null ? (
+        <RemoveWorkerAccountComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountRemoveWorkerAccount={statusMountRemoveWorkerAccount}
+          setStatusMountRemoveWorkerAccount={setStatusMountRemoveWorkerAccount}
         />
       ) : (
         ''
@@ -378,7 +423,23 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
               }
             />
 
-            <Route path='accounts' element={<div>1</div>} />
+            <Route
+              path='accounts'
+              element={
+                <WorkerAccountComponent
+                  allAccounts={allAccounts}
+                  setStatusMountCreateWorkerAccount={
+                    setStatusMountCreateWorkerAccount
+                  }
+                  setStatusMountChangeWorkerAccount={
+                    setStatusMountChangeWorkerAccount
+                  }
+                  setStatusMountRemoveWorkerAccount={
+                    setStatusMountRemoveWorkerAccount
+                  }
+                />
+              }
+            />
           </Routes>
         </div>
       </main>

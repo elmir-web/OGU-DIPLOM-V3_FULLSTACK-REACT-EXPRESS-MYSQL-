@@ -1,20 +1,28 @@
 import Toast from './../../../../../Toast';
 
-import CreateVehicleService from './CreateVehicle.Service';
+import CreateWorkerAccountService from './CreateWorkerAccount.Service';
 
-const CreateVehicleController = async (
+const CreateWorkerAccountController = (
   dashboardComponentMount,
-  { model, number, idAutoBase, idTypeGSM, kilometrs, liters, expense },
+  {
+    surName,
+    name,
+    middleName,
+    loginUser,
+    passwordUser,
+    idAutoBase,
+    idPosition,
+  },
   setLoadSpinerActive,
-  setStatusMountCreateVehicle
+  setStatusMountCreateWorkerAccount
 ) => {
   setLoadSpinerActive(true);
 
   setTimeout(() => {
-    if (model.length < 3 || model.length > 100) {
+    if (surName.length < 3 || surName.length > 50) {
       new Toast({
         title: 'Ошибка',
-        text: 'Строка с моделью транспорта от 3 до 100 символов (включительно).',
+        text: 'Строка с фамилией от 3 до 50 символов (включительно).',
         theme: 'danger',
         autohide: true,
         interval: 5000,
@@ -24,10 +32,10 @@ const CreateVehicleController = async (
       return;
     }
 
-    if (number.length < 3 || number.length > 100) {
+    if (name.length < 3 || name.length > 50) {
       new Toast({
         title: 'Ошибка',
-        text: 'Строка с гос.номером транспорта от 3 до 100 символов (включительно).',
+        text: 'Строка с именем от 3 до 50 символов (включительно).',
         theme: 'danger',
         autohide: true,
         interval: 5000,
@@ -37,10 +45,10 @@ const CreateVehicleController = async (
       return;
     }
 
-    if (!Number.isFinite(Number(kilometrs))) {
+    if (middleName.length < 3 || middleName.length > 50) {
       new Toast({
         title: 'Ошибка',
-        text: 'Строка с пробегом должна быть числом.',
+        text: 'Строка с отчеством от 3 до 50 символов (включительно).',
         theme: 'danger',
         autohide: true,
         interval: 5000,
@@ -50,10 +58,10 @@ const CreateVehicleController = async (
       return;
     }
 
-    if (!Number.isFinite(Number(liters))) {
+    if (loginUser.length < 3 || loginUser.length > 30) {
       new Toast({
         title: 'Ошибка',
-        text: 'Строка с литрами должна быть числом.',
+        text: 'Строка с логином от 3 до 30 символов (включительно).',
         theme: 'danger',
         autohide: true,
         interval: 5000,
@@ -63,10 +71,10 @@ const CreateVehicleController = async (
       return;
     }
 
-    if (!Number.isFinite(Number(expense))) {
+    if (passwordUser.length < 3 || passwordUser.length > 30) {
       new Toast({
         title: 'Ошибка',
-        text: 'Строка с расходом должна быть числом.',
+        text: 'Строка с паролем от 3 до 30 символов (включительно).',
         theme: 'danger',
         autohide: true,
         interval: 5000,
@@ -85,14 +93,22 @@ const CreateVehicleController = async (
     });
 
     setTimeout(async () => {
-      const { ok, status, responseFetch } = await CreateVehicleService(
+      const { ok, status, responseFetch } = await CreateWorkerAccountService(
         dashboardComponentMount,
-        { model, number, idAutoBase, idTypeGSM, kilometrs, liters, expense }
+        {
+          surName,
+          name,
+          middleName,
+          loginUser,
+          passwordUser,
+          idAutoBase,
+          idPosition,
+        }
       );
 
       if (!ok && status === 400) {
         new Toast({
-          title: 'Ошибка при создании транспорта',
+          title: 'Ошибка при создании аккаунта',
           text: responseFetch,
           theme: 'danger',
           autohide: true,
@@ -110,9 +126,9 @@ const CreateVehicleController = async (
       });
 
       setLoadSpinerActive(false);
-      setStatusMountCreateVehicle(false);
+      setStatusMountCreateWorkerAccount(false);
     }, 1000);
   }, 1000);
 };
 
-export default CreateVehicleController;
+export default CreateWorkerAccountController;

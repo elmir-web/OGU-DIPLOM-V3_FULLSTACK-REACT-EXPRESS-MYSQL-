@@ -2,24 +2,24 @@ import React from 'react';
 import { RiDeleteBin4Line } from 'react-icons/ri';
 import { MdOutlineCreate } from 'react-icons/md';
 
-import './Vehicles.Component.scss';
+import './WorkerAccount.Component.scss';
 
-const Vehicles = ({
-  allVehicles,
-  setStatusMountCreateVehicle,
-  setStatusMountChangeVehicle,
-  setStatusMountRemoveVehicle,
+const WorkerAccount = ({
+  allAccounts,
+  setStatusMountCreateWorkerAccount,
+  setStatusMountChangeWorkerAccount,
+  setStatusMountRemoveWorkerAccount,
 }) => {
   return (
-    <div className='Vehicles'>
+    <div className='WorkerAccount'>
       <button
         className='beautiful-button beautiful-button-green'
         style={{ marginBottom: '50px' }}
         onClick={() => {
-          setStatusMountCreateVehicle(true);
+          setStatusMountCreateWorkerAccount(true);
         }}
       >
-        создать тип ГСМ
+        создать аккаунт сотрудника
       </button>
 
       <div className='table-wrapper'>
@@ -27,34 +27,34 @@ const Vehicles = ({
           <thead>
             <tr>
               <th>ID</th>
-              <th>Модель</th>
-              <th>Гос.номер</th>
-              <th>Автомобильная база</th>
-              <th>Тип ГСМ</th>
-              <th>Пробег</th>
-              <th>Топливо</th>
-              <th>Расход</th>
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Отчество</th>
+              <th>Логин</th>
+              <th>Пароль</th>
+              <th>АвтоБаза</th>
+              <th>Роль</th>
               <th>Действие</th>
             </tr>
           </thead>
           <tbody>
-            {allVehicles.length ? (
-              allVehicles.map((vehicle) => {
+            {allAccounts.length ? (
+              allAccounts.map((account) => {
                 return (
-                  <tr key={vehicle.ID}>
-                    <td>{vehicle.ID}</td>
-                    <td>{vehicle.Model}</td>
-                    <td>{vehicle.Number}</td>
-                    <td>{vehicle.IDautobase.Name}</td>
-                    <td>{vehicle.IDtypegsm.Name}</td>
-                    <td>{vehicle.Kilometrs}</td>
-                    <td>{vehicle.Liters}</td>
-                    <td>{vehicle.Expense}</td>
+                  <tr key={account.ID}>
+                    <td>{account.ID}</td>
+                    <td>{account.SurName}</td>
+                    <td>{account.Name}</td>
+                    <td>{account.MiddleName}</td>
+                    <td>{account.LoginUser}</td>
+                    <td>{account.PasswordUser}</td>
+                    <td>{account.IDautobases.Name}</td>
+                    <td>{account.IDposition.Name}</td>
                     <td className='table-buttons'>
                       <button
                         className='table-button beautiful-button-blue'
                         onClick={() => {
-                          setStatusMountChangeVehicle(vehicle);
+                          setStatusMountChangeWorkerAccount(account);
                         }}
                       >
                         <MdOutlineCreate />
@@ -63,7 +63,7 @@ const Vehicles = ({
                       <button
                         className='table-button beautiful-button-red'
                         onClick={() => {
-                          setStatusMountRemoveVehicle(vehicle);
+                          setStatusMountRemoveWorkerAccount(account);
                         }}
                       >
                         <RiDeleteBin4Line />
@@ -74,7 +74,7 @@ const Vehicles = ({
               })
             ) : (
               <tr>
-                <td colSpan='9'>Транспорт не найден</td>
+                <td colSpan='9'>Аккаунты сотрудников не найдены</td>
               </tr>
             )}
           </tbody>
@@ -84,4 +84,4 @@ const Vehicles = ({
   );
 };
 
-export default Vehicles;
+export default WorkerAccount;

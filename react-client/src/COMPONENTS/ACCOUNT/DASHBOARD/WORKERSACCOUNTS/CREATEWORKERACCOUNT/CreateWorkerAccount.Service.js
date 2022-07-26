@@ -1,29 +1,19 @@
 import Cookies from 'js-cookie';
 const { URL_BACKEND } = require('./../../../../../CONFIG.json');
 
-const ChangeWorkerAccountService = async (
+const CreateWorkerAccountService = async (
   dashboardComponentMount,
-  {
-    IDWorker,
-    surName,
-    name,
-    middleName,
-    loginUser,
-    passwordUser,
-    idAutoBase,
-    idPosition,
-  }
+  { surName, name, middleName, loginUser, passwordUser, idAutoBase, idPosition }
 ) => {
   const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
 
-  let responseFetch = await fetch(`${URL_BACKEND}/api/account/change`, {
-    method: 'PUT',
+  let responseFetch = await fetch(`${URL_BACKEND}/api/account/create`, {
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${tempUserAuthCookie}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      ID: IDWorker,
       SurName: surName,
       Name: name,
       MiddleName: middleName,
@@ -42,4 +32,4 @@ const ChangeWorkerAccountService = async (
   return { ok, status, responseFetch };
 };
 
-export default ChangeWorkerAccountService;
+export default CreateWorkerAccountService;
