@@ -1,20 +1,43 @@
-import React from "react";
-import { RiDeleteBin4Line } from "react-icons/ri";
-import { MdOutlineCreate } from "react-icons/md";
+import React, { useEffect } from 'react';
+import { RiDeleteBin4Line } from 'react-icons/ri';
+import { MdOutlineCreate } from 'react-icons/md';
+import Toast from './../../../../Toast';
+import { useNavigate } from 'react-router-dom';
 
-import "./AutoBase.Component.scss";
+import './AutoBase.Component.scss';
 
 const AutoBase = ({
   allAutoBase,
   setStatusMountCreateAutoBase,
   setStatusMountChangeAutoBase,
   setStatusMountRemoveAutoBase,
+  dataAccount,
 }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      dataAccount?.IDposition?.ID !== 2 &&
+      dataAccount?.IDposition?.ID !== 1
+    ) {
+      new Toast({
+        title: 'Ошибка получении доступа',
+        text: `У вас нет доступа к данному функционалу!`,
+        theme: 'danger',
+        autohide: true,
+        interval: 3000,
+      });
+
+      navigate(`/account/dashboard/`);
+      return;
+    }
+  }, []);
+
   return (
-    <div className="AutoBase">
+    <div className='AutoBase'>
       <button
-        className="beautiful-button beautiful-button-green"
-        style={{ marginBottom: "50px" }}
+        className='beautiful-button beautiful-button-green'
+        style={{ marginBottom: '50px' }}
         onClick={() => {
           setStatusMountCreateAutoBase(true);
         }}
@@ -22,7 +45,7 @@ const AutoBase = ({
         создать автомобильную базу
       </button>
 
-      <div className="table-wrapper">
+      <div className='table-wrapper'>
         <table>
           <thead>
             <tr>
@@ -38,9 +61,9 @@ const AutoBase = ({
                   <tr key={itemAutoBase.ID}>
                     <td>{itemAutoBase.ID}</td>
                     <td>{itemAutoBase.Name}</td>
-                    <td className="table-buttons">
+                    <td className='table-buttons'>
                       <button
-                        className="table-button beautiful-button-blue"
+                        className='table-button beautiful-button-blue'
                         onClick={() => {
                           setStatusMountChangeAutoBase(itemAutoBase);
                         }}
@@ -49,7 +72,7 @@ const AutoBase = ({
                       </button>
 
                       <button
-                        className="table-button beautiful-button-red"
+                        className='table-button beautiful-button-red'
                         onClick={() => {
                           setStatusMountRemoveAutoBase(itemAutoBase);
                         }}
@@ -62,7 +85,7 @@ const AutoBase = ({
               })
             ) : (
               <tr>
-                <td colSpan="3">Автомобильные базы не найдены</td>
+                <td colSpan='3'>Автомобильные базы не найдены</td>
               </tr>
             )}
           </tbody>

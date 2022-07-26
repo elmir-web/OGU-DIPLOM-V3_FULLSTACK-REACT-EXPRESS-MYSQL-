@@ -9,6 +9,7 @@ const RemoveVehicleController = async (
   setStatusMountRemoveVehicle
 ) => {
   setLoadSpinerActive(true);
+
   setTimeout(() => {
     new Toast({
       title: 'Удаление транспорта',

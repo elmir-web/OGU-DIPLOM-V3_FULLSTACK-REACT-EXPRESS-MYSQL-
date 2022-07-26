@@ -272,6 +272,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   <RouterLink to=''>Мой профиль</RouterLink>
                 </li>
 
+                {/* админ */}
                 {dataAccount?.IDposition?.ID === 2 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
@@ -307,7 +308,9 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 ) : (
                   ''
                 )}
+                {/* админ */}
 
+                {/* подписант */}
                 {dataAccount?.IDposition?.ID === 3 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
@@ -325,7 +328,9 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 ) : (
                   ''
                 )}
+                {/* подписант */}
 
+                {/* водитель */}
                 {dataAccount?.IDposition?.ID === 4 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
@@ -334,6 +339,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 ) : (
                   ''
                 )}
+                {/* водитель */}
               </ul>
             </nav>
           </div>
@@ -387,6 +393,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
               }
             />
 
+            {/* админ */}
             <Route
               path='autobase'
               element={
@@ -395,6 +402,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountCreateAutoBase={setStatusMountCreateAutoBase}
                   setStatusMountChangeAutoBase={setStatusMountChangeAutoBase}
                   setStatusMountRemoveAutoBase={setStatusMountRemoveAutoBase}
+                  dataAccount={dataAccount}
                 />
               }
             />
@@ -407,6 +415,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountCreateTypeGSM={setStatusMountCreateTypeGSM}
                   setStatusMountChangeTypeGSM={setStatusMountChangeTypeGSM}
                   setStatusMountRemoveTypeGSM={setStatusMountRemoveTypeGSM}
+                  dataAccount={dataAccount}
                 />
               }
             />
@@ -419,6 +428,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountCreateVehicle={setStatusMountCreateVehicle}
                   setStatusMountChangeVehicle={setStatusMountChangeVehicle}
                   setStatusMountRemoveVehicle={setStatusMountRemoveVehicle}
+                  dataAccount={dataAccount}
                 />
               }
             />
@@ -437,9 +447,17 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountRemoveWorkerAccount={
                     setStatusMountRemoveWorkerAccount
                   }
+                  dataAccount={dataAccount}
                 />
               }
             />
+            {/* админ */}
+
+            {/* подписант */}
+            {/* подписант */}
+
+            {/* водитель */}
+            {/* водитель */}
           </Routes>
         </div>
       </main>

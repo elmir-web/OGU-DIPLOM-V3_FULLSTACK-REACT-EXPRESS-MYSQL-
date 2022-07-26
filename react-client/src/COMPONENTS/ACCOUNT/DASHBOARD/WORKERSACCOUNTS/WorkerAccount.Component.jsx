@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RiDeleteBin4Line } from 'react-icons/ri';
 import { MdOutlineCreate } from 'react-icons/md';
+import Toast from './../../../../Toast';
+import { useNavigate } from 'react-router-dom';
 
 import './WorkerAccount.Component.scss';
 
@@ -9,7 +11,25 @@ const WorkerAccount = ({
   setStatusMountCreateWorkerAccount,
   setStatusMountChangeWorkerAccount,
   setStatusMountRemoveWorkerAccount,
+  dataAccount,
 }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (dataAccount?.IDposition.ID !== 1 && dataAccount?.IDposition.ID !== 2) {
+      new Toast({
+        title: 'Ошибка получении доступа',
+        text: `У вас нет доступа к данному функционалу!`,
+        theme: 'danger',
+        autohide: true,
+        interval: 3000,
+      });
+
+      navigate(`/account/dashboard/`);
+      return;
+    }
+  }, []);
+
   return (
     <div className='WorkerAccount'>
       <button
