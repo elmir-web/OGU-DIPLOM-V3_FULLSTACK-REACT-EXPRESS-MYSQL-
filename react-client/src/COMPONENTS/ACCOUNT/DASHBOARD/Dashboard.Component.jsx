@@ -36,6 +36,11 @@ import ChangeWorkerAccountComponent from './WORKERSACCOUNTS/CHANGEWORKERACCOUNT/
 import CreateWorkerAccountComponent from './WORKERSACCOUNTS/CREATEWORKERACCOUNT/CreateWorkerAccount.Component';
 import RemoveWorkerAccountComponent from './WORKERSACCOUNTS/REMOVEWORKERACCOUNT/RemoveWorkerAccount.Component';
 
+import StoreHouseComponent from './STOREHOUSE/StoreHouse.Component';
+import ChangeStoreHouseComponent from './STOREHOUSE/CHANGESTOREHOUSE/ChangeStoreHouse.Component';
+import CreateStoreHouseComponent from './STOREHOUSE/CREATESTOREHOUSE/CreateStoreHouse.Component';
+import RemoveStoreHouseComponent from './STOREHOUSE/REMOVESTOREHOUSE/RemoveStoreHouse.Component';
+
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
@@ -86,6 +91,13 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountChangeWorkerAccount, setStatusMountChangeWorkerAccount] =
     useState(null);
   const [statusMountRemoveWorkerAccount, setStatusMountRemoveWorkerAccount] =
+    useState(null);
+
+  const [statusMountCreateStoreHouseItem, setStatusMountCreateStoreHouseItem] =
+    useState(false);
+  const [statusMountChangeStoreHouseItem, setStatusMountChangeStoreHouseItem] =
+    useState(null);
+  const [statusMountRemoveStoreHouseItem, setStatusMountRemoveStoreHouseItem] =
     useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -255,6 +267,18 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       )}
 
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
+
+      {statusMountCreateStoreHouseItem === true ? (
+        <CreateStoreHouseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateStoreHouseItem={
+            setStatusMountCreateStoreHouseItem
+          }
+          typesGSM={typesGSM}
+        />
+      ) : (
+        ''
+      )}
 
       <header className='header'>
         <div className='central-container'>
@@ -454,6 +478,24 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
             {/* админ */}
 
             {/* подписант */}
+            <Route
+              path='storehouse'
+              element={
+                <StoreHouseComponent
+                  storeHouseItems={storeHouseItems}
+                  setStatusMountCreateStoreHouseItem={
+                    setStatusMountCreateStoreHouseItem
+                  }
+                  setStatusMountChangeStoreHouseItem={
+                    setStatusMountChangeStoreHouseItem
+                  }
+                  setStatusMountRemoveStoreHouseItem={
+                    setStatusMountRemoveStoreHouseItem
+                  }
+                  dataAccount={dataAccount}
+                />
+              }
+            />
             {/* подписант */}
 
             {/* водитель */}

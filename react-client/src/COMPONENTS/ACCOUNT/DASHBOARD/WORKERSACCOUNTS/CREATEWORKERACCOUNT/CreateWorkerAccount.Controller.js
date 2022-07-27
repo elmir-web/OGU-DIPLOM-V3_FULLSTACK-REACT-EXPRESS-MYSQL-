@@ -85,8 +85,8 @@ const CreateWorkerAccountController = (
     }
 
     new Toast({
-      title: 'Создание транспорта',
-      text: 'На сервер был отправлен запрос на создание транспорта, ждите...',
+      title: 'Создание аккаунта',
+      text: 'На сервер был отправлен запрос на создание аккаунта, ждите...',
       theme: 'light',
       autohide: true,
       interval: 1000,
