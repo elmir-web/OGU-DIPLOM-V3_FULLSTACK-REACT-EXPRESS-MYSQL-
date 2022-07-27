@@ -35,10 +35,6 @@ const ChangeWorkerAccount = ({
     statusMountChangeWorkerAccount.IDposition
   );
 
-  React.useEffect(() => {
-    console.log(statusMountChangeWorkerAccount);
-  }, []);
-
   return (
     <div className='ChangeWorkerAccount modal-window'>
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}

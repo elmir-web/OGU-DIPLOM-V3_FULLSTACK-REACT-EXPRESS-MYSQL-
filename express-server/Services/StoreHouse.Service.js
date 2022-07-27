@@ -3,6 +3,14 @@ const axios = require(`axios`);
 class StoreHouseService {
   async createStoreHouse({ IDtypegsm, Liters }) {
     try {
+      const [checkRowsForItemStoreHouse] = await global.connectMySQL.execute(
+        `SELECT * FROM storehouse WHERE IDtypegsm = ${IDtypegsm}`
+      );
+
+      if (checkRowsForItemStoreHouse.length !== 0) {
+        return false;
+      }
+
       const [rowsStoreHouse] = await global.connectMySQL.execute(
         `INSERT INTO storehouse (IDtypegsm, Liters) VALUES ('${IDtypegsm}', '${Liters}')`
       );
@@ -67,6 +75,14 @@ class StoreHouseService {
 
   async updateStoreHouse({ ID, IDtypegsm, Liters }) {
     try {
+      const [checkRowsForItemStoreHouse] = await global.connectMySQL.execute(
+        `SELECT * FROM storehouse WHERE IDtypegsm = ${IDtypegsm}`
+      );
+
+      if (checkRowsForItemStoreHouse.length !== 0) {
+        return false;
+      }
+
       const [rowsUpdatedStoreHouse] = await global.connectMySQL.execute(
         `UPDATE storehouse SET IDtypegsm = '${IDtypegsm}', Liters = '${Liters}' WHERE ID = ${ID}`
       );

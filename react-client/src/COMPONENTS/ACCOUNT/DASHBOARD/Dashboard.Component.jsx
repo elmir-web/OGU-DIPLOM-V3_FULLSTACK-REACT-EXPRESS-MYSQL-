@@ -266,8 +266,6 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         ''
       )}
 
-      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
-
       {statusMountCreateStoreHouseItem === true ? (
         <CreateStoreHouseComponent
           dashboardComponentMount={dashboardComponentMount}
@@ -279,6 +277,33 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       ) : (
         ''
       )}
+
+      {statusMountChangeStoreHouseItem !== null ? (
+        <ChangeStoreHouseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountChangeStoreHouseItem={statusMountChangeStoreHouseItem}
+          setStatusMountChangeStoreHouseItem={
+            setStatusMountChangeStoreHouseItem
+          }
+          typesGSM={typesGSM}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountRemoveStoreHouseItem !== null ? (
+        <RemoveStoreHouseComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountRemoveStoreHouseItem={statusMountRemoveStoreHouseItem}
+          setStatusMountRemoveStoreHouseItem={
+            setStatusMountRemoveStoreHouseItem
+          }
+        />
+      ) : (
+        ''
+      )}
+
+      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
       <header className='header'>
         <div className='central-container'>

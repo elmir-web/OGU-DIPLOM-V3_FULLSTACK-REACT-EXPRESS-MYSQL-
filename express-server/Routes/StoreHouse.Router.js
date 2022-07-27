@@ -10,7 +10,7 @@ const router = new Router();
 router.post(
   `/item-storehouse/create`,
   [
-    roleMiddleware(["Суперадмин", "Подписант"]),
+    roleMiddleware(['Суперадмин', 'Подписант']),
 
     check(`IDtypegsm`, `Это значение должно быть числом`).isInt(),
 
@@ -21,26 +21,26 @@ router.post(
 
 router.get(
   `/items-storehouse/get`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   storeHouseController.getItemsStoreHouse
 );
 
 router.get(
   `/item-storehouse/get/:id`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   storeHouseController.getOneItemStoreHouse
 );
 
 router.delete(
   `/item-storehouse/delete/:id`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   storeHouseController.deleteStoreHouse
 );
 
 router.put(
   `/item-storehouse/change`,
   [
-    roleMiddleware(["Суперадмин", "Подписант"]),
+    roleMiddleware(['Суперадмин', 'Подписант']),
 
     check(`IDtypegsm`, `Это значение должно быть числом`).isInt(),
 

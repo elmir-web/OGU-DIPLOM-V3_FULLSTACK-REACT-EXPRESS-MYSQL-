@@ -44,11 +44,14 @@ const CreateStoreHouseController = (
       if (!ok && status === 400) {
         new Toast({
           title: 'Ошибка при создании элемента склада',
-          text: responseFetch,
+          text: responseFetch.message,
           theme: 'danger',
           autohide: true,
           interval: 3000,
         });
+
+        setLoadSpinerActive(false);
+        setStatusMountCreateStoreHouseItem(false);
         return;
       }
 
