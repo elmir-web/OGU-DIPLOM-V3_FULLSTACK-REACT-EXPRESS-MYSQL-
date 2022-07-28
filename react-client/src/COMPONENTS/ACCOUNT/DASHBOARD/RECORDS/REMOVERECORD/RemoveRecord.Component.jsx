@@ -43,7 +43,9 @@ const RemoveRecord = ({
               Номер: {statusMountRemoveRecord.Number}
               <br />
               Статус:{' '}
-              {statusMountRemoveRecord.RecordStatus === 1 ? 'Открыт' : 'Закрыт'}
+              {statusMountRemoveRecord.RecordStatus.ID === 1
+                ? 'Открыт'
+                : 'Закрыт'}
               <br />
             </p>
           </div>

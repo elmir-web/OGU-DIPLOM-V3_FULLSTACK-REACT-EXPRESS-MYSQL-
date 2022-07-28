@@ -116,6 +116,17 @@ const Records = ({
                               record.RecordStatus.ID === 2 ? true : false
                             }
                             onClick={() => {
+                              if (record.IDsigner.ID !== dataAccount.ID) {
+                                new Toast({
+                                  title: 'Ошибка получении доступа',
+                                  text: `Вы не можете закрыть не свой путевой лист!`,
+                                  theme: 'danger',
+                                  autohide: true,
+                                  interval: 3000,
+                                });
+                                return;
+                              }
+
                               setStatusMountClosedRecord(record);
                             }}
                           >
@@ -125,6 +136,17 @@ const Records = ({
                           <button
                             className='table-button beautiful-button-red'
                             onClick={() => {
+                              if (record.IDsigner.ID !== dataAccount.ID) {
+                                new Toast({
+                                  title: 'Ошибка получении доступа',
+                                  text: `Вы не можете удалить не свой путевой лист!`,
+                                  theme: 'danger',
+                                  autohide: true,
+                                  interval: 3000,
+                                });
+                                return;
+                              }
+
                               setStatusMountRemoveRecord(record);
                             }}
                           >
@@ -202,6 +224,17 @@ const Records = ({
                         <button
                           className='table-button beautiful-button-red'
                           onClick={() => {
+                            if (record.IDsigner.ID !== dataAccount.ID) {
+                              new Toast({
+                                title: 'Ошибка получении доступа',
+                                text: `Вы не можете удалить не свой путевой лист!`,
+                                theme: 'danger',
+                                autohide: true,
+                                interval: 3000,
+                              });
+                              return;
+                            }
+
                             setStatusMountRemoveRecord(record);
                           }}
                         >

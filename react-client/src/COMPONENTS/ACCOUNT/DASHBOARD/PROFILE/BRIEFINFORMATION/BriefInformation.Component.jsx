@@ -47,7 +47,7 @@ const BriefInformation = ({
 
             <div className='item-info'>
               <div className='item-value'>{allVehicles.length}</div>
-              <div className='item-title'>Все автомобили</div>
+              <div className='item-title'>Автомобили</div>
             </div>
           </div>
           <div className='static-item'>
@@ -89,7 +89,29 @@ const BriefInformation = ({
     dataAccount?.IDposition?.ID === 3 ||
     dataAccount?.IDposition?.ID === 1
   )
-    return <div className='BriefInformation'></div>;
+    return (
+      <div className='BriefInformation'>
+        <div className='BriefInformation__items'>
+          <div className='static-item'>
+            <FaWarehouse size='50px' />
+
+            <div className='item-info'>
+              <div className='item-value'>{storeHouseItems.length}</div>
+              <div className='item-title'>Элементов на складе</div>
+            </div>
+          </div>
+
+          <div className='static-item'>
+            <RiFileListLine size='50px' />
+
+            <div className='item-info'>
+              <div className='item-value'>{allRecords.length}</div>
+              <div className='item-title'>путевые листы</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default BriefInformation;
