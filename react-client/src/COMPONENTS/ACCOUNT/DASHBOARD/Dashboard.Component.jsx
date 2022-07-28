@@ -41,6 +41,11 @@ import ChangeStoreHouseComponent from './STOREHOUSE/CHANGESTOREHOUSE/ChangeStore
 import CreateStoreHouseComponent from './STOREHOUSE/CREATESTOREHOUSE/CreateStoreHouse.Component';
 import RemoveStoreHouseComponent from './STOREHOUSE/REMOVESTOREHOUSE/RemoveStoreHouse.Component';
 
+import RecordsComponent from './RECORDS/Records.Component';
+import ChangeRecordComponent from './RECORDS/CHANGERECORD/ChangeRecord.Component';
+import CreateRecordComponent from './RECORDS/CREATERECORD/CreateRecord.Component';
+import RemoveRecordComponent from './RECORDS/REMOVERECORD/RemoveRecord.Component';
+
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
@@ -99,6 +104,10 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
     useState(null);
   const [statusMountRemoveStoreHouseItem, setStatusMountRemoveStoreHouseItem] =
     useState(null);
+
+  const [statusMountCreateRecord, setStatusMountCreateRecord] = useState(false);
+  const [statusMountChangeRecord, setStatusMountChangeRecord] = useState(null);
+  const [statusMountRemoveRecord, setStatusMountRemoveRecord] = useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
@@ -304,6 +313,18 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       )}
 
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
+
+      {statusMountCreateRecord === true ? (
+        <CreateRecordComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateRecord={setStatusMountCreateRecord}
+          allVehicles={allVehicles}
+          allAccounts={allAccounts}
+          dataAccount={dataAccount}
+        />
+      ) : (
+        ''
+      )}
 
       <header className='header'>
         <div className='central-container'>
@@ -517,6 +538,19 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountRemoveStoreHouseItem={
                     setStatusMountRemoveStoreHouseItem
                   }
+                  dataAccount={dataAccount}
+                />
+              }
+            />
+
+            <Route
+              path='records'
+              element={
+                <RecordsComponent
+                  allRecords={allRecords}
+                  setStatusMountCreateRecord={setStatusMountCreateRecord}
+                  setStatusMountChangeRecord={setStatusMountChangeRecord}
+                  setStatusMountRemoveRecord={setStatusMountRemoveRecord}
                   dataAccount={dataAccount}
                 />
               }
