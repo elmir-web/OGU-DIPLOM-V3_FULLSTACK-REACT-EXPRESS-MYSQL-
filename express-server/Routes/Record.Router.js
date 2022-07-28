@@ -10,7 +10,7 @@ const router = new Router();
 router.post(
   `/record/create`,
   [
-    roleMiddleware(["Суперадмин", "Подписант"]),
+    roleMiddleware(['Суперадмин', 'Подписант']),
 
     check(
       `Number`,
@@ -45,23 +45,23 @@ router.post(
 );
 router.get(
   `/records/get`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   RecordController.getRecords
 );
 router.get(
   `/record/get/:id`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   RecordController.getOneRecord
 );
 router.delete(
   `/record/delete/:id`,
-  roleMiddleware(["Суперадмин", "Подписант"]),
+  roleMiddleware(['Суперадмин', 'Подписант']),
   RecordController.deleteRecord
 );
 router.put(
   `/record/change`,
   [
-    roleMiddleware(["Суперадмин", "Подписант"]),
+    roleMiddleware(['Суперадмин', 'Подписант']),
 
     check(
       `Number`,

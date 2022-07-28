@@ -42,7 +42,7 @@ import CreateStoreHouseComponent from './STOREHOUSE/CREATESTOREHOUSE/CreateStore
 import RemoveStoreHouseComponent from './STOREHOUSE/REMOVESTOREHOUSE/RemoveStoreHouse.Component';
 
 import RecordsComponent from './RECORDS/Records.Component';
-import ChangeRecordComponent from './RECORDS/CHANGERECORD/ChangeRecord.Component';
+import ClosedRecordComponent from './RECORDS/CLOSEDRECORD/ClosedRecord.Component';
 import CreateRecordComponent from './RECORDS/CREATERECORD/CreateRecord.Component';
 import RemoveRecordComponent from './RECORDS/REMOVERECORD/RemoveRecord.Component';
 
@@ -312,8 +312,6 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         ''
       )}
 
-      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
-
       {statusMountCreateRecord === true ? (
         <CreateRecordComponent
           dashboardComponentMount={dashboardComponentMount}
@@ -326,7 +324,27 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         ''
       )}
 
-      {/* statusMountClosedRecord */}
+      {statusMountClosedRecord !== null ? (
+        <ClosedRecordComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountClosedRecord={statusMountClosedRecord}
+          setStatusMountClosedRecord={setStatusMountClosedRecord}
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountRemoveRecord !== null ? (
+        <RemoveRecordComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountRemoveRecord={statusMountRemoveRecord}
+          setStatusMountRemoveRecord={setStatusMountRemoveRecord}
+        />
+      ) : (
+        ''
+      )}
+
+      {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
       <header className='header'>
         <div className='central-container'>
