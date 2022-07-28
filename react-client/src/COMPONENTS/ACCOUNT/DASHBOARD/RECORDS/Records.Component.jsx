@@ -46,6 +46,20 @@ const Records = ({
     setAllClosedRecord(tempClosedRecord);
   }, []);
 
+  useEffect(() => {
+    const tempOpenedRecord = allRecords.filter((record) => {
+      return record.RecordStatus.ID === 1;
+    });
+
+    setAllOpenedRecord(tempOpenedRecord);
+
+    const tempClosedRecord = allRecords.filter((record) => {
+      return record.RecordStatus.ID === 2;
+    });
+
+    setAllClosedRecord(tempClosedRecord);
+  }, [allRecords]);
+
   return (
     <div className='Records'>
       <button
