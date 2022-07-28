@@ -106,7 +106,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
     useState(null);
 
   const [statusMountCreateRecord, setStatusMountCreateRecord] = useState(false);
-  const [statusMountChangeRecord, setStatusMountChangeRecord] = useState(null);
+  const [statusMountClosedRecord, setStatusMountClosedRecord] = useState(null);
   const [statusMountRemoveRecord, setStatusMountRemoveRecord] = useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -325,6 +325,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       ) : (
         ''
       )}
+
+      {/* statusMountClosedRecord */}
 
       <header className='header'>
         <div className='central-container'>
@@ -549,7 +551,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 <RecordsComponent
                   allRecords={allRecords}
                   setStatusMountCreateRecord={setStatusMountCreateRecord}
-                  setStatusMountChangeRecord={setStatusMountChangeRecord}
+                  setStatusMountClosedRecord={setStatusMountClosedRecord}
                   setStatusMountRemoveRecord={setStatusMountRemoveRecord}
                   dataAccount={dataAccount}
                 />
