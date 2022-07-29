@@ -5,6 +5,7 @@ import { FaGasPump, FaWarehouse } from 'react-icons/fa';
 import { AiFillCar } from 'react-icons/ai';
 import { GrUserWorker } from 'react-icons/gr';
 import { RiFileListLine } from 'react-icons/ri';
+import { SiGooglesheets } from 'react-icons/si';
 
 import './BriefInformation.Component..scss';
 
@@ -16,6 +17,7 @@ const BriefInformation = ({
   storeHouseItems,
   allVehicles,
   allRecords,
+  fillingListItems,
 }) => {
   React.useEffect(() => {}, []);
 
@@ -82,6 +84,18 @@ const BriefInformation = ({
           ) : (
             ''
           )}
+          {dataAccount?.IDposition?.ID === 1 ? (
+            <div className='static-item'>
+              <SiGooglesheets size='50px' />
+
+              <div className='item-info'>
+                <div className='item-value'>{fillingListItems.length}</div>
+                <div className='item-title'>заправочные ведомости</div>
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     );
@@ -107,6 +121,15 @@ const BriefInformation = ({
             <div className='item-info'>
               <div className='item-value'>{allRecords.length}</div>
               <div className='item-title'>путевые листы</div>
+            </div>
+          </div>
+
+          <div className='static-item'>
+            <SiGooglesheets size='50px' />
+
+            <div className='item-info'>
+              <div className='item-value'>{fillingListItems.length}</div>
+              <div className='item-title'>заправочные ведомости</div>
             </div>
           </div>
         </div>

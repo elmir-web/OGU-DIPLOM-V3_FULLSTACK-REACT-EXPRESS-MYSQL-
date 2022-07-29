@@ -46,6 +46,11 @@ import ClosedRecordComponent from './RECORDS/CLOSEDRECORD/ClosedRecord.Component
 import CreateRecordComponent from './RECORDS/CREATERECORD/CreateRecord.Component';
 import RemoveRecordComponent from './RECORDS/REMOVERECORD/RemoveRecord.Component';
 
+import FillingListComponent from './FILLINGLIST/FillingList.Component';
+import CreateItemFillingListComponent from './FILLINGLIST/CREATEITEMFILLINGLIST/CreateItemFillingList.Component';
+import ClosedItemFillingListComponent from './FILLINGLIST/CHANGEITEMFILLINGLIST/ChangeItemFillingList.Component';
+import RemoveItemFillingListComponent from './FILLINGLIST/REMOVEITEMFILLINGLIST/RemoveItemFillingList.Component';
+
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
@@ -109,6 +114,19 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountClosedRecord, setStatusMountClosedRecord] = useState(null);
   const [statusMountRemoveRecord, setStatusMountRemoveRecord] = useState(null);
 
+  const [
+    statusMountCreateItemFillingList,
+    setStatusMountCreateItemFillingList,
+  ] = useState(false);
+  const [
+    statusMountChangeItemFillingList,
+    setStatusMountChangeItemFillingList,
+  ] = useState(null);
+  const [
+    statusMountRemoveItemFillingList,
+    setStatusMountRemoveItemFillingList,
+  ] = useState(null);
+
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
   let navigate = useNavigate();
@@ -122,6 +140,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [storeHouseItems, setStoreHouseItems] = useState([]);
   const [allVehicles, setAllVehicles] = useState([]);
   const [allRecords, setAllRecords] = useState([]);
+  const [fillingListItems, setFillingListItems] = useState([]);
 
   const dashboardComponentMount = () => {
     dashboardDataLoad(dataAccount, navigate, {
@@ -133,6 +152,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       setStoreHouseItems,
       setAllVehicles,
       setAllRecords,
+      setFillingListItems,
     });
   };
 
@@ -344,6 +364,41 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         ''
       )}
 
+      {statusMountCreateItemFillingList === true ? (
+        <CreateItemFillingListComponent
+          dashboardComponentMount={dashboardComponentMount}
+          setStatusMountCreateItemFillingList={
+            setStatusMountCreateItemFillingList
+          }
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountChangeItemFillingList !== null ? (
+        <ClosedItemFillingListComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountChangeItemFillingList={statusMountChangeItemFillingList}
+          setStatusMountChangeItemFillingList={
+            setStatusMountChangeItemFillingList
+          }
+        />
+      ) : (
+        ''
+      )}
+
+      {statusMountRemoveItemFillingList !== null ? (
+        <RemoveItemFillingListComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountRemoveItemFillingList={statusMountRemoveItemFillingList}
+          setStatusMountRemoveItemFillingList={
+            setStatusMountRemoveItemFillingList
+          }
+        />
+      ) : (
+        ''
+      )}
+
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
       <header className='header'>
@@ -418,6 +473,17 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 ) : (
                   ''
                 )}
+
+                {dataAccount?.IDposition?.ID === 3 ||
+                dataAccount?.IDposition?.ID === 1 ? (
+                  <li>
+                    <RouterLink to='filling-list'>
+                      Заправочные ведомости
+                    </RouterLink>
+                  </li>
+                ) : (
+                  ''
+                )}
                 {/* подписант */}
 
                 {/* водитель */}
@@ -479,6 +545,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   storeHouseItems={storeHouseItems}
                   allVehicles={allVehicles}
                   allRecords={allRecords}
+                  fillingListItems={fillingListItems}
                 />
               }
             />
@@ -571,6 +638,25 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountCreateRecord={setStatusMountCreateRecord}
                   setStatusMountClosedRecord={setStatusMountClosedRecord}
                   setStatusMountRemoveRecord={setStatusMountRemoveRecord}
+                  dataAccount={dataAccount}
+                />
+              }
+            />
+
+            <Route
+              path='filling-list'
+              element={
+                <FillingListComponent
+                  fillingListItems={fillingListItems}
+                  setStatusMountCreateItemFillingList={
+                    setStatusMountCreateItemFillingList
+                  }
+                  setStatusMountChangeItemFillingList={
+                    setStatusMountChangeItemFillingList
+                  }
+                  setStatusMountRemoveItemFillingList={
+                    setStatusMountRemoveItemFillingList
+                  }
                   dataAccount={dataAccount}
                 />
               }

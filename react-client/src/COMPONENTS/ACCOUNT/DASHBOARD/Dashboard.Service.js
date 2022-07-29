@@ -15,6 +15,7 @@ const dashboardDataLoad = (
     setStoreHouseItems,
     setAllVehicles,
     setAllRecords,
+    setFillingListItems,
   }
 ) => {
   (async () => {
@@ -112,6 +113,18 @@ const dashboardDataLoad = (
     });
 
     setAllRecords(await dataAllRecords.json());
+
+    const dataAllItemsFillingList = await fetch(
+      `${URL_BACKEND}/api/filling-lists/get`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
+    );
+
+    setFillingListItems(await dataAllItemsFillingList.json());
   })();
 };
 

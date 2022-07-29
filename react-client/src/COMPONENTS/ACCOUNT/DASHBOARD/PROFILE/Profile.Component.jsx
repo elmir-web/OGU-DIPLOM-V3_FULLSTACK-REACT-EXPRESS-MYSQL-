@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import "./Profile.Component.scss";
+import './Profile.Component.scss';
 
-import BriefInformation from "./BRIEFINFORMATION/BriefInformation.Component";
+import BriefInformation from './BRIEFINFORMATION/BriefInformation.Component';
 
 const Profile = ({
   dataAccount,
@@ -13,11 +13,12 @@ const Profile = ({
   storeHouseItems,
   allVehicles,
   allRecords,
+  fillingListItems,
 }) => {
   return (
-    <div className="Profile">
-      <div className="profile-wrapper">
-        <div className="content-main">
+    <div className='Profile'>
+      <div className='profile-wrapper'>
+        <div className='content-main'>
           <h2>
             {dataAccount?.SurName} {dataAccount?.Name} {dataAccount?.MiddleName}
           </h2>
@@ -27,9 +28,9 @@ const Profile = ({
           <p>Автобаза: {dataAccount?.IDautobases.Name}</p>
         </div>
 
-        <div className="settings-wrapper">
+        <div className='settings-wrapper'>
           <button
-            className="beautiful-button beautiful-button-green"
+            className='beautiful-button beautiful-button-green'
             onClick={() => {
               setStatusMountChangeProfile(true);
             }}
@@ -39,7 +40,7 @@ const Profile = ({
         </div>
       </div>
 
-      <div className="Profile__parent-wrapper">
+      <div className='Profile__parent-wrapper'>
         <BriefInformation
           dataAccount={dataAccount}
           allAutoBase={allAutoBase}
@@ -48,6 +49,7 @@ const Profile = ({
           storeHouseItems={storeHouseItems}
           allVehicles={allVehicles}
           allRecords={allRecords}
+          fillingListItems={fillingListItems}
         />
       </div>
     </div>
