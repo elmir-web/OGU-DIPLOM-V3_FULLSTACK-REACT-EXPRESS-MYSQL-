@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 10.0.0.57
--- Время создания: Июл 29 2022 г., 12:29
+-- Время создания: Июл 29 2022 г., 14:23
 -- Версия сервера: 5.7.37-40
 -- Версия PHP: 7.2.34
 
@@ -47,8 +47,8 @@ INSERT INTO `auto_bases` (`ID`, `Name`) VALUES
 --
 
 CREATE TABLE `check_connect` (
-  `ID` int(10) NOT NULL,
-  `status-connect` int(10) NOT NULL
+  `ID` int(11) NOT NULL,
+  `status-connect` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -65,12 +65,14 @@ INSERT INTO `check_connect` (`ID`, `status-connect`) VALUES
 --
 
 CREATE TABLE `filling_list` (
-  `ID` int(10) NOT NULL,
-  `Number` varchar(100) NOT NULL,
-  `Liters` decimal(10,3) NOT NULL,
-  `FilingStatus` int(10) NOT NULL,
-  `IDrecord` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `ID` int(11) NOT NULL,
+  `Number` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Liters` decimal(10,3) DEFAULT NULL,
+  `UsedLiters` decimal(10,3) DEFAULT NULL,
+  `FillingStatus` int(11) DEFAULT NULL,
+  `IDvehicle` int(11) DEFAULT NULL,
+  `IDrecord` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +81,7 @@ CREATE TABLE `filling_list` (
 --
 
 CREATE TABLE `filling_statuses` (
-  `ID` int(10) NOT NULL,
+  `ID` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -135,6 +137,17 @@ CREATE TABLE `records` (
   `IDautobase` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `records`
+--
+
+INSERT INTO `records` (`ID`, `Number`, `RecordStatus`, `DateOpen`, `DateClose`, `KilometrsOpen`, `KilometrsClose`, `UsedLiters`, `IDvehicle`, `IDtypegsm`, `IDsigner`, `IDdriver`, `IDautobase`) VALUES
+(1, '001', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 1, 1, 3, 5, 2),
+(2, '002', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 2, 2, 3, 6, 2),
+(3, '003', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 3, 3, 3, 5, 2),
+(4, '004', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 4, 3, 4, 5, 2),
+(5, '005', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 5, 1, 4, 6, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -166,6 +179,15 @@ CREATE TABLE `storehouse` (
   `Liters` decimal(10,3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Дамп данных таблицы `storehouse`
+--
+
+INSERT INTO `storehouse` (`ID`, `IDtypegsm`, `Liters`) VALUES
+(1, 1, '55123.000'),
+(2, 2, '43543.000'),
+(3, 3, '22456.000');
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +199,15 @@ CREATE TABLE `types_gsm` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ForKilo` decimal(10,3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `types_gsm`
+--
+
+INSERT INTO `types_gsm` (`ID`, `Name`, `ForKilo`) VALUES
+(1, 'Бензин АИ-92', '1.000'),
+(2, 'Бензин АИ-95', '1.000'),
+(3, 'Дизельное топливо', '1.000');
 
 -- --------------------------------------------------------
 
@@ -194,6 +225,17 @@ CREATE TABLE `vehicles` (
   `Liters` decimal(10,3) DEFAULT NULL,
   `Expense` decimal(10,3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `vehicles`
+--
+
+INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kilometrs`, `Liters`, `Expense`) VALUES
+(1, 'ВАЗ-2107 (задний привод)', 'А111АА56', 2, 1, 0, '0.000', '10.000'),
+(2, 'Lada 2112', 'А112АБ56', 2, 2, 0, '0.000', '7.000'),
+(3, 'КамАЗ 43114 6x6 Самосвал', 'А113АВ56', 2, 3, 0, '0.000', '20.000'),
+(4, 'MAN TGS 41.480 8x8 (самосвал)', 'А114АГ56', 2, 3, 0, '0.000', '24.000'),
+(5, 'УАЗ бортовой тентованый', 'А115АД56', 2, 1, 0, '0.000', '18.000');
 
 -- --------------------------------------------------------
 
@@ -247,8 +289,9 @@ ALTER TABLE `check_connect`
 --
 ALTER TABLE `filling_list`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `FilingStatus` (`FilingStatus`),
-  ADD KEY `IDrecord` (`IDrecord`);
+  ADD KEY `fkn_filling-status_idx` (`FillingStatus`),
+  ADD KEY `fkn_vehicle_two_idx` (`IDvehicle`),
+  ADD KEY `fkn_record_idx` (`IDrecord`);
 
 --
 -- Индексы таблицы `filling_statuses`
@@ -326,19 +369,13 @@ ALTER TABLE `auto_bases`
 -- AUTO_INCREMENT для таблицы `check_connect`
 --
 ALTER TABLE `check_connect`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT для таблицы `filling_list`
---
-ALTER TABLE `filling_list`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `filling_statuses`
 --
 ALTER TABLE `filling_statuses`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `positions`
@@ -350,7 +387,7 @@ ALTER TABLE `positions`
 -- AUTO_INCREMENT для таблицы `records`
 --
 ALTER TABLE `records`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `record_statuses`
@@ -362,19 +399,19 @@ ALTER TABLE `record_statuses`
 -- AUTO_INCREMENT для таблицы `storehouse`
 --
 ALTER TABLE `storehouse`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `types_gsm`
 --
 ALTER TABLE `types_gsm`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `vehicles`
 --
 ALTER TABLE `vehicles`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `workers`
@@ -390,8 +427,9 @@ ALTER TABLE `workers`
 -- Ограничения внешнего ключа таблицы `filling_list`
 --
 ALTER TABLE `filling_list`
-  ADD CONSTRAINT `filling_list_ibfk_1` FOREIGN KEY (`FilingStatus`) REFERENCES `filling_statuses` (`ID`),
-  ADD CONSTRAINT `filling_list_ibfk_2` FOREIGN KEY (`IDrecord`) REFERENCES `records` (`ID`);
+  ADD CONSTRAINT `fkn_filling-status` FOREIGN KEY (`FillingStatus`) REFERENCES `filling_statuses` (`ID`),
+  ADD CONSTRAINT `fkn_record` FOREIGN KEY (`IDrecord`) REFERENCES `records` (`ID`),
+  ADD CONSTRAINT `fkn_vehicle_two` FOREIGN KEY (`IDvehicle`) REFERENCES `vehicles` (`ID`);
 
 --
 -- Ограничения внешнего ключа таблицы `records`
