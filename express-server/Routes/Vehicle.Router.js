@@ -10,7 +10,7 @@ const router = new Router();
 router.post(
   `/vehicle/create`,
   [
-    roleMiddleware(["Суперадмин", "Админ"]),
+    roleMiddleware(['Суперадмин', 'Админ']),
 
     check(
       `Model`,
@@ -43,26 +43,26 @@ router.post(
 
 router.get(
   `/vehicles/get`,
-  roleMiddleware(["Суперадмин", "Админ"]),
+  roleMiddleware(['Суперадмин', 'Админ']),
   vehicleController.getVehicles
 );
 
 router.get(
   `/vehicle/get/:id`,
-  roleMiddleware(["Суперадмин", "Админ"]),
+  roleMiddleware(['Суперадмин', 'Админ']),
   vehicleController.getOneVehicle
 );
 
 router.delete(
   `/vehicle/delete/:id`,
-  roleMiddleware(["Суперадмин", "Админ"]),
+  roleMiddleware(['Суперадмин', 'Админ']),
   vehicleController.deleteVehicle
 );
 
 router.put(
   `/vehicle/change`,
   [
-    roleMiddleware(["Суперадмин", "Админ"]),
+    roleMiddleware(['Суперадмин', 'Админ']),
 
     check(
       `Model`,

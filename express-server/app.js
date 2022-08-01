@@ -17,6 +17,7 @@ const storeHouseRouter = require(`./Routes/StoreHouse.Router`);
 const vehicleRouter = require(`./Routes/Vehicle.Router`);
 const recordRouter = require(`./Routes/Record.Router`);
 const FillingListRouter = require(`./Routes/FillingList.Router`);
+const vehicleWork = require(`./Routes/VehicleWork.Router`);
 
 // __________________________________________________ ОБЪЕКТЫ
 const app = express();
@@ -68,12 +69,13 @@ app.use(cors());
 app.use(express.json());
 
 // __________________________________________________ РОУТИНГ API
-app.use(`/api`, autoBaseRouter);
-app.use(`/api`, positionRouter);
-app.use(`/api`, accountRouter); // API: http(s)://адрес.порт/account
-app.use(`/api`, recordStatusRouter);
-app.use(`/api`, typesGSMRouter);
-app.use(`/api`, storeHouseRouter);
-app.use(`/api`, vehicleRouter);
-app.use(`/api`, recordRouter);
-app.use(`/api`, FillingListRouter);
+app.use(`/api`, autoBaseRouter); // Автомобильные базы
+app.use(`/api`, positionRouter); // Должности
+app.use(`/api`, accountRouter); // Аккаунты сотрудников | API: http(s)://адрес.порт/account
+app.use(`/api`, recordStatusRouter); // Статусы путевого листа
+app.use(`/api`, typesGSMRouter); // Все виды ГСМ
+app.use(`/api`, storeHouseRouter); // Склад
+app.use(`/api`, vehicleRouter); // Транспорт
+app.use(`/api`, recordRouter); // Путевые листы
+app.use(`/api`, FillingListRouter); // Заправочные ведомости
+app.use(`/api`, vehicleWork);

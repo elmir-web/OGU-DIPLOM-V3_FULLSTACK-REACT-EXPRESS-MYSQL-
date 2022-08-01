@@ -1,0 +1,124 @@
+.VehicleWork {
+  width: 100%;
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item-content {
+  }
+
+  &__item {
+    padding: 15px;
+
+    & * {
+      transition: 0.3s linear;
+    }
+
+    &:hover {
+      .VehicleWork__item,
+      .VehicleWork__item-body {
+        transform: translateY(-8px);
+
+        h3 {
+          transform: translateY(-8px);
+        }
+      }
+
+      .VehicleWork__item-change {
+        border-bottom: 2px solid #fff;
+
+        &:before {
+          transform-origin: right center;
+        }
+
+        span {
+          transform: translateX(0%);
+        }
+      }
+    }
+
+    @media (min-width: 768px) {
+      flex-basis: 50%;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 960px) {
+      flex-basis: 33.333333333%;
+    }
+  }
+
+  &__item-content {
+    background: #413d4c25;
+    padding: 40px;
+  }
+
+  &__item-icon {
+    margin-bottom: 20px;
+
+    &:before {
+      font-family: FontAwesome;
+      color: #f09ea359;
+      font-size: 50px;
+      line-height: 1;
+    }
+  }
+
+  &__item-body {
+    color: #6e5e5e;
+    font-size: 14px;
+
+    h3 {
+      font-weight: 500;
+      margin-bottom: 15px;
+      transition-delay: 0.05s;
+    }
+
+    p {
+      transition-delay: 0.1s;
+    }
+  }
+
+  &__item-footer {
+    padding-top: 15px;
+
+    .VehicleWork__item-change {
+      text-decoration: none;
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+      padding-right: 30px;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #9e8871;
+      border: none;
+      background: inherit;
+      cursor: pointer;
+
+      span {
+        display: inline-block;
+        position: relative;
+        transform: translateX(-200%);
+        transition: 0.6s cubic-bezier(0.6, 0.01, 0, 1);
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        bottom: 0;
+        height: 0.125rem;
+        margin: auto;
+        background: #f09ea3;
+        transform: scaleX(0.2);
+        transform-origin: left center;
+        z-index: 0;
+        transition: 0.6s cubic-bezier(0.6, 0.01, 0, 1);
+      }
+    }
+  }
+}

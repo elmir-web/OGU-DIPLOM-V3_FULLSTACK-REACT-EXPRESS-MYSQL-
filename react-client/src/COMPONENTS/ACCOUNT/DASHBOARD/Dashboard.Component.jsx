@@ -50,6 +50,8 @@ import FillingListComponent from './FILLINGLIST/FillingList.Component';
 import CreateItemFillingListComponent from './FILLINGLIST/CREATEITEMFILLINGLIST/CreateItemFillingList.Component';
 import ClosedItemFillingListComponent from './FILLINGLIST/CLOSEDITEMFILLINGLIST/ClosedItemFillingList.Component';
 
+import VehicleWorkComponent from './VEHICLEWORK/VehicleWork.Component';
+
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
 const DashboardNotFound = () => {
@@ -470,7 +472,9 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                 {dataAccount?.IDposition?.ID === 4 ||
                 dataAccount?.IDposition?.ID === 1 ? (
                   <li>
-                    <RouterLink to='carwork'>Работа с автомобилем</RouterLink>
+                    <RouterLink to='vehiclework'>
+                      Работа с автомобилем
+                    </RouterLink>
                   </li>
                 ) : (
                   ''
@@ -641,6 +645,10 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
             {/* подписант */}
 
             {/* водитель */}
+            <Route
+              path='vehiclework'
+              element={<VehicleWorkComponent dataAccount={dataAccount} />}
+            />
             {/* водитель */}
           </Routes>
         </div>
