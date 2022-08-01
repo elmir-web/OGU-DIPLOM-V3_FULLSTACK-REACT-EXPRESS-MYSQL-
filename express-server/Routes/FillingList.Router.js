@@ -23,13 +23,13 @@ router.post(
     check(`Liters`, `Количество литров должно быть числом`).isFloat(),
 
     check(
-      `usedLiters`,
+      `UsedLiters`,
       `Использовано литров значение должно быть числом`
     ).isFloat(),
 
-    check(`FilingStatus`, `Это значение должно быть числом`).isInt(),
+    check(`FillingStatus`, `Статус  должен быть числом`).isInt(),
 
-    check(`IDrecord`, `Это значение должно быть числом`).isInt(),
+    check(`IDrecord`, `Ссылка на путевой лист должна быть числом`).isInt(),
   ],
   fillingListController.CreateItemFillingList
 );
@@ -65,13 +65,16 @@ router.put(
       max: 100,
     }),
 
-    check(`Liters`, `Это значение должно быть числом`).isFloat(),
+    check(`Liters`, `Количество литров должно быть числом`).isFloat(),
 
-    check(`usedLiters`, `Это значение должно быть числом`).isFloat(),
+    check(
+      `UsedLiters`,
+      `Использовано литров значение должно быть числом`
+    ).isFloat(),
 
-    check(`FilingStatus`, `Это значение должно быть числом`).isInt(),
+    check(`FillingStatus`, `Статус  должен быть числом`).isInt(),
 
-    check(`IDrecord`, `Это значение должно быть числом`).isInt(),
+    check(`IDrecord`, `Ссылка на путевой лист должна быть числом`).isInt(),
   ],
   fillingListController.updateItemFillingList
 );

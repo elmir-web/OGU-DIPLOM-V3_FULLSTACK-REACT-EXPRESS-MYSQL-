@@ -18,13 +18,13 @@ class FillingListController {
       }); // Возвращаем на клиент статус 400 и строку с ошибками валидации данных
     }
 
-    const { Number, Liters, usedLiters, FilingStatus, IDrecord } = req.body;
+    const { Number, Liters, UsedLiters, FillingStatus, IDrecord } = req.body;
 
     const result = await fillingListService.CreateItemFillingList({
       Number,
       Liters,
-      usedLiters,
-      FilingStatus,
+      UsedLiters,
+      FillingStatus,
       IDrecord,
     });
 
@@ -107,14 +107,15 @@ class FillingListController {
       }); // Возвращаем на клиент статус 400 и строку с ошибками валидации данных
     }
 
-    const { ID, Number, Liters, usedLiters, FilingStatus, IDrecord } = req.body;
+    const { ID, Number, Liters, UsedLiters, FillingStatus, IDrecord } =
+      req.body;
 
     const result = await fillingListService.updateItemFillingList({
       ID,
       Number,
       Liters,
-      usedLiters,
-      FilingStatus,
+      UsedLiters,
+      FillingStatus,
       IDrecord,
     });
 

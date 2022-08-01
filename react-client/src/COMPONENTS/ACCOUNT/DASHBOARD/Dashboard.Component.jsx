@@ -48,8 +48,7 @@ import RemoveRecordComponent from './RECORDS/REMOVERECORD/RemoveRecord.Component
 
 import FillingListComponent from './FILLINGLIST/FillingList.Component';
 import CreateItemFillingListComponent from './FILLINGLIST/CREATEITEMFILLINGLIST/CreateItemFillingList.Component';
-import ClosedItemFillingListComponent from './FILLINGLIST/CHANGEITEMFILLINGLIST/ChangeItemFillingList.Component';
-import RemoveItemFillingListComponent from './FILLINGLIST/REMOVEITEMFILLINGLIST/RemoveItemFillingList.Component';
+import ClosedItemFillingListComponent from './FILLINGLIST/CLOSEDITEMFILLINGLIST/ClosedItemFillingList.Component';
 
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
@@ -118,14 +117,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
     statusMountCreateItemFillingList,
     setStatusMountCreateItemFillingList,
   ] = useState(false);
-  const [
-    statusMountChangeItemFillingList,
-    setStatusMountChangeItemFillingList,
-  ] = useState(null);
-  const [
-    statusMountRemoveItemFillingList,
-    setStatusMountRemoveItemFillingList,
-  ] = useState(null);
+  const [statusMountClosedFillingList, setStatusMountClosedFillingList] =
+    useState(null);
 
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
@@ -370,30 +363,17 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
           setStatusMountCreateItemFillingList={
             setStatusMountCreateItemFillingList
           }
+          allRecords={allRecords}
         />
       ) : (
         ''
       )}
 
-      {statusMountChangeItemFillingList !== null ? (
+      {statusMountClosedFillingList !== null ? (
         <ClosedItemFillingListComponent
           dashboardComponentMount={dashboardComponentMount}
-          statusMountChangeItemFillingList={statusMountChangeItemFillingList}
-          setStatusMountChangeItemFillingList={
-            setStatusMountChangeItemFillingList
-          }
-        />
-      ) : (
-        ''
-      )}
-
-      {statusMountRemoveItemFillingList !== null ? (
-        <RemoveItemFillingListComponent
-          dashboardComponentMount={dashboardComponentMount}
-          statusMountRemoveItemFillingList={statusMountRemoveItemFillingList}
-          setStatusMountRemoveItemFillingList={
-            setStatusMountRemoveItemFillingList
-          }
+          statusMountClosedFillingList={statusMountClosedFillingList}
+          setStatusMountClosedFillingList={setStatusMountClosedFillingList}
         />
       ) : (
         ''
@@ -651,11 +631,8 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
                   setStatusMountCreateItemFillingList={
                     setStatusMountCreateItemFillingList
                   }
-                  setStatusMountChangeItemFillingList={
-                    setStatusMountChangeItemFillingList
-                  }
-                  setStatusMountRemoveItemFillingList={
-                    setStatusMountRemoveItemFillingList
+                  setStatusMountClosedFillingList={
+                    setStatusMountClosedFillingList
                   }
                   dataAccount={dataAccount}
                 />

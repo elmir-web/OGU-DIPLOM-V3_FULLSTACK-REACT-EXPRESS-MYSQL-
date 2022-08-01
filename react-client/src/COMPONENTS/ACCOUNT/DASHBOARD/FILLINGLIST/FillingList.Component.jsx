@@ -10,8 +10,7 @@ import './FillingList.Component.scss';
 const FillingList = ({
   fillingListItems,
   setStatusMountCreateItemFillingList,
-  setStatusMountChangeItemFillingList,
-  setStatusMountRemoveItemFillingList,
+  setStatusMountClosedFillingList,
   dataAccount,
 }) => {
   const navigate = useNavigate();
@@ -44,9 +43,21 @@ const FillingList = ({
     });
 
     setAllClosedFillingLists(tempClosedFillingLists);
-
-    console.log(fillingListItems);
   }, []);
+
+  useEffect(() => {
+    const tempOpenedFillingLists = fillingListItems.filter((list) => {
+      return list.FillingStatus === 1;
+    });
+
+    setAllOpenedFillingLists(tempOpenedFillingLists);
+
+    const tempClosedFillingLists = fillingListItems.filter((list) => {
+      return list.FillingStatus === 2;
+    });
+
+    setAllClosedFillingLists(tempClosedFillingLists);
+  }, [fillingListItems]);
 
   return (
     <div className='FillingList'>
@@ -93,21 +104,19 @@ const FillingList = ({
                       <td className='table-buttons'>
                         <button
                           className='table-button beautiful-button-blue'
-                          // disabled={record.RecordStatus.ID === 2 ? true : false}
-                          // onClick={() => {
-                          //   if (record.IDsigner.ID !== dataAccount.ID) {
-                          //     new Toast({
-                          //       title: 'Ошибка получении доступа',
-                          //       text: `Вы не можете закрыть не свой путевой лист!`,
-                          //       theme: 'danger',
-                          //       autohide: true,
-                          //       interval: 3000,
-                          //     });
-                          //     return;
-                          //   }
-
-                          //   setStatusMountClosedRecord(record);
-                          // }}
+                          onClick={() => {
+                            if (list.IDrecord.IDsigner.ID !== dataAccount.ID) {
+                              new Toast({
+                                title: 'Ошибка получении доступа',
+                                text: `Вы не можете закрыть не свою ведомость!`,
+                                theme: 'danger',
+                                autohide: true,
+                                interval: 3000,
+                              });
+                              return;
+                            }
+                            setStatusMountClosedFillingList(list);
+                          }}
                         >
                           <HiLockClosed />
                         </button>
@@ -116,6 +125,9 @@ const FillingList = ({
                       <td>{list.Number}</td>
                       <td>{list.Liters}</td>
                       <td>{list.UsedLiters}</td>
+                      <td>
+                        {list.IDrecord.Number} : {list.IDrecord.IDvehicle.Model}
+                      </td>
                     </tr>
                   );
                 })
@@ -128,7 +140,42 @@ const FillingList = ({
           </table>
         </div>
       ) : (
-        ``
+        <div className='table-wrapper'>
+          <h1>Закрытые заправочные ведомости</h1>
+
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Номер</th>
+                <th>Разрешено литров</th>
+                <th>Использовано литров</th>
+                <th>Путевой лист к</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allClosedFillingLists && allClosedFillingLists.length ? (
+                allClosedFillingLists.map((list) => {
+                  return (
+                    <tr key={list.ID}>
+                      <td>{list.ID}</td>
+                      <td>{list.Number}</td>
+                      <td>{list.Liters}</td>
+                      <td>{list.UsedLiters}</td>
+                      <td>
+                        {list.IDrecord.Number} : {list.IDrecord.IDvehicle.Model}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan='6'>заправочные ведомости не найдены</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

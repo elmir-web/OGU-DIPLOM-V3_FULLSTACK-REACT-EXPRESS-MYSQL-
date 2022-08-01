@@ -1,14 +1,21 @@
+const axios = require(`axios`);
+
+const {
+  SERVER_WORKING_ON_ADRESS,
+  SERVER_START_ON_PORT,
+} = require(`./../ServerConfig.json`);
+
 class FillingListService {
   async CreateItemFillingList({
     Number,
     Liters,
-    usedLiters,
-    FilingStatus,
+    UsedLiters,
+    FillingStatus,
     IDrecord,
   }) {
     try {
       const [rowsFillingList] = await global.connectMySQL.execute(
-        `INSERT INTO filling_list (Number, Liters, usedLiters, FilingStatus, IDrecord) VALUES ('${Number}', '${Liters}', '${usedLiters}', '${FilingStatus}', '${IDrecord}')`
+        `INSERT INTO filling_list (Number, Liters, UsedLiters, FillingStatus, IDrecord) VALUES ('${Number}', '${Liters}', '${UsedLiters}', '${FillingStatus}', '${IDrecord}')`
       );
 
       if (rowsFillingList[`affectedRows`]) return true;
@@ -23,6 +30,19 @@ class FillingListService {
       `SELECT * FROM filling_list`
     );
 
+    for (let i = 0; i < rowsAllItemsFillingLists.length; i++) {
+      const getRecord = await axios.get(
+        `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/record/get/${rowsAllItemsFillingLists[i].IDrecord}`,
+        {
+          headers: {
+            Authorization: `Bearer system.system.system`,
+          },
+        }
+      );
+
+      rowsAllItemsFillingLists[i].IDrecord = getRecord.data;
+    }
+
     return rowsAllItemsFillingLists;
   }
 
@@ -30,6 +50,17 @@ class FillingListService {
     const [rowsAllItemsFillingLists] = await global.connectMySQL.execute(
       `SELECT * FROM filling_list WHERE ID = ${id}`
     );
+
+    const getRecord = await axios.get(
+      `${SERVER_WORKING_ON_ADRESS}:${SERVER_START_ON_PORT}/api/record/get/${rowsAllItemsFillingLists[0].IDrecord}`,
+      {
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
+    );
+
+    rowsAllItemsFillingLists[0].IDrecord = getRecord.data;
 
     return rowsAllItemsFillingLists[0];
   }
@@ -47,12 +78,12 @@ class FillingListService {
     ID,
     Number,
     Liters,
-    usedLiters,
-    FilingStatus,
+    UsedLiters,
+    FillingStatus,
     IDrecord,
   }) {
     const [rowsUpdatedItemFillingList] = await global.connectMySQL.execute(
-      `UPDATE filling_list SET Number = '${Number}', Liters = '${Liters}', usedLiters = '${usedLiters}', FilingStatus = '${FilingStatus}', IDrecord = '${IDrecord}' WHERE ID = ${ID}`
+      `UPDATE filling_list SET Number = '${Number}', Liters = '${Liters}', UsedLiters = '${UsedLiters}', FillingStatus = '${FillingStatus}', IDrecord = '${IDrecord}' WHERE ID = ${ID}`
     );
 
     if (rowsUpdatedItemFillingList[`affectedRows`]) return true;

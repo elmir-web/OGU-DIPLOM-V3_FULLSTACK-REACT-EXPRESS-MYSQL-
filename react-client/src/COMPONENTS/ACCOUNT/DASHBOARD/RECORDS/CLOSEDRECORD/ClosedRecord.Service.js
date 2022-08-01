@@ -10,12 +10,6 @@ const ClosedRecordService = async (
 ) => {
   const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
 
-  console.log(
-    statusMountClosedRecord,
-    kilometersTraveled,
-    consumptionOneKilometr
-  );
-
   let responseFetch = await fetch(`${URL_BACKEND}/api/record/change`, {
     method: 'PUT',
     headers: {
