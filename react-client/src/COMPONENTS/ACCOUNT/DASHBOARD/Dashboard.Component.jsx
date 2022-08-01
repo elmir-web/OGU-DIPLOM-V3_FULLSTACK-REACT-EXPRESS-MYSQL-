@@ -51,6 +51,7 @@ import CreateItemFillingListComponent from './FILLINGLIST/CREATEITEMFILLINGLIST/
 import ClosedItemFillingListComponent from './FILLINGLIST/CLOSEDITEMFILLINGLIST/ClosedItemFillingList.Component';
 
 import VehicleWorkComponent from './VEHICLEWORK/VehicleWork.Component';
+import ActionVehicleComponent from './VEHICLEWORK/ACTIONVEHICLE/ActionVehicle.Component';
 
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
@@ -122,6 +123,9 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [statusMountClosedFillingList, setStatusMountClosedFillingList] =
     useState(null);
 
+  const [statusMountActionVehicle, setStatusMountActionVehicle] =
+    useState(null);
+
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
 
   let navigate = useNavigate();
@@ -136,6 +140,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [allVehicles, setAllVehicles] = useState([]);
   const [allRecords, setAllRecords] = useState([]);
   const [fillingListItems, setFillingListItems] = useState([]);
+  const [myVehicles, setMyVehicles] = useState(null);
 
   const dashboardComponentMount = () => {
     dashboardDataLoad(dataAccount, navigate, {
@@ -148,6 +153,7 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
       setAllVehicles,
       setAllRecords,
       setFillingListItems,
+      setMyVehicles,
     });
   };
 
@@ -379,6 +385,14 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
         />
       ) : (
         ''
+      )}
+
+      {statusMountActionVehicle !== null && (
+        <ActionVehicleComponent
+          dashboardComponentMount={dashboardComponentMount}
+          statusMountActionVehicle={statusMountActionVehicle}
+          setStatusMountActionVehicle={setStatusMountActionVehicle}
+        />
       )}
 
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
@@ -647,7 +661,13 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
             {/* водитель */}
             <Route
               path='vehiclework'
-              element={<VehicleWorkComponent dataAccount={dataAccount} />}
+              element={
+                <VehicleWorkComponent
+                  myVehicles={myVehicles}
+                  setStatusMountActionVehicle={setStatusMountActionVehicle}
+                  dataAccount={dataAccount}
+                />
+              }
             />
             {/* водитель */}
           </Routes>

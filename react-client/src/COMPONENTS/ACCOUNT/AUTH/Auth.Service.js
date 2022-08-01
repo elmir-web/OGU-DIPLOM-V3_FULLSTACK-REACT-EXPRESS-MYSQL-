@@ -13,8 +13,6 @@ const AuthService = async ({ loginUser, passwordUser }, setDataAccount) => {
     }),
   });
 
-  console.log(responseFetch);
-
   const { ok, status } = responseFetch;
   responseFetch = await responseFetch.json();
 

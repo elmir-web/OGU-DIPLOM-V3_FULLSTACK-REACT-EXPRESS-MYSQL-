@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Toast from './../../../../Toast';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { GrCar } from 'react-icons/gr';
 
 import './VehicleWork.Component.scss';
 
 import CONFIG from './../../../../CONFIG.json';
 
-const VehicleWork = ({ dataAccount }) => {
+const VehicleWork = ({
+  myVehicles,
+  setStatusMountActionVehicle,
+  dataAccount,
+}) => {
   const navigate = useNavigate();
-  const [myVehicles, setMyVehicles] = useState(null);
 
   useEffect(() => {
     if (dataAccount?.IDposition.ID !== 1 && dataAccount?.IDposition.ID !== 4) {
@@ -26,24 +28,6 @@ const VehicleWork = ({ dataAccount }) => {
       return;
     }
 
-    const fetchMyVehicles = async () => {
-      const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
-
-      const dataMyAllVehicles = await fetch(
-        `${CONFIG.URL_BACKEND}/api/my-vehicles/by-account/${dataAccount.ID}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${tempUserAuthCookie}`,
-          },
-        }
-      );
-
-      setMyVehicles(await dataMyAllVehicles.json());
-    };
-
-    fetchMyVehicles();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -54,8 +38,6 @@ const VehicleWork = ({ dataAccount }) => {
       <div className='VehicleWork__items'>
         {myVehicles &&
           myVehicles.map((veh) => {
-            console.log(veh);
-
             return (
               <div key={veh.ID} className='VehicleWork__item'>
                 <div className='VehicleWork__item-content'>
@@ -78,7 +60,9 @@ const VehicleWork = ({ dataAccount }) => {
                   <div className='VehicleWork__item-footer'>
                     <button
                       className='VehicleWork__item-change'
-                      onClick={() => {}}
+                      onClick={() => {
+                        setStatusMountActionVehicle(veh);
+                      }}
                     >
                       <span>Работать</span>
                     </button>

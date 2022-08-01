@@ -16,6 +16,7 @@ const dashboardDataLoad = (
     setAllVehicles,
     setAllRecords,
     setFillingListItems,
+    setMyVehicles,
   }
 ) => {
   (async () => {
@@ -125,6 +126,18 @@ const dashboardDataLoad = (
     );
 
     setFillingListItems(await dataAllItemsFillingList.json());
+
+    const dataMyAllVehicles = await fetch(
+      `${URL_BACKEND}/api/my-vehicles/by-account/${dataAccount.ID}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer system.system.system`,
+        },
+      }
+    );
+
+    setMyVehicles(await dataMyAllVehicles.json());
   })();
 };
 
