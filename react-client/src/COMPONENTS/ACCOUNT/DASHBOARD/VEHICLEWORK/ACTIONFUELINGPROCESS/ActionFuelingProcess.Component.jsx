@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 
-import './ActionVehicle.Component.scss';
+import './ActionFuelingProcess.Component.scss';
 
-import ActionVehicleController from './ActionVehicle.Controller';
+import ActionFuelingProcessController from './ActionFuelingProcess.Controller';
 
 import LoaderSpinerComponent from '../../../../LOADERSPINER/LoaderSpiner.Component';
 
-const ActionVehicle = ({
+const ActionFuelingProcess = ({
   dashboardComponentMount,
-  statusMountActionVehicle,
-  setStatusMountActionVehicle,
+  statusMountActionFuelingProcess,
+  setStatusMountActionFuelingProcess,
   funcFetchMyVehicle,
 }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
@@ -17,23 +17,23 @@ const ActionVehicle = ({
   const [liters, setLiters] = useState(0);
 
   React.useEffect(() => {
-    console.log(statusMountActionVehicle);
+    console.log(statusMountActionFuelingProcess);
   }, []);
 
   return (
-    <div className='ActionVehicle modal-window'>
+    <div className='ActionFuelingProcess modal-window'>
       {loadSpinerActive === true ? <LoaderSpinerComponent /> : ''}
 
       <div className='modal-window__popup-form'>
         <header className='modal-window__header'>
           <div className='modal-window__title'>
-            <span>Работа с: {statusMountActionVehicle.Model}</span>
+            <span>Заправить: {statusMountActionFuelingProcess.Model}</span>
           </div>
 
           <button
             className='modal-window__button-close'
             onClick={() => {
-              setStatusMountActionVehicle(null);
+              setStatusMountActionFuelingProcess(null);
             }}
           >
             X
@@ -54,22 +54,6 @@ const ActionVehicle = ({
             />
             <label className='text-field__label' htmlFor='ExpenseVehicle'>
               Введите количество заправляемого топлива
-            </label>
-          </div>
-
-          <div className='text-field text-field_floating-3'>
-            <input
-              className='text-field__input'
-              id='ExpenseVehicle'
-              name='ExpenseVehicle'
-              placeholder='ExpenseVehicle'
-              value={kilometrs}
-              onChange={(e) => {
-                setKilometrs(e.target.value);
-              }}
-            />
-            <label className='text-field__label' htmlFor='ExpenseVehicle'>
-              Введите количество километров работы
             </label>
           </div>
 
@@ -101,4 +85,4 @@ const ActionVehicle = ({
   );
 };
 
-export default ActionVehicle;
+export default ActionFuelingProcess;

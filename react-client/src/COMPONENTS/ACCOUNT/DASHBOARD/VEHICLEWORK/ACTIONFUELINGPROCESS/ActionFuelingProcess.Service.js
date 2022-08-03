@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 const { URL_BACKEND } = require('../../../../../CONFIG.json');
 
-const ActionVehicleService = async () => {};
+const ActionFuelingProcessService = async () => {};
 
-export default ActionVehicleService;
+export default ActionFuelingProcessService;

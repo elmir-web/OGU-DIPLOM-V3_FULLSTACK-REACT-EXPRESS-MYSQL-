@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Toast from './../../../../Toast';
+import Toast from '../../../../Toast';
 import { useNavigate } from 'react-router-dom';
 import { GrCar } from 'react-icons/gr';
 
 import './VehicleWork.Component.scss';
 
-import CONFIG from './../../../../CONFIG.json';
+import CONFIG from '../../../../CONFIG.json';
 
 const VehicleWork = ({
   myVehicles,
-  setStatusMountActionVehicle,
+  setStatusMountActionFuelingProcess,
   dataAccount,
 }) => {
   const navigate = useNavigate();
@@ -61,10 +61,22 @@ const VehicleWork = ({
                     <button
                       className='VehicleWork__item-change'
                       onClick={() => {
-                        setStatusMountActionVehicle(veh);
+                        setStatusMountActionFuelingProcess(veh);
                       }}
                     >
-                      <span>Работать</span>
+                      <span>заправить</span>
+                    </button>
+                  </div>
+
+                  <div className='VehicleWork__item-footer'>
+                    <button
+                      className='VehicleWork__item-change'
+                      onClick={() => {
+                        // setStatusMountActionFuelingProcess(veh);
+                        // !TODO: вернуться суда
+                      }}
+                    >
+                      <span>проехать</span>
                     </button>
                   </div>
                 </div>
