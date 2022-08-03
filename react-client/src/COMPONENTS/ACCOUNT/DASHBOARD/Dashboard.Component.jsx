@@ -450,6 +450,8 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
           setStatusMountActionFuelingProcess={
             setStatusMountActionFuelingProcess
           }
+          fillingListItems={fillingListItems}
+          storeHouseItems={storeHouseItems}
         />
       )}
 

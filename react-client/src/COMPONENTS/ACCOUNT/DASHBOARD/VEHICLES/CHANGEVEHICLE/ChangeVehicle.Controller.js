@@ -110,12 +110,15 @@ const ChangeVehicleController = async (
 
       if (!ok && status === 400) {
         new Toast({
-          title: 'Ошибка при редактировании типа ГСМ',
+          title: 'Ошибка при редактировании транспорта',
           text: responseFetch,
           theme: 'danger',
           autohide: true,
           interval: 3000,
         });
+
+        setLoadSpinerActive(false);
+        setStatusMountChangeVehicle(null);
         return;
       }
 
