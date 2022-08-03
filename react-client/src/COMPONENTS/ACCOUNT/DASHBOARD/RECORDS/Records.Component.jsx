@@ -66,6 +66,17 @@ const Records = ({
         className='beautiful-button beautiful-button-green'
         style={{ marginBottom: '50px' }}
         onClick={() => {
+          if (dataAccount.IDposition.ID === 1) {
+            new Toast({
+              title: 'Ошибка получения доступа',
+              text: `Системой не предусмотрено, чтобы суперадмин выступал в роли подписанта!`,
+              theme: 'danger',
+              autohide: true,
+              interval: 3000,
+            });
+            return;
+          }
+
           setStatusMountCreateRecord(true);
         }}
       >
@@ -116,7 +127,10 @@ const Records = ({
                               record.RecordStatus.ID === 2 ? true : false
                             }
                             onClick={() => {
-                              if (record.IDsigner.ID !== dataAccount.ID) {
+                              if (
+                                dataAccount.IDposition.ID !== 1 &&
+                                record.IDsigner.ID !== dataAccount.IDposition.ID
+                              ) {
                                 new Toast({
                                   title: 'Ошибка получении доступа',
                                   text: `Вы не можете закрыть не свой путевой лист!`,
@@ -136,7 +150,10 @@ const Records = ({
                           <button
                             className='table-button beautiful-button-red'
                             onClick={() => {
-                              if (record.IDsigner.ID !== dataAccount.ID) {
+                              if (
+                                dataAccount.IDposition.ID !== 1 &&
+                                record.IDsigner.ID !== dataAccount.IDposition.ID
+                              ) {
                                 new Toast({
                                   title: 'Ошибка получении доступа',
                                   text: `Вы не можете удалить не свой путевой лист!`,
@@ -224,7 +241,10 @@ const Records = ({
                         <button
                           className='table-button beautiful-button-red'
                           onClick={() => {
-                            if (record.IDsigner.ID !== dataAccount.ID) {
+                            if (
+                              dataAccount.IDposition.ID !== 1 &&
+                              record.IDsigner.ID !== dataAccount.IDposition.ID
+                            ) {
                               new Toast({
                                 title: 'Ошибка получении доступа',
                                 text: `Вы не можете удалить не свой путевой лист!`,

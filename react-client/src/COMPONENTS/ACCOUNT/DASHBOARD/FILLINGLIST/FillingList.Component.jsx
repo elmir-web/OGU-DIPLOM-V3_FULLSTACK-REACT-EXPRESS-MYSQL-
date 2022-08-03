@@ -65,6 +65,17 @@ const FillingList = ({
         className='beautiful-button beautiful-button-green'
         style={{ marginBottom: '50px' }}
         onClick={() => {
+          if (dataAccount.IDposition.ID === 1) {
+            new Toast({
+              title: 'Ошибка получения доступа',
+              text: `Системой не предусмотрено, чтобы суперадмин выступал в роли подписанта!`,
+              theme: 'danger',
+              autohide: true,
+              interval: 3000,
+            });
+            return;
+          }
+
           setStatusMountCreateItemFillingList(true);
         }}
       >
@@ -105,7 +116,10 @@ const FillingList = ({
                         <button
                           className='table-button beautiful-button-blue'
                           onClick={() => {
-                            if (list.IDrecord.IDsigner.ID !== dataAccount.ID) {
+                            if (
+                              dataAccount.IDposition.ID !== 1 &&
+                              list.IDrecord.IDsigner.ID !== dataAccount.ID
+                            ) {
                               new Toast({
                                 title: 'Ошибка получении доступа',
                                 text: `Вы не можете закрыть не свою ведомость!`,
@@ -115,6 +129,7 @@ const FillingList = ({
                               });
                               return;
                             }
+
                             setStatusMountClosedFillingList(list);
                           }}
                         >

@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
-const { URL_BACKEND } = require("./../../../../../CONFIG.json");
+import Cookies from 'js-cookie';
+const { URL_BACKEND } = require('./../../../../../CONFIG.json');
 
 const ChangeUpdateService = async (
   { surName, name, middleName, loginUser, passwordUser },
@@ -7,13 +7,13 @@ const ChangeUpdateService = async (
   setDataAccount,
   getDataAccount
 ) => {
-  const tempUserAuthCookie = Cookies.get("GSM_DIPLOM_COOKIES_JWT");
+  const tempUserAuthCookie = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
 
   let responseFetch = await fetch(`${URL_BACKEND}/api/account/change`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
       Authorization: `Bearer ${tempUserAuthCookie}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       ID: dataAccount.ID,
@@ -31,7 +31,7 @@ const ChangeUpdateService = async (
   responseFetch = await responseFetch.json();
 
   const { responseFetch: myAccount } = await getDataAccount({
-    tempUserAuthCookie,
+    myJWT: tempUserAuthCookie,
   });
 
   setDataAccount(myAccount);

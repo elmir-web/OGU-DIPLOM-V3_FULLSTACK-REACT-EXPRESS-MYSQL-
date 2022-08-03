@@ -14,6 +14,14 @@ class FillingListService {
     IDrecord,
   }) {
     try {
+      const [checkRowsForUsesRecord] = await global.connectMySQL.execute(
+        `SELECT * FROM filling_list WHERE IDrecord = ${IDrecord} AND FillingStatus = 1`
+      );
+
+      if (checkRowsForUsesRecord.length !== 0) {
+        return false;
+      }
+
       const [rowsFillingList] = await global.connectMySQL.execute(
         `INSERT INTO filling_list (Number, Liters, UsedLiters, FillingStatus, IDrecord) VALUES ('${Number}', '${Liters}', '${UsedLiters}', '${FillingStatus}', '${IDrecord}')`
       );

@@ -75,16 +75,37 @@ const DashboardNotFound = () => {
   return <div></div>;
 };
 
-const getDataAccount = async ({ tempUserAuthCookie }) => {
+const getDataAccount = async ({ myJWT }) => {
   let responseFetch = await fetch(`${URL_BACKEND}/api/account/my-data`, {
     method: 'GET',
-    headers: { Authorization: `Bearer ${tempUserAuthCookie}` },
+    headers: {
+      Authorization: `Bearer ${myJWT}`,
+    },
   });
-
   const { ok, status } = responseFetch;
   responseFetch = await responseFetch.json();
 
-  return { ok, status, responseFetch };
+  return {
+    ok,
+    status,
+    responseFetch,
+  };
+};
+
+const clearDataAccount = ({ setDataAccount, navigate }) => {
+  new Toast({
+    title: 'Ошибка автоматической авторизации',
+    text: `Мы пытались автоматически вас авторизировать, но у нас не получилось. Авторизуйтесь используя логин и пароль`,
+    theme: 'danger',
+    autohide: true,
+    interval: 10000,
+  });
+
+  setDataAccount(null);
+
+  Cookies.remove('GSM_DIPLOM_COOKIES_JWT');
+
+  navigate('/');
 };
 
 const Dashboard = ({ dataAccount, setDataAccount }) => {
@@ -157,28 +178,37 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
   const [myVehicles, setMyVehicles] = useState(null);
 
   const dashboardComponentMount = () => {
-    // dashboardDataLoad(dataAccount, getDataAccount, navigate, {
-    //   setAllAutoBase,
-    //   setAllPositions,
-    //   setAllAccounts,
-    //   setAllRecordsStatuses,
-    //   setTypesGSM,
-    //   setStoreHouseItems,
-    //   setAllVehicles,
-    //   setAllRecords,
-    //   setFillingListItems,
-    //   setMyVehicles,
-    // });
+    const myJWT = Cookies.get('GSM_DIPLOM_COOKIES_JWT');
+
+    if (myJWT === undefined) clearDataAccount({ setDataAccount, navigate });
 
     (async () => {
-      let responseFetch = await fetch(`${URL_BACKEND}/api/account/my-data`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${`system.system.system`}`,
-        },
-      });
+      const { ok, status, responseFetch } = await getDataAccount({ myJWT });
 
-      console.log(responseFetch);
+      if (ok === true && status === 200)
+        new Toast({
+          title: 'Автоматическая авторизация',
+          text: `Вы автоматически авторизировались. Если вы не в профиле, нажмите "Личный Кабинет"`,
+          theme: 'info',
+          autohide: true,
+          interval: 10000,
+        });
+      else clearDataAccount({ setDataAccount, navigate });
+
+      setDataAccount(responseFetch);
+
+      dashboardDataLoad(responseFetch, dataAccount, navigate, {
+        setAllAutoBase,
+        setAllPositions,
+        setAllAccounts,
+        setAllRecordsStatuses,
+        setTypesGSM,
+        setStoreHouseItems,
+        setAllVehicles,
+        setAllRecords,
+        setFillingListItems,
+        setMyVehicles,
+      });
     })();
   };
 

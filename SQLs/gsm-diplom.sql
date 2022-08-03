@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 01 2022 г., 09:07
+-- Время создания: Авг 03 2022 г., 14:34
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `auto_bases` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `auto_bases`
@@ -75,15 +75,7 @@ CREATE TABLE IF NOT EXISTS `filling_list` (
   PRIMARY KEY (`ID`),
   KEY `fkn_filling-status_idx` (`FillingStatus`),
   KEY `fkn_record_idx` (`IDrecord`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Дамп данных таблицы `filling_list`
---
-
-INSERT INTO `filling_list` (`ID`, `Number`, `Liters`, `UsedLiters`, `FillingStatus`, `IDrecord`) VALUES
-(1, '001', '50.000', '0.000', 1, 1),
-(2, '002', '30.000', '0.000', 1, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -157,18 +149,7 @@ CREATE TABLE IF NOT EXISTS `records` (
   KEY `fkn_driver_idx` (`IDdriver`),
   KEY `fkn_autobase_two_idx` (`IDautobase`),
   KEY `fkn_autobase_three_idx` (`IDautobase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
-
---
--- Дамп данных таблицы `records`
---
-
-INSERT INTO `records` (`ID`, `Number`, `RecordStatus`, `DateOpen`, `DateClose`, `KilometrsOpen`, `KilometrsClose`, `UsedLiters`, `IDvehicle`, `IDtypegsm`, `IDsigner`, `IDdriver`, `IDautobase`) VALUES
-(1, '001', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 1, 1, 3, 5, 2),
-(2, '002', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 2, 2, 3, 6, 2),
-(3, '003', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 3, 3, 3, 5, 2),
-(4, '004', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 4, 3, 4, 5, 2),
-(5, '005', 1, '2022-07-29', '0000-00-00', 0, 0, '0.000', 5, 1, 4, 6, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -202,16 +183,7 @@ CREATE TABLE IF NOT EXISTS `storehouse` (
   `Liters` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `fkn_typegsm_idx` (`IDtypegsm`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `storehouse`
---
-
-INSERT INTO `storehouse` (`ID`, `IDtypegsm`, `Liters`) VALUES
-(1, 1, '55123.000'),
-(2, 2, '43543.000'),
-(3, 3, '22456.000');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -224,16 +196,7 @@ CREATE TABLE IF NOT EXISTS `types_gsm` (
   `Name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ForKilo` decimal(10,3) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Дамп данных таблицы `types_gsm`
---
-
-INSERT INTO `types_gsm` (`ID`, `Name`, `ForKilo`) VALUES
-(1, 'Бензин АИ-92', '1.000'),
-(2, 'Бензин АИ-95', '1.000'),
-(3, 'Дизельное топливо', '1.000');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -254,18 +217,7 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   KEY `fkn_typegsm_idx` (`IDtypegsm`),
   KEY `fkn_typegsm_two_idx` (`IDtypegsm`),
   KEY `fkn_autobase_two_idx` (`IDautobase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=6 ;
-
---
--- Дамп данных таблицы `vehicles`
---
-
-INSERT INTO `vehicles` (`ID`, `Model`, `Number`, `IDautobase`, `IDtypegsm`, `Kilometrs`, `Liters`, `Expense`) VALUES
-(1, 'ВАЗ-2107 (задний привод)', 'А111АА56', 2, 1, 0, '0.000', '10.000'),
-(2, 'Lada 2112', 'А112АБ56', 2, 2, 0, '0.000', '7.000'),
-(3, 'КамАЗ 43114 6x6 Самосвал', 'А113АВ56', 2, 3, 0, '0.000', '20.000'),
-(4, 'MAN TGS 41.480 8x8 (самосвал)', 'А114АГ56', 2, 3, 0, '0.000', '24.000'),
-(5, 'УАЗ бортовой тентованый', 'А115АД56', 2, 1, 0, '0.000', '18.000');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -292,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `workers` (
 --
 
 INSERT INTO `workers` (`ID`, `SurName`, `Name`, `MiddleName`, `LoginUser`, `PasswordUser`, `IDautobases`, `IDposition`) VALUES
-(1, 'Суперадминов', 'Суперадмин', 'Суперадминович', 'SUPERADMIN.LOGIN', 'SUPERADMIN.PASS', 2, 1),
+(1, 'Кубагушев', 'Эльмир', 'Ирекович', 'ELMIR.KUBA', 'ELMIR.PASS', 2, 1),
 (2, 'Админов', 'Админ', 'Админович', 'ADMIN.LOGIN', 'ADMIN.PASS', 2, 2),
 (3, 'Подписантов1', 'Подписант1', 'Подписантович1', 'SIGNER1.LOGIN', 'SIGNER1.PASS', 2, 3),
 (4, 'Подписантов2', 'Подписант2', 'Подписантович2', 'SIGNER2.LOGIN', 'SIGNER2.PASS', 2, 3),

@@ -21,6 +21,14 @@ class RecordService {
     IDautobase,
   }) {
     try {
+      const [checkRowsForUsesVehicle] = await global.connectMySQL.execute(
+        `SELECT * FROM records WHERE IDvehicle = ${IDvehicle}`
+      );
+
+      if (checkRowsForUsesVehicle.length !== 0) {
+        return false;
+      }
+
       const [rowsRecord] = await global.connectMySQL.execute(
         `INSERT INTO records (Number, RecordStatus, DateOpen, DateClose, KilometrsOpen, KilometrsClose, UsedLiters, IDvehicle, IDtypegsm, IDsigner, IDdriver, IDautobase) VALUES ('${Number}', '${RecordStatus}', '${DateOpen}', '${DateClose}', '${KilometrsOpen}', '${KilometrsClose}', '${UsedLiters}', '${IDvehicle}', '${IDtypegsm}', '${IDsigner}', '${IDdriver}', '${IDautobase}')`
       );
