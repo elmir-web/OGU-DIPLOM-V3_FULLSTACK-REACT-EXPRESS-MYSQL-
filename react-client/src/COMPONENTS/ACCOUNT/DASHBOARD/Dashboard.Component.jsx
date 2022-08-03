@@ -55,6 +55,8 @@ import ActionFuelingProcessComponent from './VEHICLEWORK/ACTIONFUELINGPROCESS/Ac
 
 import FooterComponent from '../../MAINPAGE/FOOTER/Footer.Component';
 
+const { URL_BACKEND } = require('./../../../CONFIG.json');
+
 const DashboardNotFound = () => {
   let navigate = useNavigate();
 
@@ -73,7 +75,19 @@ const DashboardNotFound = () => {
   return <div></div>;
 };
 
-const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
+const getDataAccount = async ({ tempUserAuthCookie }) => {
+  let responseFetch = await fetch(`${URL_BACKEND}/api/account/my-data`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${tempUserAuthCookie}` },
+  });
+
+  const { ok, status } = responseFetch;
+  responseFetch = await responseFetch.json();
+
+  return { ok, status, responseFetch };
+};
+
+const Dashboard = ({ dataAccount, setDataAccount }) => {
   const [statusMountChangeProfile, setStatusMountChangeProfile] =
     useState(false);
 
@@ -143,18 +157,29 @@ const Dashboard = ({ dataAccount, setDataAccount, getDataAccount }) => {
   const [myVehicles, setMyVehicles] = useState(null);
 
   const dashboardComponentMount = () => {
-    dashboardDataLoad(dataAccount, navigate, {
-      setAllAutoBase,
-      setAllPositions,
-      setAllAccounts,
-      setAllRecordsStatuses,
-      setTypesGSM,
-      setStoreHouseItems,
-      setAllVehicles,
-      setAllRecords,
-      setFillingListItems,
-      setMyVehicles,
-    });
+    // dashboardDataLoad(dataAccount, getDataAccount, navigate, {
+    //   setAllAutoBase,
+    //   setAllPositions,
+    //   setAllAccounts,
+    //   setAllRecordsStatuses,
+    //   setTypesGSM,
+    //   setStoreHouseItems,
+    //   setAllVehicles,
+    //   setAllRecords,
+    //   setFillingListItems,
+    //   setMyVehicles,
+    // });
+
+    (async () => {
+      let responseFetch = await fetch(`${URL_BACKEND}/api/account/my-data`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${`system.system.system`}`,
+        },
+      });
+
+      console.log(responseFetch);
+    })();
   };
 
   useEffect(dashboardComponentMount, []);
