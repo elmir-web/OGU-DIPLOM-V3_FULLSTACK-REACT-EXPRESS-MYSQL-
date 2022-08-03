@@ -427,6 +427,7 @@ const Dashboard = ({ dataAccount, setDataAccount }) => {
             setStatusMountCreateItemFillingList
           }
           allRecords={allRecords}
+          dataAccount={dataAccount}
         />
       ) : (
         ''

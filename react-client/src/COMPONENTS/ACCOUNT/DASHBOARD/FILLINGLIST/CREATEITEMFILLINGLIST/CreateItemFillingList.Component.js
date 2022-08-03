@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './CreateItemFillingList.Component.scss';
 
@@ -10,15 +10,27 @@ const CreateItemFillingList = ({
   dashboardComponentMount,
   setStatusMountCreateItemFillingList,
   allRecords,
+  dataAccount,
 }) => {
   const [loadSpinerActive, setLoadSpinerActive] = useState(false);
   const [number, setNumber] = useState(``);
   const [liters, setLiters] = useState(0);
-  const [IDrecord, setIDRecord] = useState(
-    allRecords[0]?.ID !== undefined || allRecords[0]?.ID !== null
-      ? allRecords[0]?.ID
-      : 0
-  );
+  const [IDrecord, setIDRecord] = useState(0);
+  const [myRecords, setMyRecords] = useState(null);
+
+  useEffect(() => {
+    const tempMyRecords = allRecords.filter((record) => {
+      return record.IDsigner.ID === dataAccount.ID;
+    });
+
+    setMyRecords(tempMyRecords);
+
+    setIDRecord(
+      tempMyRecords[0]?.ID !== undefined || tempMyRecords[0]?.ID !== null
+        ? tempMyRecords[0]?.ID
+        : 0
+    );
+  }, [allRecords]);
 
   return (
     <div className='CreateItemFillingList modal-window'>
@@ -27,7 +39,7 @@ const CreateItemFillingList = ({
       <div className='modal-window__popup-form'>
         <header className='modal-window__header'>
           <div className='modal-window__title'>
-            <span>Создание путевого листа</span>
+            <span>Создание заправочной ведомости</span>
           </div>
 
           <button
@@ -84,14 +96,15 @@ const CreateItemFillingList = ({
               }}
               value={IDrecord}
             >
-              {allRecords.map((record) => {
-                return (
-                  <option key={record.ID} value={record.ID}>
-                    {record.Number} :{' '}
-                    {record.IDvehicle.Model + ' ' + record.IDvehicle.Number}
-                  </option>
-                );
-              })}
+              {myRecords &&
+                myRecords.map((record) => {
+                  return (
+                    <option key={record.ID} value={record.ID}>
+                      {record.Number} :{' '}
+                      {record.IDvehicle.Model + ' ' + record.IDvehicle.Number}
+                    </option>
+                  );
+                })}
             </select>
             <label className='text-field__label' htmlFor='IDVehicle'>
               -- Выберите путевой лист автомобиля --
